@@ -1,13 +1,16 @@
 <?php
+    //pulling in header
     get_header();
+?>
+<main>
+<?php
     if(have_posts()){
         while(have_posts()){
-            the_title();
             the_post();
             the_content();
         
 ?>
-
+</main>
 
 <?php        
         }

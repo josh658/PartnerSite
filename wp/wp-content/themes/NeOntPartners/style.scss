@@ -3,3 +3,53 @@ Theme Name: NeOnt Partners
 Author: Joshua Vandermost
 Version: 0.1 Beta
 */
+
+$headerHeight: 3em;
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+ body {
+    color: black;
+ }
+
+.sticky-header{
+    z-index: 1000;
+    height: $headerHeight;
+    width: 100%;
+    background-color: blue;
+    position: sticky;
+    top: 0;
+}
+
+.admin-bar{
+    @extend .sticky-header;
+    top: 32px;
+}
+
+@media only screen and  (max-width: 782px){
+    .admin-bar{
+        top: 46px;
+    }
+}
+
+main{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+/*
+TODO:
+    main{
+        p
+        h2
+        h3
+        h4
+        blockquote{
+            p
+            cite
+        }
+*/
