@@ -22,6 +22,17 @@ $headerHeight: 3em;
     background-color: blue;
     position: sticky;
     top: 0;
+
+    .header-item-centering{
+        display: flex;
+        max-width: 600px;
+        height: 100%;
+        margin: auto;
+    }
+
+    h3{
+        flex: 0.5;
+    }
 }
 
 .admin-bar{
@@ -35,6 +46,58 @@ $headerHeight: 3em;
     }
 }
 
+
+
+.header-nav {
+
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    ul{
+        display: flex;
+        background-color: red;
+        justify-content: space-between;
+        align-content: flex-end;
+        max-width: 600px;
+        padding-right: 1em;
+        list-style: none;
+        flex: 0.8;
+
+        a{
+            margin: auto;
+        }
+
+        li:hover{
+            color: white;
+        }
+
+        .dropdown{
+            position: relative;
+        }
+
+        .dropdown-list{
+            display: none;
+            position: absolute;
+
+            li:hover{
+                width: 100%;
+                color: black;
+            }
+        }
+
+        .dropdown:hover .dropdown-list{
+            display: block;
+            z-index: 1;
+        }
+    }
+}
+
+/**************************** MAIN *************************/
 main{
     max-width: 600px;
     margin: 0 auto;
@@ -42,12 +105,22 @@ main{
 }
 
 /*
-TODO:
+TODO: for main
     main{
         p
         h2
         h3
         h4
+        ul{
+            li
+        }
+        ol{
+            li
+        }
+        figure{
+            img
+            figcaption
+        }
         blockquote{
             p
             cite

@@ -22,6 +22,21 @@ body {
   top: 0;
 }
 
+.sticky-header .header-item-centering, .admin-bar .header-item-centering {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 600px;
+  height: 100%;
+  margin: auto;
+}
+
+.sticky-header h3, .admin-bar h3 {
+  -webkit-box-flex: 0.5;
+      -ms-flex: 0.5;
+          flex: 0.5;
+}
+
 .admin-bar {
   top: 32px;
 }
@@ -32,6 +47,69 @@ body {
   }
 }
 
+.header-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.header-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.header-nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: red;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  max-width: 600px;
+  padding-right: 1em;
+  list-style: none;
+  -webkit-box-flex: 0.8;
+      -ms-flex: 0.8;
+          flex: 0.8;
+}
+
+.header-nav ul a {
+  margin: auto;
+}
+
+.header-nav ul li:hover {
+  color: white;
+}
+
+.header-nav ul .dropdown {
+  position: relative;
+}
+
+.header-nav ul .dropdown-list {
+  display: none;
+  position: absolute;
+}
+
+.header-nav ul .dropdown-list li:hover {
+  width: 100%;
+  color: black;
+}
+
+.header-nav ul .dropdown:hover .dropdown-list {
+  display: block;
+  z-index: 1;
+}
+
+/**************************** MAIN *************************/
 main {
   max-width: 600px;
   margin: 0 auto;
@@ -39,12 +117,22 @@ main {
 }
 
 /*
-TODO:
+TODO: for main
     main{
         p
         h2
         h3
         h4
+        ul{
+            li
+        }
+        ol{
+            li
+        }
+        figure{
+            img
+            figcaption
+        }
         blockquote{
             p
             cite

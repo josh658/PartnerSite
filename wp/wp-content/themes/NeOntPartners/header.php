@@ -9,18 +9,26 @@
 </head>
 <body>
     <header id="sticky" class="sticky-header">
-        <h3>Northeastern Ontario Tourism <span>Partners</span></h3>
-        <nav>
-            <ul>
-                <a href="#">
-                    <li>News Letter</li>
-                </a>
-                <a href="#">
-                    <li></li>
-                </a>
-                <a href="#">
-                    <li></li>
-                </a>
-            </ul>
-        </nav>
+        <div class="header-item-centering">    
+            <h3>Northeastern Ontario Tourism <span>Partners</span></h3>
+            <nav class="header-nav">
+                <ul>
+                    <a href="<?php get_page_uri( "News Letter" )?>">
+                        <li>News Letter</li>
+                    </a>
+                    <a href="#">
+                        <li>Board Minutes</li>
+                    </a>
+                    <a href="#">
+                        <li class="dropdown">Organizations
+                            <ul class="dropdown-list">
+                                <li>Neont</li>
+                                <li>DO</li>
+                                <li>DNO</li>
+                            </ul>
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
     </header>
