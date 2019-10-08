@@ -30,8 +30,10 @@ $headerHeight: 3em;
         margin: auto;
     }
 
-    h3{
+    .comp-name{
         flex: 0.5;
+        color: black;
+        text-decoration: none;
     }
 }
 
@@ -46,8 +48,6 @@ $headerHeight: 3em;
     }
 }
 
-
-
 .header-nav {
 
     display: flex;
@@ -60,7 +60,7 @@ $headerHeight: 3em;
     }
     ul{
         display: flex;
-        background-color: red;
+        background-color: green;
         justify-content: space-between;
         align-content: flex-end;
         max-width: 600px;
@@ -68,7 +68,7 @@ $headerHeight: 3em;
         list-style: none;
         flex: 0.8;
 
-        a{
+        .list-item{
             margin: auto;
         }
 
@@ -78,15 +78,17 @@ $headerHeight: 3em;
 
         .dropdown{
             position: relative;
+            cursor: default;
         }
 
         .dropdown-list{
             display: none;
             position: absolute;
+            background-color: gray;
 
-            li:hover{
+            li:hover a{ 
                 width: 100%;
-                color: black;
+                color: white;
             }
         }
 

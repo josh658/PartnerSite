@@ -10,24 +10,24 @@
 <body>
     <header id="sticky" class="sticky-header">
         <div class="header-item-centering">    
-            <h3>Northeastern Ontario Tourism <span>Partners</span></h3>
+            <a class=" comp-name" href="<?php echo site_url('');?>"><h3>Northeastern Ontario Tourism <span>Partners</span></h3></a>
             <nav class="header-nav">
                 <ul>
-                    <a href="<?php get_page_uri( "News Letter" )?>">
+                    <a class="list-item" href="<?php echo site_url('/news-letter');?>">
                         <li>News Letter</li>
                     </a>
-                    <a href="#">
+                    <a class="list-item" href="<?php echo site_url('/board-minutes');?>">
                         <li>Board Minutes</li>
                     </a>
-                    <a href="#">
+                    <div class="list-item">                        
                         <li class="dropdown">Organizations
                             <ul class="dropdown-list">
-                                <li>Neont</li>
-                                <li>DO</li>
-                                <li>DNO</li>
+                                <li><a href="<?php echo site_url('/neont');?>">NeOnt</a></li>
+                                <li><a href="<?php echo site_url('/do');?>">DO</a></li>
+                                <li><a href="<?php echo site_url('/dno');?>">DNO</a></li>
                             </ul>
                         </li>
-                    </a>
+                    </div>
                 </ul>
             </nav>
         </div>

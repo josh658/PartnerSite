@@ -31,10 +31,12 @@ body {
   margin: auto;
 }
 
-.sticky-header h3, .admin-bar h3 {
+.sticky-header .comp-name, .admin-bar .comp-name {
   -webkit-box-flex: 0.5;
       -ms-flex: 0.5;
           flex: 0.5;
+  color: black;
+  text-decoration: none;
 }
 
 .admin-bar {
@@ -68,7 +70,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: red;
+  background-color: green;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -82,7 +84,7 @@ body {
           flex: 0.8;
 }
 
-.header-nav ul a {
+.header-nav ul .list-item {
   margin: auto;
 }
 
@@ -92,16 +94,18 @@ body {
 
 .header-nav ul .dropdown {
   position: relative;
+  cursor: default;
 }
 
 .header-nav ul .dropdown-list {
   display: none;
   position: absolute;
+  background-color: gray;
 }
 
-.header-nav ul .dropdown-list li:hover {
+.header-nav ul .dropdown-list li:hover a {
   width: 100%;
-  color: black;
+  color: white;
 }
 
 .header-nav ul .dropdown:hover .dropdown-list {
