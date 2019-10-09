@@ -1,4 +1,4 @@
-exports.themeLocation = './wp-content/themes/NeOntPartners';
+exports.themeLocation = './wp-content/themes/NeOntPartners/';
 exports.urlToPreview = 'http://localhost:8002';
 
 // If you're using Local by Flywheel you will
