@@ -31,4 +31,5 @@
                 </ul>
             </nav>
         </div>
+        <button id="main-search">Search</button>
     </header>

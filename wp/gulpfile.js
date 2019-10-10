@@ -9,7 +9,14 @@ cssvars = require('postcss-simple-vars'),
 nested = require('postcss-nested'),
 cssImport = require('postcss-import'),
 mixins = require('postcss-mixins'),
-colorFunctions = require('postcss-color-function');
+colorFunctions = require('postcss-color-function'),
+sass = require('gulp-sass');
+
+gulp.task('sass', function() {
+  return gulp.src(settings.themeLocation + 'css/style.scss')
+    .pipe(sass()) // Converts Sass to CSS with gulp-sass
+    .pipe(gulp.dest(settings.themeLocation + './css'))
+});
 
 gulp.task('styles', function() {
   return gulp.src(settings.themeLocation + 'css/style.css')
@@ -42,8 +49,17 @@ gulp.task('watch', function(done) {
   });
   gulp.watch(settings.themeLocation + 'css/**/*.css', gulp.parallel('waitForStyles'));
   gulp.watch([settings.themeLocation + 'js/modules/*.js', settings.themeLocation + 'js/scripts.js'], gulp.parallel('waitForScripts'));
+  gulp.watch(settings.themeLocation + 'css/style.scss', gulp.parallel('waitForSass'));
   done();
 });
+
+//DID NOT WORK
+//gulp.task('sass:watch', function(){ gulp.watch(settings.themeLocation + 'css/style.scss', ['sass']);});
+
+gulp.task('waitForSass', gulp.series('sass', function(){
+  return gulp.src(settings.themeLocation + 'css/style.scss')
+    .pipe(browserSync.stream());
+}))
 
 gulp.task('waitForStyles', gulp.series('styles', function() {
   return gulp.src(settings.themeLocation + 'style.css')

@@ -3,122 +3,75 @@ Theme Name: NeOnt Partners
 Author: Joshua Vandermost
 Version: 0.1 Beta
 */
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1em; }
+
 * {
   padding: 0;
-  margin: 0;
-}
+  margin: 0; }
 
 body {
-  color: black;
-}
+  color: black; }
 
 .sticky-header, .admin-bar {
   z-index: 1000;
   height: 3em;
   width: 100%;
   background-color: blue;
-  position: -webkit-sticky;
   position: sticky;
-  top: 0;
-}
-
-.sticky-header .header-item-centering, .admin-bar .header-item-centering {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  max-width: 600px;
-  height: 100%;
-  margin: auto;
-}
-
-.sticky-header .comp-name, .admin-bar .comp-name {
-  -webkit-box-flex: 0.5;
-      -ms-flex: 0.5;
-          flex: 0.5;
-  color: black;
-  text-decoration: none;
-}
+  top: 0; }
+  .sticky-header .header-item-centering, .admin-bar .header-item-centering {
+    display: flex;
+    max-width: 600px;
+    height: 100%;
+    margin: auto; }
+  .sticky-header .comp-name, .admin-bar .comp-name {
+    flex: 0.5;
+    color: black;
+    text-decoration: none; }
 
 .admin-bar {
-  top: 32px;
-}
+  top: 32px; }
 
 @media only screen and (max-width: 782px) {
   .admin-bar {
-    top: 46px;
-  }
-}
+    top: 46px; } }
 
 .header-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.header-nav a {
-  text-decoration: none;
-  color: black;
-}
-
-.header-nav ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: orange;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-line-pack: end;
-      align-content: flex-end;
-  max-width: 600px;
-  padding-right: 1em;
-  list-style: none;
-  -webkit-box-flex: 0.8;
-      -ms-flex: 0.8;
-          flex: 0.8;
-}
-
-.header-nav ul .list-item {
-  margin: auto;
-}
-
-.header-nav ul li:hover {
-  color: white;
-}
-
-.header-nav ul .dropdown {
-  position: relative;
-  cursor: default;
-}
-
-.header-nav ul .dropdown-list {
-  display: none;
-  position: absolute;
-  background-color: gray;
-}
-
-.header-nav ul .dropdown-list li:hover a {
-  width: 100%;
-  color: white;
-}
-
-.header-nav ul .dropdown:hover .dropdown-list {
-  display: block;
-  z-index: 1;
-}
-
-/**************************** MAIN *************************/
-main {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1em;
-}
+  justify-content: flex-end;
+  flex: 1; }
+  .header-nav a {
+    text-decoration: none;
+    color: black; }
+  .header-nav ul {
+    display: flex;
+    background-color: red;
+    justify-content: space-between;
+    align-content: flex-end;
+    max-width: 600px;
+    padding-right: 1em;
+    list-style: none;
+    flex: 0.8; }
+    .header-nav ul .list-item {
+      margin: auto; }
+    .header-nav ul li:hover {
+      color: white; }
+    .header-nav ul .dropdown {
+      position: relative;
+      cursor: default; }
+    .header-nav ul .dropdown-list {
+      display: none;
+      position: absolute;
+      background-color: gray; }
+      .header-nav ul .dropdown-list li:hover a {
+        width: 100%;
+        color: white; }
+    .header-nav ul .dropdown:hover .dropdown-list {
+      display: block;
+      z-index: 1; }
 
 /*
 TODO: for main
@@ -142,4 +95,3 @@ TODO: for main
             cite
         }
 */
-/*# sourceMappingURL=style.css.map */
