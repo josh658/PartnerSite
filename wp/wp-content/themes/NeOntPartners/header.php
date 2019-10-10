@@ -31,5 +31,5 @@
                 </ul>
             </nav>
         </div>
-        <button id="main-search">Search</button>
+        <!-- <p id="main-search">Search</p> -->
     </header>

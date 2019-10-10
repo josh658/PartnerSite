@@ -49,7 +49,7 @@ gulp.task('watch', function(done) {
   });
   gulp.watch(settings.themeLocation + 'css/**/*.css', gulp.parallel('waitForStyles'));
   gulp.watch([settings.themeLocation + 'js/modules/*.js', settings.themeLocation + 'js/scripts.js'], gulp.parallel('waitForScripts'));
-  gulp.watch(settings.themeLocation + 'css/style.scss', gulp.parallel('waitForSass'));
+  gulp.watch([settings.themeLocation + 'css/style.scss', settings.themeLocation + 'css/modules/*.scss'], gulp.parallel('waitForSass'));
   done();
 });
 

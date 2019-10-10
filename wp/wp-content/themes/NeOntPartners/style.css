@@ -67,6 +67,16 @@ body {
 .header-nav ul .dropdown:hover .dropdown-list {
       display: block;
       z-index: 1; }
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 5000; }
+.show-overlay {
+  display: block; }
 /*
 TODO: for main
     main{
