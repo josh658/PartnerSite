@@ -2,6 +2,7 @@
 function post_types(){
     register_post_type( 'partners', array(
         'public' => true,
+        'show_in_rest' => true,
         'labels' => array(
             'name' => 'Partners',
             'add_new_item' => 'Add New Partner',

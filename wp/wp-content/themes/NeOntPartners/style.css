@@ -77,6 +77,42 @@ body {
   z-index: 5000; }
 .show-overlay {
   display: block; }
+.profile-header {
+  text-align: center; }
+.twoColumns {
+  display: flex;
+  width: 100%; }
+.twoColumns .packages {
+    flex: .25;
+    text-align: center; }
+.twoColumns .profile-edit-form {
+    flex: .75;
+    margin: 0 auto;
+    text-align: center;
+    width: 80%; }
+.twoColumns .profile-edit-form .input {
+      height: 2em;
+      padding-left: 0.3em; }
+.twoColumns .profile-edit-form .comp-name {
+      width: 100%; }
+.twoColumns .profile-edit-form .desc {
+      width: 100%;
+      height: 12em; }
+.twoColumns .profile-edit-form .name {
+      height: 2em;
+      width: 100%;
+      margin: 0 auto;
+      background-color: orange; }
+.twoColumns .profile-edit-form .name .first-name {
+        margin: 0;
+        float: left;
+        width: 48%; }
+.twoColumns .profile-edit-form .name .last-name {
+        margin: 0;
+        float: right;
+        width: 48%; }
+.twoColumns .profile-edit-form .email {
+      width: 100%; }
 /*
 TODO: for main
     main{

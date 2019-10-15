@@ -8,9 +8,9 @@
  */
 
 /**
- * Instantiate the  object and set it up as a global for access elsewhere.
+ * Instantiate the admin bar object and set it up as a global for access elsewhere.
  *
- * UNHOOKING THIS FUNCTION WILL NOT PROPERLY REMOVE THE .
+ * UNHOOKING THIS FUNCTION WILL NOT PROPERLY REMOVE THE ADMIN BAR.
  * For that, use show_admin_bar(false) or the {@see 'show_admin_bar'} filter.
  *
  * @since 3.1.0
@@ -18,7 +18,7 @@
  *
  * @global WP_Admin_Bar $wp_admin_bar
  *
- * @return bool Whether the  was successfully initialized.
+ * @return bool Whether the admin bar was successfully initialized.
  */
 function _wp_admin_bar_init() {
 	global $wp_admin_bar;
@@ -27,17 +27,17 @@ function _wp_admin_bar_init() {
 		return false;
 	}
 
-	/* Load the  class code ready for instantiation */
+	/* Load the admin bar class code ready for instantiation */
 	require_once( ABSPATH . WPINC . '/class-wp-admin-bar.php' );
 
-	/* Instantiate the  */
+	/* Instantiate the admin bar */
 
 	/**
-	 * Filters the  class to instantiate.
+	 * Filters the admin bar class to instantiate.
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param string $wp_admin_bar_class  class to use. Default 'WP_Admin_Bar'.
+	 * @param string $wp_admin_bar_class Admin bar class to use. Default 'WP_Admin_Bar'.
 	 */
 	$admin_bar_class = apply_filters( 'wp_admin_bar_class', 'WP_Admin_Bar' );
 	if ( class_exists( $admin_bar_class ) ) {
@@ -53,14 +53,14 @@ function _wp_admin_bar_init() {
 }
 
 /**
- * Renders the  to the page based on the $wp_admin_bar->menu member var.
+ * Renders the admin bar to the page based on the $wp_admin_bar->menu member var.
  *
  * This is called very late on the footer actions so that it will render after
  * anything else being added to the footer.
  *
  * It includes the {@see 'admin_bar_menu'} action which should be used to hook in and
- * add new menus to the . That way you can be sure that you are adding at most
- * optimal point, right before the  is rendered. This also gives you access to
+ * add new menus to the admin bar. That way you can be sure that you are adding at most
+ * optimal point, right before the admin bar is rendered. This also gives you access to
  * the `$post` global, among others.
  *
  * @since 3.1.0
@@ -75,9 +75,9 @@ function wp_admin_bar_render() {
 	}
 
 	/**
-	 * Load all necessary  items.
+	 * Load all necessary admin bar items.
 	 *
-	 * This is the hook used to add, remove, or manipulate  items.
+	 * This is the hook used to add, remove, or manipulate admin bar items.
 	 *
 	 * @since 3.1.0
 	 *
@@ -86,7 +86,7 @@ function wp_admin_bar_render() {
 	do_action_ref_array( 'admin_bar_menu', array( &$wp_admin_bar ) );
 
 	/**
-	 * Fires before the  is rendered.
+	 * Fires before the admin bar is rendered.
 	 *
 	 * @since 3.1.0
 	 */
@@ -95,7 +95,7 @@ function wp_admin_bar_render() {
 	$wp_admin_bar->render();
 
 	/**
-	 * Fires after the  is rendered.
+	 * Fires after the admin bar is rendered.
 	 *
 	 * @since 3.1.0
 	 */
@@ -816,7 +816,7 @@ function wp_admin_bar_new_content_menu( $wp_admin_bar ) {
 	}
 
 	if ( current_user_can( 'manage_links' ) ) {
-		$actions['link-add.php'] = array( _x( 'Link', 'add new from ' ), 'new-link' );
+		$actions['link-add.php'] = array( _x( 'Link', 'add new from admin bar' ), 'new-link' );
 	}
 
 	if ( isset( $cpts['page'] ) && current_user_can( $cpts['page']->cap->create_posts ) ) {
@@ -840,14 +840,14 @@ function wp_admin_bar_new_content_menu( $wp_admin_bar ) {
 	}
 
 	if ( current_user_can( 'create_users' ) || ( is_multisite() && current_user_can( 'promote_users' ) ) ) {
-		$actions['user-new.php'] = array( _x( 'User', 'add new from ' ), 'new-user' );
+		$actions['user-new.php'] = array( _x( 'User', 'add new from admin bar' ), 'new-user' );
 	}
 
 	if ( ! $actions ) {
 		return;
 	}
 
-	$title = '<span class="ab-icon"></span><span class="ab-label">' . _x( 'New', ' menu group label' ) . '</span>';
+	$title = '<span class="ab-icon"></span><span class="ab-label">' . _x( 'New', 'admin bar menu group label' ) . '</span>';
 
 	$wp_admin_bar->add_menu(
 		array(
@@ -1102,7 +1102,7 @@ function wp_admin_bar_add_secondary_groups( $wp_admin_bar ) {
 }
 
 /**
- * Style and scripts for the .
+ * Style and scripts for the admin bar.
  *
  * @since 3.1.0
  */
@@ -1113,7 +1113,7 @@ function wp_admin_bar_header() {
 }
 
 /**
- * Default  callback.
+ * Default admin bar callback.
  *
  * @since 3.1.0
  */
@@ -1132,7 +1132,7 @@ function _admin_bar_bump_cb() {
 }
 
 /**
- * Sets the display status of the .
+ * Sets the display status of the admin bar.
  *
  * This can be called immediately upon plugin load. It does not need to be called
  * from a function hooked to the {@see 'init'} action.
@@ -1141,7 +1141,7 @@ function _admin_bar_bump_cb() {
  *
  * @global bool $show_admin_bar
  *
- * @param bool $show Whether to allow the  to show.
+ * @param bool $show Whether to allow the admin bar to show.
  */
 function show_admin_bar( $show ) {
 	global $show_admin_bar;
@@ -1149,7 +1149,7 @@ function show_admin_bar( $show ) {
 }
 
 /**
- * Determines whether the  should be showing.
+ * Determines whether the admin bar should be showing.
  *
  * For more information on this and similar theme functions, check out
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
@@ -1160,12 +1160,12 @@ function show_admin_bar( $show ) {
  * @global bool   $show_admin_bar
  * @global string $pagenow
  *
- * @return bool Whether the  should be showing.
+ * @return bool Whether the admin bar should be showing.
  */
 function is_admin_bar_showing() {
 	global $show_admin_bar, $pagenow;
 
-	// For all these types of requests, we never want an .
+	// For all these types of requests, we never want an admin bar.
 	if ( defined( 'XMLRPC_REQUEST' ) || defined( 'DOING_AJAX' ) || defined( 'IFRAME_REQUEST' ) || wp_is_json_request() ) {
 		return false;
 	}
@@ -1188,14 +1188,14 @@ function is_admin_bar_showing() {
 	}
 
 	/**
-	 * Filters whether to show the .
+	 * Filters whether to show the admin bar.
 	 *
-	 * Returning false to this hook is the recommended way to hide the .
+	 * Returning false to this hook is the recommended way to hide the admin bar.
 	 * The user's display preference is used for logged in users.
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param bool $show_admin_bar Whether the  should be shown. Default false.
+	 * @param bool $show_admin_bar Whether the admin bar should be shown. Default false.
 	 */
 	$show_admin_bar = apply_filters( 'show_admin_bar', $show_admin_bar );
 
@@ -1203,7 +1203,7 @@ function is_admin_bar_showing() {
 }
 
 /**
- * Retrieve the  display preference of a user.
+ * Retrieve the admin bar display preference of a user.
  *
  * @since 3.1.0
  * @access private
@@ -1211,7 +1211,7 @@ function is_admin_bar_showing() {
  * @param string $context Context of this preference check. Defaults to 'front'. The 'admin'
  *  preference is no longer used.
  * @param int $user Optional. ID of the user to check, defaults to 0 for current user.
- * @return bool Whether the  should be showing for this user.
+ * @return bool Whether the admin bar should be showing for this user.
  */
 function _get_admin_bar_pref( $context = 'front', $user = 0 ) {
 	$pref = get_user_option( "show_admin_bar_{$context}", $user );
