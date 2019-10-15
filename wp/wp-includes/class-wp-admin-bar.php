@@ -27,7 +27,7 @@ class WP_Admin_Bar {
 				return is_ssl() ? 'https://' : 'http://';
 
 			case 'menu':
-				_deprecated_argument( 'WP_Admin_Bar', '3.3.0', 'Modify admin bar nodes with WP_Admin_Bar::get_node(), WP_Admin_Bar::add_node(), and WP_Admin_Bar::remove_node(), not the <code>menu</code> property.' );
+				_deprecated_argument( 'WP_Admin_Bar', '3.3.0', 'Modify  nodes with WP_Admin_Bar::get_node(), WP_Admin_Bar::add_node(), and WP_Admin_Bar::remove_node(), not the <code>menu</code> property.' );
 				return array(); // Sorry, folks.
 		}
 	}
@@ -162,7 +162,7 @@ class WP_Admin_Bar {
 
 		if ( isset( $back_compat_parents[ $args['parent'] ] ) ) {
 			list( $new_parent, $version ) = $back_compat_parents[ $args['parent'] ];
-			_deprecated_argument( __METHOD__, $version, sprintf( 'Use <code>%s</code> as the parent for the <code>%s</code> admin bar node instead of <code>%s</code>.', $new_parent, $args['id'], $args['parent'] ) );
+			_deprecated_argument( __METHOD__, $version, sprintf( 'Use <code>%s</code> as the parent for the <code>%s</code>  node instead of <code>%s</code>.', $new_parent, $args['id'], $args['parent'] ) );
 			$args['parent'] = $new_parent;
 		}
 
@@ -419,7 +419,7 @@ class WP_Admin_Bar {
 		global $is_IE;
 
 		// Add browser classes.
-		// We have to do this here since admin bar shows on the front end.
+		// We have to do this here since  shows on the front end.
 		$class = 'nojq nojs';
 		if ( $is_IE ) {
 			if ( strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE 7' ) ) {

@@ -12,8 +12,8 @@ function redirect_admin(){
     $user = wp_get_current_user();
     $userNotAdmin = true;
 
-    foreach ($user->roles as &$role){
-        if($role == 'admin'){
+    foreach ($user->roles as $role){
+        if($role == 'administrator'){
             $userNotAdmin = false;
         }
     }
