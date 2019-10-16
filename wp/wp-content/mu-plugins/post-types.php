@@ -1,13 +1,17 @@
 <?php
 function post_types(){
     register_post_type( 'partners', array(
-        'public' => true,
+        'capability_type' => 'partner',
+        'map_meta_cap' => true,
+        'public' => false,
+        'show_ui' => true,
         'show_in_rest' => true,
+        'supports' => array('title', 'editor', 'author'),
         'labels' => array(
             'name' => 'Partners',
             'add_new_item' => 'Add New Partner',
             'edit_item' => 'Edit Partner',
-            'all_items' => 'All Events',
+            'all_items' => 'All Partners',
             'singular_name' => 'Partner'
         ),
         'menu_icon' => 'dashicons-groups'
