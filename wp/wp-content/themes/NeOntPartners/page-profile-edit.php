@@ -1,10 +1,11 @@
 <?php
     //pulling in header
     get_header();
+    $userID = get_current_user_id();
 ?>
 <main>
     <h2 class="profile-header">Your Profile</h2>
-    <div class="twoColumns">
+    <div class="twoColumns" id="profile-container" data-id="<?php echo $userID; ?>">
         <!--left side-->
         
         <div class="packages">
@@ -21,24 +22,24 @@
             $PartnerQuery = new WP_Query(array(
                 'post_type' => 'partners',
                 'posts_per_page' => 2,
-                'author' => get_current_user_id()
+                'author' => $userID
             ));
         if(is_user_logged_in()){
             while($PartnerQuery->have_posts()){
                 $PartnerQuery->the_post(); 
         ?>
-        <section class="profile-edit-form">
+        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
             <div class="container">
             <h4 class="heading">Information</h4>
-            <input class="input comp-name" type="textbox" placeholder="Company Name" value="<?php esc_html(the_title()); ?>">
+            <input id='comp-name' class="input comp-name" type="textbox" placeholder="Company Name" value="<?php esc_html(the_title()); ?>">
             <h4 class="headeing">description</h4>
-            <textarea class="input desc" resize="false" placeholder="Description of your company"><?php echo strip_the_content(); ?></textarea>
+            <textarea id='desc' class="input desc" resize="false" placeholder="Description of your company"><?php echo strip_the_content(); ?></textarea>
             <h4 class="heading">contanct info</h4>
             <div class="name">
-                <input class="input first-name" type="textbox" placeholder="First Name" value="<?php the_field('contact_firstname'); ?>">
-                <input class="input last-name" type="textbox" placeholder="Last Name" value="<?php the_field('contact_lastname'); ?>">
+                <input id="first-name" class="input first-name" type="textbox" placeholder="First Name" value="<?php the_field('contact_firstname'); ?>">
+                <input id="last-name" class="input last-name" type="textbox" placeholder="Last Name" value="<?php the_field('contact_lastname'); ?>">
             </div>
-            <input class="input email" type="textbox" placeholder="Email" value="<?php the_field('contact_email');?>">
+            <input id="email" class="input email" type="textbox" placeholder="Email" value="<?php the_field('contact_email');?>">
             <button id="Submit-Profile">Submit</button>
             <!-- content of the form -->
         </section>
