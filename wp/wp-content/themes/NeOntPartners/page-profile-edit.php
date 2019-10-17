@@ -20,10 +20,10 @@
         <?php
             $PartnerQuery = new WP_Query(array(
                 'post_type' => 'partners',
-                'posts_per_page' => 1,
+                'posts_per_page' => 2,
                 'author' => get_current_user_id()
             ));
-        
+        if(is_user_logged_in()){
             while($PartnerQuery->have_posts()){
                 $PartnerQuery->the_post(); 
         ?>
@@ -39,14 +39,16 @@
                 <input class="input last-name" type="textbox" placeholder="Last Name" value="<?php the_field('contact_lastname'); ?>">
             </div>
             <input class="input email" type="textbox" placeholder="Email" value="<?php the_field('contact_email');?>">
-            <button>Submit</button>
+            <button id="Submit-Profile">Submit</button>
             <!-- content of the form -->
-            </section>
-    <?php } wp_reset_postdata(); ?>
+        </section>
+    <?php } wp_reset_postdata(); } else{?>
+        <h2>Please Signin First</h2>
+    <?php } ?>
     </div>
 <!-- Place hetml for form here-->
 </main>
 
-<?php      
+<?php
     get_footer();
 ?>
