@@ -1,4 +1,4 @@
-import $ from 'jquery'
+//import $ from 'jquery'
 
 class SendProfileInfo{
     constructor(){
@@ -12,16 +12,28 @@ class SendProfileInfo{
 
     //methods
     updateProfile(){
-        let httpRequest = new XMLHttpRequest();
+        
+        var httpRequest = new XMLHttpRequest();
 
+        //EDIT THIS TO ADD MORE ITEMS
         var updates = {
+            'title': document.getElementById('comp-name').value,
+            'content': document.getElementById('desc').value,
+            'contactFirstName': document.getElementById('first-name').value,
+            'contactLastName': document.getElementById('last-name').value,
+            'contactEmail': document.getElementById('email').value
+            
+            /*
                 'title': $("#comp-name").val(),
                 'content': $("#desc").val(),
                 'contactFirstName': $("first-name").val(),
                 'contactLastName': $("last-name").val(),
                 'contactemail': $("email").val()
+            */
         }
 
+        /*
+        ---- JQUERY WAY OF REQUEST CALL MIGHT BE MORE SECURE ----
         $.ajax({
             beforeSend:(xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', data.nonce);
@@ -39,8 +51,8 @@ class SendProfileInfo{
                 console.log(response)
             }
         })
+        */
 
-        /*
         if(!httpRequest){
             alert('ERROR: Cannot create an XMLHTTP instnace')
             return false
@@ -49,6 +61,7 @@ class SendProfileInfo{
         httpRequest.onreadystatechange = alertContents;
         httpRequest.open('POST', 'http://localhost:3000/wp-json/wp/v2/partners/' + document.getElementById('profile-edit-form').dataset.postid, true)
         httpRequest.setRequestHeader('X-WP-Nonce', data.nonce )
+        httpRequest.setRequestHeader('Content-Type', 'application/json')
         httpRequest.send(JSON.stringify(updates))
         //httpRequest.send()
 
@@ -65,7 +78,7 @@ class SendProfileInfo{
                 alert('CaughtException: ' + e.description)
             }
         }
-        */
+        
     }
 }
 export default SendProfileInfo
