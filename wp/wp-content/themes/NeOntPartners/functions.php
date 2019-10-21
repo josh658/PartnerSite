@@ -1,4 +1,7 @@
 <?php
+
+require get_theme_file_path('/inc/register-route.php');
+
 /*
 //for removing p tags when calling the_content
 function my_wp_content_function($content) {
@@ -22,23 +25,45 @@ function files(){
 }
 add_action('wp_enqueue_scripts', 'files');
 
-
 //customizing the rest api
 function custom_rest(){
     register_rest_field('partners', 'authorName', array(
         'get_callback' => function() {return get_the_author();}
     ));
     register_rest_field( 'partners', 'contactFirstName', array(
-        'get_callback' => function() {return get_field('contact_firstname');}
+        'get_callback' => function() {
+            return get_field('contact_firstname');
+        },
+        'update_callback' => function($value, $obj) {
+            //echo &obj->ID ***debugging to consol***
+            update_field('contact_firstname', $value, $obj->ID);
+            return true;
+        }
     ));
     register_rest_field( 'partners', 'contactLastName', array(
-        'get_callback' => function() {return get_field('contact_lastname');}
+        'get_callback' => function() {return get_field('contact_lastname');},
+        'update_callback' => function($value, $obj) {
+            update_field('contact_lastname', $value, $obj->ID);
+            return true;
+        }
     ));
     register_rest_field( 'partners', 'contactEmail', array(
-        'get_callback' => function() {return get_field('contact_email');}
+        'get_callback' => function() {return get_field('contact_email');},
+        'update_callback' => function($value, $obj) {
+            echo $value;
+            update_field('contact_email', $value, $obj->ID);
+            return true;
+        }
     ));
 }
 add_action('rest_api_init', 'custom_rest');
+
+// function location_update_term_meta_field( $value, $object, $field_name ) {
+//     if ( ! $value || ! is_string( $value ) ) {
+//         return;
+//     }
+//     return update_term_meta( $object->contactFirstName, $field_name, $value );
+// }
 
 // Redirect non admin users to front page.
 //used in redirect_login_page() functions

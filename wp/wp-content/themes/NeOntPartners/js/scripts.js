@@ -4,7 +4,10 @@
 import Search from './modules/search'
 import StickyHeader from './modules/StickyHeader'
 import SendProfileInfo from './modules/SendProfileInfo'
+import RegistrationForm from './modules/RegistrationForm'
+
 //instantiate a new object usign our modules/classes
     //var search = new Search
     var stickyHeader = new StickyHeader
     var sendProfileInfo = new SendProfileInfo
+    var registrationForm = new RegistrationForm
