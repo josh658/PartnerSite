@@ -125,5 +125,16 @@ function logout_redirect(){
 }
 add_action('wp_logout', 'logout_redirect');
 
+function register_redirect(){
+    $home_page = home_url('/');
+    $page_viewed = basename($_SERVER['REQUEST_URI']);
 
+    if($page_viewed == "registration" && get_current_user_id()){
+        wp_redirect($home_page);
+        exit;
+    }
+}
+add_action('init', 'register_redirect')
+
+//make function that stops registered user to access registration page (use init hook)
 ?>

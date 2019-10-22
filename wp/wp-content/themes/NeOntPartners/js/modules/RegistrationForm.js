@@ -13,6 +13,7 @@ class RegistrationForm{
     clickListner(e){
         e.preventDefault()
 
+        //if a value is changed here it must be changed in register.route
         var formValues = {
             'FirstName': $("#first-name").val(),
             'LastName': $("#last-name").val(),
@@ -24,8 +25,11 @@ class RegistrationForm{
             url: 'http://localhost:3000/wp-json/neont/v1/register',
             type: 'POST',
             data: formValues,
-            success: (response) => {
-                console.log(response)
+            success: () => {
+                console.log("success")
+                location.reload()
+                // DONE: this will fail FIX this!!!!
+                //setTimeout( () => location.reload(), 1000) **fixed with returning in register-route.php
             },
             error: (response) => {
                 console.log(response)
