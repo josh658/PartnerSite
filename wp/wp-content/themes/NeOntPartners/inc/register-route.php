@@ -41,8 +41,6 @@ function evaluateForm($data){
         'user_password' => $data['Password'],
         'remember' => false
     ));
-    //make sure wp knows the user is signed in
-    //$newUser = wp_set_current_user($newID);
 
 
     //create two partners pages for them (one draft one published) (will be passed in through $data)

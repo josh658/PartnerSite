@@ -21,29 +21,50 @@
         <?php
             $PartnerQuery = new WP_Query(array(
                 'post_type' => 'partners',
-                'posts_per_page' => 2,
-                'author' => $userID
+                'posts_per_page' => 1,
+                'author' => $userID,
+                'post_status' => array(
+                    'pending', 
+                    'draft',
+                    'future'
+                )
             ));
+
         if(is_user_logged_in()){
-            while($PartnerQuery->have_posts()){
+            $thePost;
+            if(!$PartnerQuery->have_posts()){
+                $publicPartner = new WP_Query(array(
+                    'post_type' => 'partners',
+                    'posts_per_page' => 1,
+                    'author' => $userID,
+                    'post_status' => array('public')
+                ));
+                if($publicPartner->have_posts()){
+                    $publicPartner->the_post();
+                    $draftPost = duplicate_post($post->ID);
+                    $thePost = get_post($draftPost);
+                }
+            } else if($PartnerQuery->have_posts()){
                 $PartnerQuery->the_post(); 
+                $thePost = get_post($post->ID);
+            }
         ?>
-        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
+        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePost->ID; ?>">
             <div class="container">
             <h4 class="heading">Information</h4>
-            <input id='comp-name' class="input comp-name" type="textbox" placeholder="Company Name" value="<?php esc_html(the_title()); ?>">
+            <input id='comp-name' class="input comp-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePost->post_title); ?>">
             <h4 class="headeing">description</h4>
-            <textarea id='desc' class="input desc" resize="false" placeholder="Description of your company"><?php echo strip_the_content(); ?></textarea>
+            <textarea id='desc' class="input desc" resize="false" placeholder="Description of your company"><?php echo apply_filters('the_content', $thePost->post_content); ?></textarea>
             <h4 class="heading">contanct info</h4>
             <div class="name">
-                <input id="first-name" class="input first-name" type="textbox" placeholder="First Name" value="<?php the_field('contact_firstname'); ?>">
-                <input id="last-name" class="input last-name" type="textbox" placeholder="Last Name" value="<?php the_field('contact_lastname'); ?>">
+                <input id="first-name" class="input first-name" type="textbox" placeholder="First Name" value="<?php get_field('contact_firstname', $thePost->ID); ?>">
+                <input id="last-name" class="input last-name" type="textbox" placeholder="Last Name" value="<?php get_field('contact_lastname', $thePost->ID); ?>">
             </div>
-            <input id="email" class="input email" type="textbox" placeholder="Email" value="<?php the_field('contact_email');?>">
+            <input id="email" class="input email" type="textbox" placeholder="Email" value="<?php get_field('contact_email', $thePost->ID);?>">
             <button id="Submit-Profile">Submit</button>
             <!-- content of the form -->
         </section>
-    <?php } wp_reset_postdata(); } else{?>
+    <?php wp_reset_postdata(); } else{?>
         <h2>Please Signin First</h2>
     <?php } ?>
     </div>

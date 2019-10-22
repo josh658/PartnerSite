@@ -30,6 +30,7 @@
                     </div>
                 </ul>
             </nav>
+            <a href="<?php echo wp_logout_url(); ?>" style="color: black">logout</a>
         </div>
         <!-- <p id="main-search">Search</p> -->
     </header>

@@ -1,6 +1,7 @@
 <?php
 
 require get_theme_file_path('/inc/register-route.php');
+require get_theme_file_path('/inc/methods.php');
 
 /*
 //for removing p tags when calling the_content
@@ -10,10 +11,6 @@ function my_wp_content_function($content) {
 add_filter('the_content', my_wp_content_function);
 */
 //remove_filter ('the_content', 'wpautop'); 
-
-function strip_the_content(){
-    return strip_tags(get_the_content());
-}
 
 //loading style and script files
 function files(){
