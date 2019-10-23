@@ -29,7 +29,8 @@ class SendProfileInfo{
             'content': $("#desc").val(),
             'contactFirstName': $(".first-name").val(),
             'contactLastName': $(".last-name").val(),
-            'contactEmail': $(".email").val()
+            'contactEmail': $(".email").val(),
+            'status': 'pending'
         }
 
 

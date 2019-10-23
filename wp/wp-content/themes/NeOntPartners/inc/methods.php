@@ -6,7 +6,7 @@ function duplicate_post($postID){
     $oldpost = get_post($postID);
     $post    = array(
       'post_title' => $title,
-      'post_status' => 'pending',
+      'post_status' => 'draft',
       'post_type' => $oldpost->post_type,
       'post_author' => $oldpost->post_author
     );
@@ -21,7 +21,7 @@ function duplicate_post($postID){
     return $new_postID;
 }
 
-//strip the tags off the 
-function strip_the_content($content){
-    return strip_tags($content);
-}
+//strip the tags off the UNUSED
+// function strip_the_content($content){
+//     return strip_tags($content);
+// }

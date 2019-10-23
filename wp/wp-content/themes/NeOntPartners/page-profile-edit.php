@@ -41,6 +41,7 @@
                 ));
                 if($publicPartner->have_posts()){
                     $publicPartner->the_post();
+                    //this function is in methods.php
                     $draftPost = duplicate_post($post->ID);
                     $thePost = get_post($draftPost);
                 }
@@ -57,10 +58,10 @@
             <textarea id='desc' class="input desc" resize="false" placeholder="Description of your company"><?php echo apply_filters('the_content', $thePost->post_content); ?></textarea>
             <h4 class="heading">contanct info</h4>
             <div class="name">
-                <input id="first-name" class="input first-name" type="textbox" placeholder="First Name" value="<?php get_field('contact_firstname', $thePost->ID); ?>">
-                <input id="last-name" class="input last-name" type="textbox" placeholder="Last Name" value="<?php get_field('contact_lastname', $thePost->ID); ?>">
+                <input id="first-name" class="input first-name" type="textbox" placeholder="First Name" value="<?php echo get_field('contact_firstname', $thePost->ID); ?>">
+                <input id="last-name" class="input last-name" type="textbox" placeholder="Last Name" value="<?php echo get_field('contact_lastname', $thePost->ID); ?>">
             </div>
-            <input id="email" class="input email" type="textbox" placeholder="Email" value="<?php get_field('contact_email', $thePost->ID);?>">
+            <input id="email" class="input email" type="textbox" placeholder="Email" value="<?php echo get_field('contact_email', $thePost->ID);?>">
             <button id="Submit-Profile">Submit</button>
             <!-- content of the form -->
         </section>

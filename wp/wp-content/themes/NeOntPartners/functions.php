@@ -1,16 +1,12 @@
 <?php
 
+//seperate files to keep things organized
 require get_theme_file_path('/inc/register-route.php');
 require get_theme_file_path('/inc/methods.php');
 
-/*
+
 //for removing p tags when calling the_content
-function my_wp_content_function($content) {
-    return strip_tags($content,"<br><h2>"); //add any tags here you want to preserve   
-}
-add_filter('the_content', my_wp_content_function);
-*/
-//remove_filter ('the_content', 'wpautop'); 
+remove_filter ('the_content', 'wpautop'); 
 
 //loading style and script files
 function files(){
@@ -54,13 +50,6 @@ function custom_rest(){
     ));
 }
 add_action('rest_api_init', 'custom_rest');
-
-// function location_update_term_meta_field( $value, $object, $field_name ) {
-//     if ( ! $value || ! is_string( $value ) ) {
-//         return;
-//     }
-//     return update_term_meta( $object->contactFirstName, $field_name, $value );
-// }
 
 // Redirect non admin users to front page.
 //used in redirect_login_page() functions
