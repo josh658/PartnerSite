@@ -1,0 +1,22 @@
+.a-btn{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    text-decoration: none;
+    color: black;
+    background-color: orange;
+    padding: 0 .3em;
+}
+
+.a-btn:hover {
+    color:black;
+    background-color: red;
+}
+
+.submit-btn{
+    padding: 0.3em;
+}
+
+.submit-btn:hover{
+    background-color: #fff;
+}

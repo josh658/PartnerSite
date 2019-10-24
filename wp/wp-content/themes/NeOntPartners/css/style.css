@@ -4,7 +4,7 @@ Author: Joshua Vandermost
 Version: 0.1 Beta
 */
 main {
-  max-width: 600px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 1em; }
 
@@ -24,9 +24,41 @@ body {
   top: 0; }
   .sticky-header .header-item-centering, .admin-bar .header-item-centering {
     display: flex;
-    max-width: 600px;
+    max-width: 960px;
     height: 100%;
     margin: auto; }
+    .sticky-header .header-item-centering .header-nav, .admin-bar .header-item-centering .header-nav {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1; }
+      .sticky-header .header-item-centering .header-nav a, .admin-bar .header-item-centering .header-nav a {
+        text-decoration: none;
+        color: black; }
+      .sticky-header .header-item-centering .header-nav ul, .admin-bar .header-item-centering .header-nav ul {
+        display: flex;
+        background-color: red;
+        justify-content: space-between;
+        align-content: flex-end;
+        padding-right: 1em;
+        list-style: none;
+        flex: 0.8; }
+        .sticky-header .header-item-centering .header-nav ul .list-item, .admin-bar .header-item-centering .header-nav ul .list-item {
+          margin: auto; }
+        .sticky-header .header-item-centering .header-nav ul .list-item--name:hover, .admin-bar .header-item-centering .header-nav ul .list-item--name:hover {
+          color: white; }
+        .sticky-header .header-item-centering .header-nav ul .dropdown, .admin-bar .header-item-centering .header-nav ul .dropdown {
+          position: relative;
+          cursor: default; }
+        .sticky-header .header-item-centering .header-nav ul .dropdown-list, .admin-bar .header-item-centering .header-nav ul .dropdown-list {
+          display: none;
+          position: absolute;
+          background-color: gray; }
+          .sticky-header .header-item-centering .header-nav ul .dropdown-list li:hover a, .admin-bar .header-item-centering .header-nav ul .dropdown-list li:hover a {
+            width: 100%;
+            color: white; }
+        .sticky-header .header-item-centering .header-nav ul .dropdown:hover .dropdown-list, .admin-bar .header-item-centering .header-nav ul .dropdown:hover .dropdown-list {
+          display: block;
+          z-index: 1; }
   .sticky-header .comp-name, .admin-bar .comp-name {
     flex: 0.5;
     color: black;
@@ -38,40 +70,6 @@ body {
 @media only screen and (max-width: 782px) {
   .admin-bar {
     top: 46px; } }
-
-.header-nav {
-  display: flex;
-  justify-content: flex-end;
-  flex: 1; }
-  .header-nav a {
-    text-decoration: none;
-    color: black; }
-  .header-nav ul {
-    display: flex;
-    background-color: red;
-    justify-content: space-between;
-    align-content: flex-end;
-    max-width: 600px;
-    padding-right: 1em;
-    list-style: none;
-    flex: 0.8; }
-    .header-nav ul .list-item {
-      margin: auto; }
-    .header-nav ul li:hover {
-      color: white; }
-    .header-nav ul .dropdown {
-      position: relative;
-      cursor: default; }
-    .header-nav ul .dropdown-list {
-      display: none;
-      position: absolute;
-      background-color: gray; }
-      .header-nav ul .dropdown-list li:hover a {
-        width: 100%;
-        color: white; }
-    .header-nav ul .dropdown:hover .dropdown-list {
-      display: block;
-      z-index: 1; }
 
 .overlay {
   display: none;
@@ -86,51 +84,90 @@ body {
   display: block; }
 
 .profile-header {
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 1em; }
 
 .twoColumns {
   display: flex;
   width: 100%; }
   .twoColumns .packages {
-    flex: .25;
+    flex: .40;
     text-align: center; }
   .twoColumns .profile-edit-form {
-    flex: .75;
+    display: flex;
+    flex-direction: column;
+    flex: .60;
     margin: 0 auto;
-    text-align: center;
-    width: 80%; }
+    text-align: center; }
     .twoColumns .profile-edit-form input:focus, .twoColumns .profile-edit-form textarea:focus {
       outline: none; }
-    .twoColumns .profile-edit-form .input {
+    .twoColumns .profile-edit-form .form-element {
       height: 2em;
-      margin: .3em 0;
+      margin: auto;
+      margin-bottom: 1em;
       padding-left: 0.3em;
-      box-sizing: border-box;
       border-style: solid;
       border-width: 1px;
+      box-sizing: border-box;
       border-color: gray;
       font-size: 22px; }
-      .twoColumns .profile-edit-form .input:focus {
+      .twoColumns .profile-edit-form .form-element:focus {
         box-shadow: 0 0 5px teal; }
     .twoColumns .profile-edit-form .comp-name {
-      width: 100%; }
+      width: 80%; }
     .twoColumns .profile-edit-form .desc {
-      width: 100%;
+      width: 80%;
       height: 12em; }
     .twoColumns .profile-edit-form .name {
-      width: 100%;
-      margin: 0 auto;
-      background-color: orange; }
+      width: 80%;
+      margin: auto;
+      margin-bottom: 1em;
+      display: flex; }
       .twoColumns .profile-edit-form .name .first-name {
         margin: 0;
-        float: left;
-        width: 50%; }
+        min-width: 0;
+        flex: 1; }
+      .twoColumns .profile-edit-form .name .name-space {
+        width: 1em;
+        height: 1em; }
       .twoColumns .profile-edit-form .name .last-name {
         margin: 0;
-        float: right;
-        width: 50%; }
+        min-width: 0;
+        flex: 1; }
     .twoColumns .profile-edit-form .email {
-      width: 100%; }
+      width: 80%; }
+
+.a-btn {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 2px;
+  text-decoration: none;
+  color: black;
+  background-color: orange;
+  padding: 0 .3em; }
+
+.a-btn:hover {
+  color: black;
+  background-color: red; }
+
+.submit-btn {
+  padding: 0.3em; }
+
+.submit-btn:hover {
+  background-color: #fff; }
+
+.package-thumnail {
+  display: block;
+  width: 100%;
+  height: 6em;
+  color: black;
+  background-color: orange;
+  margin: 1em 0;
+  text-decoration: none;
+  transition: 500ms; }
+
+.package-thumnail:hover {
+  transform: translateX(10%); }
 
 /*
 TODO: for main

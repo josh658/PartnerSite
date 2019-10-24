@@ -1,35 +1,43 @@
+$formWidth: 80%;
+
 .profile-header{
     text-align: center;
+    margin-bottom: 1em;
 }
 
 .twoColumns{
     display: flex;
     width: 100%;
 
+    //left side
     .packages{
-        flex: .25;
+        flex: .40;
         text-align: center;
     }
 
+    //right side
     .profile-edit-form{
 
+        display: flex;
+        flex-direction: column;
+        flex: .60;
+        margin: 0 auto;
+        text-align: center;
+
+        //remove dark blue highlight
         input:focus, textarea:focus{
             outline:none
         }
 
-        flex: .75;
-        margin: 0 auto;
-        text-align: center;
-        width: 80%;
-
-        .input{
+        .form-element{
             height: 2em;
-            margin: .3em 0;
+            margin: auto;
+            margin-bottom: 1em;
             padding-left: 0.3em;
             //very important part of code for aligning input boxes
-            box-sizing: border-box;
             border-style: solid;
             border-width: 1px;
+            box-sizing: border-box;
             border-color: gray;
             font-size: 22px;
 
@@ -39,33 +47,39 @@
         }
 
         .comp-name{
-            width:100%;
+            width:$formWidth;
         }
 
         .desc{
-            width: 100%;
+            width: $formWidth;
             height: 12em;
         }
         .name{
-            width: 100%;
-            margin: 0 auto;
-            background-color: orange;
+            width: $formWidth;
+            margin: auto;
+            margin-bottom: 1em;
+            display: flex;
 
             .first-name{
                 margin: 0;
-                float: left;
-                width: 50%;
+                min-width: 0;
+                flex: 1;
+            }
+
+            .name-space{
+                width: 1em;
+                height: 1em;
             }
 
             .last-name{
                 margin: 0;
-                float: right;
-                width: 50%;
+                min-width: 0;
+                flex: 1;
             }
         }
 
         .email{
-            width: 100%;
+            width: $formWidth;
         }
     }
 }

@@ -18,9 +18,59 @@
 
     .header-item-centering{
         display: flex;
-        max-width: 600px;
+        max-width: 960px;
         height: 100%;
         margin: auto;
+    
+        .header-nav {
+
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+        
+            a{
+                text-decoration: none;
+                color: black;
+            }
+            ul{
+                display: flex;
+                background-color: red;
+                justify-content: space-between;
+                align-content: flex-end;
+                padding-right: 1em;
+                list-style: none;
+                flex: 0.8;
+        
+                .list-item{
+                    margin: auto;
+                }
+        
+                .list-item--name:hover{
+                    color: white;
+                }
+        
+                .dropdown{
+                    position: relative;
+                    cursor: default;
+                }
+        
+                .dropdown-list{
+                    display: none;
+                    position: absolute;
+                    background-color: gray;
+        
+                    li:hover a{ 
+                        width: 100%;
+                        color: white;
+                    }
+                }
+        
+                .dropdown:hover .dropdown-list{
+                    display: block;
+                    z-index: 1;
+                }
+            }
+        }
     }
 
     .comp-name{
@@ -39,55 +89,4 @@
     .admin-bar{
         top: 46px;
     }
-}
-
-.header-nav {
-
-    display: flex;
-    justify-content: flex-end;
-    flex: 1;
-
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    ul{
-        display: flex;
-        background-color: red;
-        justify-content: space-between;
-        align-content: flex-end;
-        max-width: 600px;
-        padding-right: 1em;
-        list-style: none;
-        flex: 0.8;
-
-        .list-item{
-            margin: auto;
-        }
-
-        li:hover{
-            color: white;
-        }
-
-        .dropdown{
-            position: relative;
-            cursor: default;
-        }
-
-        .dropdown-list{
-            display: none;
-            position: absolute;
-            background-color: gray;
-
-            li:hover a{ 
-                width: 100%;
-                color: white;
-            }
-        }
-
-        .dropdown:hover .dropdown-list{
-            display: block;
-            z-index: 1;
-        }
-    }
-}
+}   

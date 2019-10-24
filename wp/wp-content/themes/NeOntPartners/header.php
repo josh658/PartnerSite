@@ -14,13 +14,13 @@
             <nav class="header-nav">
                 <ul>
                     <a class="list-item" href="<?php echo site_url('/news-letter');?>">
-                        <li>News Letter</li>
+                        <li class="list-item--name">News Letter</li>
                     </a>
                     <a class="list-item" href="<?php echo site_url('/board-minutes');?>">
-                        <li>Board Minutes</li>
+                        <li class="list-item--name">Board Minutes</li>
                     </a>
                     <div class="list-item">                        
-                        <li class="dropdown">Organizations
+                        <li class="list-item--name dropdown">Organizations
                             <ul class="dropdown-list">
                                 <li><a href="<?php echo site_url('/neont');?>">NeOnt</a></li>
                                 <li><a href="<?php echo site_url('/do');?>">DO</a></li>
@@ -28,9 +28,9 @@
                             </ul>
                         </li>
                     </div>
+                    <a href="<?php echo wp_logout_url(); ?>" class="list-item a-btn"><li>logout</li></a>
                 </ul>
             </nav>
-            <a href="<?php echo wp_logout_url(); ?>" style="color: black">logout</a>
         </div>
         <!-- <p id="main-search">Search</p> -->
     </header>

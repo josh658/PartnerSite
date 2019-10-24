@@ -1,0 +1,17 @@
+$thumnailHeight: 6em;
+
+.package-thumnail{
+    display: block;
+    width: 100%;
+    height: $thumnailHeight;
+    color: black;
+    background-color: orange;
+    margin: 1em 0;
+    text-decoration: none;
+    transition: 500ms;
+}
+
+.package-thumnail:hover{
+    transform: translateX(10%)
+    //height: $thumnailHeight * 1.1;
+}
