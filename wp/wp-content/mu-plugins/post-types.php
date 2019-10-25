@@ -22,10 +22,12 @@ function post_types(){
         'capability_type' => 'package',
         'map_meta_cap' => true,
         'register_meta' => true,
-        'public' => false,
+        'public' => true,
         'show_ui' => true,
         'show_in_rest' => true,
+        'show_in_menu' => true,
         'supports' => array('title', 'editor', 'author', 'custom-fields'),
+        'rewrite' => array( 'slug' => 'packages' ),
         'labels' => array(
             'name' => 'Packages',
             'add_new_item' => 'Add New Package',

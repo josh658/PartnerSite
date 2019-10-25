@@ -33,6 +33,7 @@
                     //  retroactively give all packages unique elements
                     $thePackage[get_field('package_id', $post->ID)] = $post;
                 }
+                wp_reset_postdata();
                 if($packageQuery->found_posts() < 6){
                     $publicPackageQuery = new WP_Query(array(
                         'post_type' => 'packages',
@@ -53,14 +54,14 @@
                             while($publicPackageQuery->have_posts()){
                                 $publicPackageQuery->the_post();
                                 if($count == get_field('package_id', $post->ID)){
-                                    duplicate_post($post->ID);
+                                    update_field('original_post_id', $post->ID, duplicate_post($post->ID));
                                     //echo "publicTrue";
                                     $doesExist = true;
                                     break;
                                 }
                             }
                             if(!$doesExist){
-                                echo "making new";
+                                //echo "making new";
                                 $thePackage[$count] = get_post(create_custom_post('packages', $userID));
                                 update_field('package_id', $count, $thePackage[$count]->ID);
                             }
@@ -74,7 +75,8 @@
                 for($i = 1; $i <= 6; $i++){ ?>
             
                 <!-- when clicked this link will bring you to a page for package editing -->
-                <a href="#" class="package-thumnail">
+                <?php echo get_post_permalink($thePackage[$i]->ID); ?>
+                <a href="<?php the_permalink($thePackage[$i]); ?>" class="package-thumnail">
                     <?php echo get_field('package_id', $thePackage[$i]->ID); ?>
                     <!-- pull content from rest api -->
                 </a>
