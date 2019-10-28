@@ -33,7 +33,6 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
-    "jquery-ui-dist": "^1.12.1",
     "js-datepicker": "^5.0.3",
     "normalize.css": "^8.0.1",
     "slick-carousel": "^1.8.1"

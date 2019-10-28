@@ -1,10 +1,10 @@
 import $ from 'jquery'
-import datepicker from 'js-datepicker'
+//determin why this isn't working tomorrow!
+import 'jquery-ui/ui/widgets/datepicker'
 
 class PackageEdit{
     constructor(){
-        const start = datepicker('.start', { id: 'package-datepicker'})
-        const end = datepicker('.end', { id: 'package-datepicker'})
+        $('#package-datepicker').datepicker()
     }  
 }
 

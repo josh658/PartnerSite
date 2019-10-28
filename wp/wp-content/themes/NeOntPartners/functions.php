@@ -13,6 +13,7 @@ remove_filter ('the_content', 'wpautop');
 function files(){
     wp_enqueue_style('main_styles', get_stylesheet_uri());
     wp_enqueue_script( 'main-js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, '1.0', true );
+    //wp_enqueue_script( 'jquery', "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js");
     wp_localize_script('main-js', 'data', array(
         'nonce' => wp_create_nonce('wp_rest')
     ));
