@@ -3,6 +3,8 @@ Theme Name: NeOnt Partners
 Author: Joshua Vandermost
 Version: 0.1 Beta
 */
+@import url(./modules/datepicker.css);
+@import url(./modules/uiTheme.css);
 main {
   max-width: 960px;
   margin: 0 auto;

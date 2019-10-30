@@ -10,6 +10,10 @@ module.exports = {
     filename: "scripts-bundled.js"
   },
   module: {
+    // loaders:[
+    //   {test: /\.css$/, loader: "style!css" },
+    //   {test: /\.(jpe?g|png|gif$)/i, loader:"file"},
+    // ],
     rules: [
       {
         test: /\.js$/,
@@ -21,7 +25,22 @@ module.exports = {
           }
         }
       }
-    ]
+    ],
   },
+  // plugins: [
+  //   new webpack.ProvidePlugin({
+  //       "$": "jquery",
+  //       "jQuery" : "jquery",
+  //       "window.jQuery": "jquery",
+  //   })
+  // ],
+  // resolve : {
+  //   alias: {
+  //     // bind version of jquery-ui
+  //     "jquery-ui": "jquery-ui/ui/version.js",      
+  //     // bind to modules;
+  //     modules: path.join(__dirname, "node_modules")
+  //   }
+  // },
   mode: 'development'
 }

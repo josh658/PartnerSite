@@ -15,7 +15,7 @@ class SendProfileInfo{
     //methods
     updateProfile(){
         
-        var httpRequest = new XMLHttpRequest();
+        //var httpRequest = new XMLHttpRequest();
 
         //EDIT THIS TO ADD MORE ITEMS
         var updates = {

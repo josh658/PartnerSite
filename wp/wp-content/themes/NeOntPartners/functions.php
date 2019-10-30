@@ -13,7 +13,6 @@ remove_filter ('the_content', 'wpautop');
 function files(){
     wp_enqueue_style('main_styles', get_stylesheet_uri());
     wp_enqueue_script( 'main-js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, '1.0', true );
-    //wp_enqueue_script( 'jquery', "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js");
     wp_localize_script('main-js', 'data', array(
         'nonce' => wp_create_nonce('wp_rest')
     ));
@@ -22,6 +21,7 @@ add_action('wp_enqueue_scripts', 'files');
 
 //customizing the rest api
 function custom_rest(){
+    //Post type profile
     register_rest_field('partners', 'authorName', array(
         'get_callback' => function() {return get_the_author();}
     ));
@@ -45,8 +45,26 @@ function custom_rest(){
     register_rest_field( 'partners', 'contactEmail', array(
         'get_callback' => function() {return get_field('contact_email');},
         'update_callback' => function($value, $obj) {
-            echo $value;
             update_field('contact_email', $value, $obj->ID);
+            return true;
+        }
+    ));
+
+    //post type package
+    register_rest_field('packages', 'authorName', array(
+        'get_callback' => function() {return get_the_author();}
+    ));
+    register_rest_field('packages', 'startDate', array(
+        'get_callback' => function() {return get_field('start_date');},
+        'update_callback' => function($value, $obj){
+            update_field('start_date', $value, $obj->ID);
+            return true;
+        }
+    ));
+    register_rest_field('packages', 'endDate', array(
+        'get_callback' => function() {return get_field('end_date');},
+        'update_callback' => function($value, $obj){
+            update_field('end_date', $value, $obj->ID);
             return true;
         }
     ));
