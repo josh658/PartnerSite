@@ -28,7 +28,14 @@
                             </ul>
                         </li>
                     </div>
-                    <a href="<?php echo wp_logout_url(); ?>" class="list-item a-btn"><li>logout</li></a>
+                    <?php if(is_user_logged_in()){ ?>
+                        <a class="list-item a-btn" href="<?php echo site_url('/profile-edit') ?>">
+                            <li class="list-item--name">Profile</li>
+                        </a>
+                        <a href="<?php echo wp_logout_url(); ?>" class="list-item a-btn"><li>logout</li></a>
+                    <?php } else { ?>
+                        <a href="<?php echo site_url(''); ?>" class="list-item a-btn"><li>login</li></a>
+                    <?php }?>
                 </ul>
             </nav>
         </div>

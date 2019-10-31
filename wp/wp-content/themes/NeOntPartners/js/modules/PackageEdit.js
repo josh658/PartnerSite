@@ -9,6 +9,7 @@ class PackageEdit{
         var dateFormat = "mm/dd/yy",
         from = $( "#start" )
           .datepicker({
+            dateFormat: 'dd-M-yy',
             showButtonPanel: true,
             changeMonth: true,
             changeYear: true,
@@ -18,6 +19,7 @@ class PackageEdit{
             to.datepicker( "option", "minDate", getDate( this ) );
           }),
         to = $( "#end" ).datepicker({
+          dateFormat: 'dd-M-yy',
           defaultDate: "+1w",
           changeMonth: true,
           changeYear: true,
@@ -41,6 +43,7 @@ class PackageEdit{
        * END of date picker range
        */
 
+      //making the package form editable
       this.btn = $("#submit-package")
       if(this.btn){
           this.event()

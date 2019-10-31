@@ -75,10 +75,21 @@
                 for($i = 1; $i <= 6; $i++){ ?>
             
                 <!-- when clicked this link will bring you to a page for package editing -->
-                <?php echo get_post_permalink($thePackage[$i]->ID); ?>
                 <a href="<?php the_permalink($thePackage[$i]); ?>" class="package-thumnail">
-                    <?php echo get_field('package_id', $thePackage[$i]->ID); ?>
-                    <!-- pull content from rest api -->
+                    <?php //check to see if there is a title
+                    if(apply_filters('the_title', $thePackage[$i]->post_title == "")){
+                        ?>
+                        <h2>Edit Me</h2>
+                    <?php } else {?>
+                    <h2><?php echo apply_filters('the_title', $thePackage[$i]->post_title);?></h2>
+                    <div>
+                        <p><?php echo apply_filters('the_content', $thePackage[$i]->post_content); ?></p>
+                        <div>
+                            <div><?php echo get_field('start_date', $thePackage[$i]->ID); ?></div>
+                            <div><?php echo get_field('end_date', $thePackage[$i]->ID); ?></div>
+                        </div>
+                    </div>
+                    <?php } ?>
                 </a>
 
 
