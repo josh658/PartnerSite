@@ -5,7 +5,8 @@
 ?>
 <main>
     <h2 class="profile-header">Your Profile</h2>
-    <?php if(is_user_logged_in()){ ?>
+    <?php if(is_user_logged_in()){ 
+        $user_info = get_userdata($userID); ?>
     <div class="twoColumns" id="profile-container" data-id="<?php echo $userID; ?>">
         <!--left side-->
         
@@ -132,22 +133,22 @@
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
             <!-- <div class="container"> -->
             <h4 class="form-heading">Information</h4>
-            <input id='comp-name' class="form-element comp-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>">
+            <input id='comp-name' class="form-element comp-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
             <h4 class="form-headeing">description</h4>
-            <textarea id='desc' class="form-element  desc" resize="false" placeholder="Description of your company"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
+            <textarea id='desc' class="form-element  desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
             <h4 class="form-heading">contanct info</h4>
             <div class="name">
-                <input id="first-name" class="form-element first-name" type="textbox" placeholder="First Name" value="<?php echo get_field('contact_firstname', $thePartner->ID); ?>">
+                <input id="first-name" class="form-element first-name" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
                 <div class="name-space"></div>
-                <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="<?php echo get_field('contact_lastname', $thePartner->ID); ?>">
+                <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
             </div>
-            <input id="email" class="form-element email" type="textbox" placeholder="Email" value="<?php echo get_field('contact_email', $thePartner->ID);?>">
+            <input id="email" class="form-element email" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
             <button id="Submit-Profile" class="form-element submit-btn">Submit</button>
             <!-- content of the form -->
         </section>
     </div>
     <?php wp_reset_postdata(); } else{?>
-        <h2>Please Signin First</h2>
+        <h2>Please Sign in First</h2>
     <?php } ?>
 <!-- Place hetml for form here-->
 </main>

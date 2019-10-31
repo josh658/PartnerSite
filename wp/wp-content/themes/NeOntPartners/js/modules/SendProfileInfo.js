@@ -10,6 +10,7 @@ class SendProfileInfo{
 
     events(){
         this.btn.addEventListener("click", this.updateProfile.bind(this))
+        document.addEventListener('keyup', this.btnEnable.bind(this))
     }
 
     //methods
@@ -81,6 +82,14 @@ class SendProfileInfo{
         //     }
         // }
         
+    }
+
+    btnEnable(){
+        if(document.getElementsByClassName('char-cap')[0]){
+            this.btn.disabled = true
+        } else {
+            this.btn.disabled = false
+        }
     }
 }
 export default SendProfileInfo

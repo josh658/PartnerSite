@@ -34,6 +34,9 @@
                         </a>
                         <a href="<?php echo wp_logout_url(); ?>" class="list-item a-btn"><li>logout</li></a>
                     <?php } else { ?>
+                        <a class="list-item a-btn" href="<?php echo site_url('/registration') ?>">
+                            <li class="list-item--name">Register</li>
+                        </a>
                         <a href="<?php echo site_url(''); ?>" class="list-item a-btn"><li>login</li></a>
                     <?php }?>
                 </ul>

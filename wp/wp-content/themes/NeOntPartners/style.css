@@ -688,6 +688,8 @@ body {
   z-index: 5000; }
 .show-overlay {
   display: block; }
+.char-cap {
+  color: red; }
 .profile-header {
   text-align: center;
   margin-bottom: 1em; }
