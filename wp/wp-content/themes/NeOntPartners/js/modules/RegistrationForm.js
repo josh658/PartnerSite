@@ -22,7 +22,7 @@ class RegistrationForm{
         }
 
         $.ajax({
-            url: 'http://localhost:3000/wp-json/neont/v1/register',
+            url: data.root_url + '/wp-json/neont/v1/register',
             type: 'POST',
             data: formValues,
             success: () => {
@@ -32,6 +32,7 @@ class RegistrationForm{
                 //setTimeout( () => location.reload(), 1000) **fixed with returning in register-route.php
             },
             error: (response) => {
+                console.log("error: " + data.userId)
                 console.log(response)
             }
         })

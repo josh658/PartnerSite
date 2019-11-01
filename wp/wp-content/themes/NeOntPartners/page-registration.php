@@ -15,7 +15,7 @@
     <input id="password" type="password">
     <label >Email</label>
     <input id="email" type="email">
-    <input type="submit" name="register" id="register-btn">
+    <input type="submit" value="register" name="register" id="register-btn">
 </form>
 
 <!-- add registration react app here -->

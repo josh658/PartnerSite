@@ -14,7 +14,9 @@ function files(){
     wp_enqueue_style('main_styles', get_stylesheet_uri());
     wp_enqueue_script( 'main-js', get_theme_file_uri('/js/scripts-bundled.js'), NULL, '1.0', true );
     wp_localize_script('main-js', 'data', array(
-        'nonce' => wp_create_nonce('wp_rest')
+        'nonce' => wp_create_nonce('wp_rest'),
+        'root_url' => get_site_url(),
+        "userId" => get_current_user_id()
     ));
 }
 add_action('wp_enqueue_scripts', 'files');

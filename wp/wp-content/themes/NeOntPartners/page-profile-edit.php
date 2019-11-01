@@ -11,7 +11,7 @@
         <!--left side-->
         
         <div class="packages">
-            <h4>Packages</h4>
+            <h3>Packages</h3>
             <?php //custome query for packages by this user
                 $packageQuery = new WP_Query(array(
                     'post_type' => 'packages',
@@ -132,11 +132,43 @@
         ?>
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
             <!-- <div class="container"> -->
-            <h4 class="form-heading">Information</h4>
-            <input id='comp-name' class="form-element comp-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
-            <h4 class="form-headeing">description</h4>
-            <textarea id='desc' class="form-element  desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
-            <h4 class="form-heading">contanct info</h4>
+            <h3 class="form-section">Business Information</h3>
+            <label class="form-heading">
+                Business Name:
+                <input id='comp-name' class="form-element b-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
+            </label>
+            <label class="form-headeing">description</label>
+            <textarea id='desc' class="form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
+            <label class="form-header">
+                Website:
+                <input type="text" class="form-element website" id="website" placeholder="Website">
+            </label>
+            <label class="form-header">
+                Business Email:
+                <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email">
+            </label>
+            <h4 class="form-header">Business Address</h4>
+            <label class="form-header">
+                Business Street Address:
+                <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address">
+            </label>
+            <div class="business-address">
+                <label class="form-header">Business City</label>
+                <input type="text" class="form-element business-city" id="b-city" placeholder="Business City">
+                <label class="form-header">Business Postal Code</label>
+                <input type="text" class="form-element postal-code" id="postal-code" placeholder="Postal Code">
+            </div>
+            <label class="form-header">Coordinates</label>
+            <div class="coordinates">
+                <input type="text" class="form-element lat" id="lat" placeholder="Latitude">
+                <input type="text" class="form-element lng" id="lng" placeholder="Longitude">
+            </div>
+            <label class="form-header">Business Phone number</label>
+            <div class='phone-number'>
+                <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number">
+                <input class="form-element tollfree" id="toll-free" placeholder="Toll Free Phone Number">
+            </div>
+            <h3 class="form-section">contanct info</h3>
             <div class="name">
                 <input id="first-name" class="form-element first-name" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
                 <div class="name-space"></div>

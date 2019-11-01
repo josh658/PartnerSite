@@ -41,7 +41,7 @@ class SendProfileInfo{
                 xhr.setRequestHeader('X-WP-Nonce', data.nonce);
             },
 
-            url: 'http://localhost:3000/wp-json/wp/v2/partners/' + document.getElementById('profile-edit-form').dataset.postid,
+            url: data.root_url + '/wp-json/neont/v1/register' + document.getElementById('profile-edit-form').dataset.postid,
             type:'POST',
             data: updates,
             success: (response) => {

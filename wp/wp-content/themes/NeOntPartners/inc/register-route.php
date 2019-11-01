@@ -19,7 +19,6 @@ function evaluateForm($data){
     
     //check to see if email is already in use
 
-
     //create new user and store new user ID
     $newID = wp_insert_user( array(
         'user_login' => $data['FirstName'], 
@@ -34,7 +33,6 @@ function evaluateForm($data){
     ));
 
     //ERROR CHECK newID
-
     //sign new user in
     wp_signon(array(
         'user_login' => $data['FirstName'],
