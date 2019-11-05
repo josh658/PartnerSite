@@ -699,49 +699,6 @@ body {
 .twoColumns .packages {
     flex: .40;
     text-align: center; }
-.twoColumns .profile-edit-form {
-    display: flex;
-    flex-direction: column;
-    flex: .60;
-    margin: 0 auto;
-    text-align: center; }
-.twoColumns .profile-edit-form input:focus, .twoColumns .profile-edit-form textarea:focus {
-      outline: none; }
-.twoColumns .profile-edit-form .form-element {
-      height: 2em;
-      margin: auto;
-      margin-bottom: 1em;
-      padding-left: 0.3em;
-      border-style: solid;
-      border-width: 1px;
-      box-sizing: border-box;
-      border-color: gray;
-      font-size: 22px; }
-.twoColumns .profile-edit-form .form-element:focus {
-        box-shadow: 0 0 5px teal; }
-.twoColumns .profile-edit-form .comp-name {
-      width: 80%; }
-.twoColumns .profile-edit-form .desc {
-      width: 80%;
-      height: 12em; }
-.twoColumns .profile-edit-form .name {
-      width: 80%;
-      margin: auto;
-      margin-bottom: 1em;
-      display: flex; }
-.twoColumns .profile-edit-form .name .first-name {
-        margin: 0;
-        min-width: 0;
-        flex: 1; }
-.twoColumns .profile-edit-form .name .name-space {
-        width: 1em;
-        height: 1em; }
-.twoColumns .profile-edit-form .name .last-name {
-        margin: 0;
-        min-width: 0;
-        flex: 1; }
-.twoColumns .profile-edit-form .email {
-      width: 80%; }
 .a-btn {
   border-style: solid;
   border-width: 1px;
@@ -768,6 +725,51 @@ body {
   transition: 500ms; }
 .package-thumnail:hover {
   transform: translateX(10%); }
+input:focus, textarea:focus {
+  outline: none; }
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex: .50;
+  margin: 0 auto;
+  text-align: center; }
+.form-section {
+  color: darkgray; }
+.form-header {
+  text-align: left; }
+.form-element {
+  width: 100%;
+  height: 2em;
+  margin: auto;
+  margin-bottom: 1em;
+  padding-left: 0.3em;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  border-color: gray;
+  font-size: 22px; }
+.form-element:focus {
+    box-shadow: 0 0 5px teal; }
+.desc {
+  height: 10em; }
+.form-split {
+  display: flex; }
+.half-split {
+  flex: 1;
+  display: flex;
+  flex-direction: column; }
+.center-split {
+  width: 1em; }
+.addons {
+  display: flex; }
+.addon-elements {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; }
+.addon-label {
+  margin-left: 30%;
+  text-align: left; }
 /*
 TODO: for main
     main{

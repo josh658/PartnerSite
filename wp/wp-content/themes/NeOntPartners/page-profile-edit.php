@@ -9,8 +9,51 @@
         $user_info = get_userdata($userID); ?>
     <div class="twoColumns" id="profile-container" data-id="<?php echo $userID; ?>">
         <!--left side-->
-        
+
+
         <div class="packages">
+
+        <h3 class="form-section">Partnership Information</h3>
+        <label class="partnershipStatus">Status of Partnership</label>
+        <button>Upgrade</button>
+
+        <div class="addons">
+            <div class="addon-elements">
+                <label class="addon-title">Advertising packages</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Platinum</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Gold</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Silver</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Bronze</label>
+            </div>
+            
+            <div class="addon-elements">
+                <label for="" class="addon-title">Online Packages</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    E-newletter</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Facebook: $250</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Social Media</label>
+                <label for="" class="addon-label">
+                    <input type="checkbox" class="addon">
+                    Website</label>
+            </div>
+        </div>
+        <button>Purchase Addon</button>
+
+
+
             <h3>Packages</h3>
             <?php //custome query for packages by this user
                 $packageQuery = new WP_Query(array(
@@ -26,12 +69,6 @@
                 $thePackage = array();
                 while($packageQuery->have_posts()){
                     $packageQuery->the_post();
-                    //echo $post->ID;
-                    //echo get_field('package_id', $post->ID);
-                    //error check to make sure that each package has an package_id between 1-6 if not...
-                    //  move to the next item and set the number later
-                    //  keep doing this till elements have been checked
-                    //  retroactively give all packages unique elements
                     $thePackage[get_field('package_id', $post->ID)] = $post;
                 }
                 wp_reset_postdata();
@@ -132,49 +169,122 @@
         ?>
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
             <!-- <div class="container"> -->
-            <h3 class="form-section">Business Information</h3>
-            <label class="form-heading">
-                Business Name:
-                <input id='comp-name' class="form-element b-name" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
-            </label>
-            <label class="form-headeing">description</label>
+            <h3 class="form-section">Location Information</h3>
+            
+            <label class="form-header">Business Name:</label>
+            <input id='comp-name' class="form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
+            
+            <label class="form-header">Business Description:</label>
             <textarea id='desc' class="form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
+            
             <label class="form-header">
                 Website:
                 <input type="text" class="form-element website" id="website" placeholder="Website">
             </label>
+            
             <label class="form-header">
                 Business Email:
                 <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email">
             </label>
-            <h4 class="form-header">Business Address</h4>
+
+            <!-- <h4 class="form-header">Business Address</h4> -->
             <label class="form-header">
                 Business Street Address:
                 <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address">
             </label>
-            <div class="business-address">
-                <label class="form-header">Business City</label>
-                <input type="text" class="form-element business-city" id="b-city" placeholder="Business City">
-                <label class="form-header">Business Postal Code</label>
-                <input type="text" class="form-element postal-code" id="postal-code" placeholder="Postal Code">
+            <div class="form-split">
+                <div class="half-split">
+                    <label class="form-header">Business City</label>
+                    <input type="text" class="form-element" id="b-city" placeholder="Business City">
+                </div>
+                <div class="center-split"></div>
+                <div class="half-split">
+                    <label class="form-header">Business Postal Code</label>
+                    <input type="text" class="form-element" id="postal-code" placeholder="Postal Code">
+                </div>
             </div>
-            <label class="form-header">Coordinates</label>
-            <div class="coordinates">
-                <input type="text" class="form-element lat" id="lat" placeholder="Latitude">
-                <input type="text" class="form-element lng" id="lng" placeholder="Longitude">
+
+            <div class="form-split">
+                <div class="half-split">
+                    <label class="form-header">Latitude</label>
+                    <input type="text" class="form-element" id="lat" placeholder="Latitude">
+                </div>
+                <div class="center-split"></div>
+                <div class="half-split">
+                    <label class="form-header">Longitude</label>
+                    <input type="text" class="form-element" id="lng" placeholder="Longitude">
+                </div>
             </div>
             <label class="form-header">Business Phone number</label>
-            <div class='phone-number'>
-                <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number">
-                <input class="form-element tollfree" id="toll-free" placeholder="Toll Free Phone Number">
+            <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number">
+            
+            <label class="form-header">Toll-Free Number</label>
+            <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number">
+
+            <!-- Billing information -->
+            <h3 class="form-section">Billing Information</h3>
+            <div class="form-split">
+                <div class="half-split">
+                    <label class="form-header">First Name</label>
+                    <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
+                </div>
+                <div class="center-split"></div>
+                <div class="half-split">   
+                    <label class="form-header">Last Name</label>
+                    <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
+                </div>
             </div>
-            <h3 class="form-section">contanct info</h3>
-            <div class="name">
-                <input id="first-name" class="form-element first-name" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
-                <div class="name-space"></div>
-                <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
-            </div>
+            <label class="form-header">Email</label>
             <input id="email" class="form-element email" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
+
+            <label class="form-header">Secondary Contact</label>
+            <div class="form-split">
+                <div class="half-split">
+                    <label class="form-header">First Name</label>
+                    <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="">
+                </div>
+                <div class="center-split"></div>
+                <div class="half-split">   
+                    <label class="form-header">Last Name</label>
+                    <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="">
+                </div>
+            </div>
+            <label class="form-header">Email:</label>
+            <input id="email--secondary" class="form-element email" type="textbox" placeholder="Email" value="">
+            
+            <h3 class="form-section">Head Office Information</h3>
+
+            <label class="form-header"><input type="checkbox" > same as location information</label>
+
+
+            <label class="form-header">
+                Head Office Street Address
+                <input type="text" class="form-element" placeholder='Street Address'>
+            </label>
+            <label class="form-header">
+                City
+                <input type="text" class="form-element" placeholder='City'>
+            </label>
+            <label class="form-header">
+                Province/State
+                <input type="text" class="form-element" placeholder='Province/State'>
+            </label>
+            <div class="form-split">
+                <div class="half-split">
+                    <label class="form-header">
+                        Postal/Zip Code
+                        <input type="text" class="form-element" placeholder='Postal/Zip Code'>
+                    </label>
+                </div>
+                <div class="center-split"></div>
+                <div class="half-split">
+                    <label class="form-header">
+                        phone number
+                        <input class="form-element" placeholder='Phone Number'>
+                    </label>
+                </div>
+            </div>
+
             <button id="Submit-Profile" class="form-element submit-btn">Submit</button>
             <!-- content of the form -->
         </section>

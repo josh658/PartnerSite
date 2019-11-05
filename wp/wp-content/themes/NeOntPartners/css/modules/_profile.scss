@@ -20,71 +20,71 @@ $formWidth: 80%;
         text-align: center;
     }
 
-    //right side
-    .profile-edit-form{
+    // //right side
+    // .profile-edit-form{
 
-        display: flex;
-        flex-direction: column;
-        flex: .60;
-        margin: 0 auto;
-        text-align: center;
+    //     display: flex;
+    //     flex-direction: column;
+    //     flex: .60;
+    //     margin: 0 auto;
+    //     text-align: center;
 
-        //remove dark blue highlight
-        input:focus, textarea:focus{
-            outline:none
-        }
+        // //remove dark blue highlight
+        // input:focus, textarea:focus{
+        //     outline:none
+        // }
 
-        .form-element{
-            height: 2em;
-            margin: auto;
-            margin-bottom: 1em;
-            padding-left: 0.3em;
-            //very important part of code for aligning input boxes
-            border-style: solid;
-            border-width: 1px;
-            box-sizing: border-box;
-            border-color: gray;
-            font-size: 22px;
+        // .form-element{
+        //     height: 2em;
+        //     margin: auto;
+        //     margin-bottom: 1em;
+        //     padding-left: 0.3em;
+        //     //very important part of code for aligning input boxes
+        //     border-style: solid;
+        //     border-width: 1px;
+        //     box-sizing: border-box;
+        //     border-color: gray;
+        //     font-size: 22px;
 
-            &:focus{
-                box-shadow: 0 0 5px teal;
-            }
-        }
+        //     &:focus{
+        //         box-shadow: 0 0 5px teal;
+        //     }
+        // }
 
-        .comp-name{
-            width:$formWidth;
-        }
+        // .comp-name{
+        //     width:$formWidth;
+        // }
 
-        .desc{
-            width: $formWidth;
-            height: 12em;
-        }
-        .name{
-            width: $formWidth;
-            margin: auto;
-            margin-bottom: 1em;
-            display: flex;
+        // .desc{
+        //     width: $formWidth;
+        //     height: 12em;
+        // }
+        // .name{
+        //     width: $formWidth;
+        //     margin: auto;
+        //     margin-bottom: 1em;
+        //     display: flex;
 
-            .first-name{
-                margin: 0;
-                min-width: 0;
-                flex: 1;
-            }
+        //     .first-name{
+        //         margin: 0;
+        //         min-width: 0;
+        //         flex: 1;
+        //     }
 
-            .name-space{
-                width: 1em;
-                height: 1em;
-            }
+        //     .name-space{
+        //         width: 1em;
+        //         height: 1em;
+        //     }
 
-            .last-name{
-                margin: 0;
-                min-width: 0;
-                flex: 1;
-            }
-        }
+        //     .last-name{
+        //         margin: 0;
+        //         min-width: 0;
+        //         flex: 1;
+        //     }
+        // }
 
-        .email{
-            width: $formWidth;
-        }
-    }
+        // .email{
+        //     width: $formWidth;
+        // }
+    // }
 }
