@@ -18,11 +18,30 @@ function post_types(){
         'menu_icon' => 'dashicons-groups'
     ));
 
+    register_post_type( 'subscriptions', array(
+        'show_ui' => true,
+        'public' => false,
+        'supports' => array(
+            'title', 
+            'editor', 
+            'author', 
+            'custom-fields'
+        ),
+        'labels' => array(
+            'name' => 'Subscriptions',
+            'add_new_item' => 'Add New Subscriptions',
+            'edit_item' => 'Edit Subscription',
+            'all_items' => 'All Subscriptions',
+            'singular_name' => 'Subscription'
+        ),
+        'menu_icon' => 'dashicons-products'
+    ));
+
     register_post_type( 'packages', array(
         'capability_type' => 'package',
         'map_meta_cap' => true,
         'register_meta' => true,
-        'public' => true,
+        'public' => false,
         'show_ui' => true,
         'show_in_rest' => true,
         'show_in_menu' => true,

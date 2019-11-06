@@ -53,39 +53,11 @@ class SendProfileInfo{
                 console.log("Error")
                 console.log(response)
             }
-        })
-
-
-        // if(!httpRequest){
-        //     alert('ERROR: Cannot create an XMLHTTP instnace')
-        //     return false
-        // }
-
-        // httpRequest.onreadystatechange = alertContents;
-        // httpRequest.open('POST', 'http://localhost:3000/wp-json/wp/v2/partners/' + document.getElementById('profile-edit-form').dataset.postid, true)
-        // httpRequest.setRequestHeader('X-WP-Nonce', data.nonce )
-        // httpRequest.setRequestHeader('Content-Type', 'application/json')
-        // httpRequest.send(JSON.stringify(updates))
-        // //httpRequest.send()
-
-        // function alertContents(){
-        //     try{
-        //         if(httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200){
-        //             console.log(httpRequest.responseText)
-        //         } else {
-        //             console.log("not working")
-        //             //console.log(httpRequest.responseText + " readyState: " + httpRequest.readyState + " status: " + httpRequest.status)
-        //         }
-        //     }
-        //     catch(e){
-        //         alert('CaughtException: ' + e.description)
-        //     }
-        // }
-        
+        })        
     }
 
     btnEnable(){
-        if(document.getElementsByClassName('char-cap')[0]){
+        if(document.getElementsByClassName('char-cap').length){
             this.btn.disabled = true
         } else {
             this.btn.disabled = false

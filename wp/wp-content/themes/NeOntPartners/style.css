@@ -730,8 +730,8 @@ input:focus, textarea:focus {
 .profile-edit-form {
   display: flex;
   flex-direction: column;
-  flex: .50;
-  margin: 0 auto;
+  flex: .56;
+  margin-left: auto;
   text-align: center; }
 .form-section {
   color: darkgray; }
@@ -791,6 +791,9 @@ input:focus, textarea:focus {
   box-sizing: border-box; }
 .form-checkbox {
   margin-top: 0.1em; }
+.register-form {
+  display: flex;
+  flex-direction: column; }
 /*
 TODO: for main
     main{
