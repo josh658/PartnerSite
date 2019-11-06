@@ -188,6 +188,32 @@ input:focus, textarea:focus {
   margin-left: 30%;
   text-align: left; }
 
+.row:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+.form-more-info-header {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  color: lightgray;
+  background-color: #353535; }
+
+.two-column {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  float: left;
+  width: 50%;
+  box-sizing: border-box; }
+
+.col-2 {
+  padding-left: 2em;
+  box-sizing: border-box; }
+
+.form-checkbox {
+  margin-top: 0.1em; }
+
 /*
 TODO: for main
     main{
