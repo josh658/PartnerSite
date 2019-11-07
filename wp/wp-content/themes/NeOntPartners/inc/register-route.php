@@ -22,13 +22,13 @@ function registerNewUser(){
 }
 
 function evaluateForm($data){
-    
+    //check to see if email is already in use 
     if($data['email'] == "" || $data['FirstName'] == "" || $data['LastName'] == "" || $data['Password'] == ""){
         return new WP_REST_Response(array('message' => 'missing arg'), 200);
     }
 
 
-    //check to see if email is already in use
+
     if(!email_exists($data['email'])){
         //create new user and store new user ID
         $newID = wp_insert_user( array(

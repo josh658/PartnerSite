@@ -28,20 +28,22 @@
             while($SubscriptionQuery->have_posts()){
                 $SubscriptionQuery->the_post();
         ?>
-        <div class="three-column card-subscription" style="order: <?php echo get_field('order', $post->ID); ?>">
+        <div    data-subID="<?php echo get_field('price', $post->ID)?>"
+                class="card-subscription
+                    <?php echo (get_field('order', $post->ID) == 1 ? "card-selected" : ""); ?>"
+                style="order: <?php echo get_field('order', $post->ID); ?>;">
                 <h2><?php the_title(); ?></h2>
                 <p><?php the_content(); ?></p>
-                <p><?php echo get_field('price', $post->ID);?> </p>
+                <h5><?php echo get_field('display_price', $post->ID); ?> </h5>
+                <button id="card-sub-select" class="card-sub-select">Select</button>
         </div>
-    <?php } 
-    wp_rest_query();
-    ?>
+            <?php } 
+            wp_reset_query();
+            ?>
 
     </div>
-    <input type="submit" value="register" name="register" id="register-btn">
+    <button id="register-btn" class="btn">Register</button>
 </form>
-
-<!-- add registration react app here -->
 </main>
 
 <?php        

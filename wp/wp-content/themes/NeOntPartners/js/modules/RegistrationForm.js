@@ -9,6 +9,7 @@ class RegistrationForm{
     //events
     events(){
         $("#register-btn").on("click", this.clickListner.bind(this))
+        $('.card-sub-select').on('click', this.subSelect)
     }
     //methods
     clickListner(e){
@@ -19,7 +20,8 @@ class RegistrationForm{
             'FirstName': $("#first-name").val(),
             'LastName': $("#last-name").val(),
             'Password': $("#password").val(),
-            'email': $("#email").val()
+            'email': $("#email").val(),
+            'package': $('.card-selected').data('subID')
         }
 
         $.ajax({
@@ -43,6 +45,12 @@ class RegistrationForm{
                 console.log(response)
             }
         })
+    }
+
+    subSelect(e){
+        e.preventDefault()
+        $('.card-selected').removeClass('card-selected')
+        $(this).parent('div').addClass('card-selected')
     }
 }
 

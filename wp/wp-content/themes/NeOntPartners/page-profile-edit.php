@@ -237,6 +237,12 @@
         <!-- right Side-->
         <?php
 
+            /**
+             * check if there is already created partner profile for user
+             * if not check if there is a live version
+             * if so duplicate live post and make copy into pending
+             * if no live (new user) create a profile post
+             */
             $PartnerQuery = new WP_Query(array(
                 'post_type' => 'partners',
                 'posts_per_page' => 1,
@@ -249,6 +255,7 @@
             ));
             $thePartner;
             if(!$PartnerQuery->have_posts()){
+                wp_reset_postdata();
                 $publicPartner = new WP_Query(array(
                     'post_type' => 'partners',
                     'posts_per_page' => 1,
@@ -260,11 +267,14 @@
                     //this function is in methods.php
                     $draftPost = duplicate_post($post->ID);
                     $thePartner = get_post($draftPost);
+                } else {
+                    $thePartner = create_custom_post('partners', get_current_user_id());
                 }
             } else if($PartnerQuery->have_posts()){
                 $PartnerQuery->the_post(); 
                 $thePartner = get_post($post->ID);
             }
+            wp_reset_postdata()
         ?>
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
             <!-- <div class="container"> -->
