@@ -16,9 +16,20 @@
          * 
          * uploading can be done with js like in registrationForm.js
          */
-
-            while(have_posts()){
-                the_post();
+            $packageQuery = new WP_Query(array(
+                'post_type' => 'packages',
+                'post__in' => array($_GET['id']),
+                'posts_per_page' => 1,
+                'author' => get_current_user_id(),
+                'post_status' => array(
+                    'pending',
+                    'draft',
+                    'future'
+                )
+            ));
+        if($packageQuery->have_posts()){
+            while($packageQuery->have_posts()){
+                $packageQuery->the_post();
             
         ?>
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
@@ -36,7 +47,10 @@
             <button id="submit-package" class="form-element submit-btn">Submit</button>
             <!-- content of the form -->
         </section>
-            <?php } wp_reset_postdata(); } else {?>
+            <?php } wp_reset_postdata(); }else{
+                echo "You do not have access to this page. Please contact NEONT";
+            } 
+    }else {?>
         <h2>Please Signin First</h2>
     <?php } ?>
 <!-- Place hetml for form here-->

@@ -114,7 +114,7 @@
                 for($i = 1; $i <= 6; $i++){ ?>
             
                 <!-- when clicked this link will bring you to a page for package editing -->
-                <a href="<?php the_permalink($thePackage[$i]); ?>" class="package-thumnail">
+                <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); /*the_permalink($thePackage[$i]);*/ ?>" class="package-thumnail">
                     <?php //check to see if there is a title
                     if(apply_filters('the_title', $thePackage[$i]->post_title == "")){
                         ?>
