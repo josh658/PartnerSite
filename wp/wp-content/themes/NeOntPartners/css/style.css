@@ -218,6 +218,10 @@ input:focus, textarea:focus {
   display: flex;
   flex-direction: column; }
 
+.card-row {
+  display: flex;
+  justify-content: center; }
+
 /*
 TODO: for main
     main{

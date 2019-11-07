@@ -16,39 +16,23 @@
     <input id="password" class="form-element" type="password" placeholder="Password">
     <label>Email:</label>
     <input id="email" class="form-element" type="email" placeholder="Email">
-    <div class="row">
+    <div class="card-row">
         <?php 
             $SubscriptionQuery = new WP_Query(array(
-                'post_type' => 'subscription',
+                'post_type' => 'subscriptions',
                 'posts_per_page' => 3,
-                // 'meta_key' => 'isAddon',
-                // 'meta_value' => 'no'
+                //querying is_addon custom field to only accept
+                'meta_key' => 'is_addon',
+                'meta_value' => 'no'
             ));
             while($SubscriptionQuery->have_posts()){
                 $SubscriptionQuery->the_post();
         ?>
-        <div class="three-column card-subscription">
-            <?php if(get_field('order', $post->ID) == 1){?>
+        <div class="three-column card-subscription" style="order: <?php echo get_field('order', $post->ID); ?>">
                 <h2><?php the_title(); ?></h2>
                 <p><?php the_content(); ?></p>
                 <p><?php echo get_field('price', $post->ID);?> </p>
-            <?php } ?>
         </div>
-        <div class="three-column card-subscription">
-        <?php if(get_field('order', $post->ID) == 2){?>
-                <h2><?php the_title(); ?></h2>
-                <p><?php the_content(); ?></p>
-                <p><?php echo get_field('price', $post->ID);?> </p>
-            <?php } ?>    
-        </div>
-        <div class="three-column card-subscription">
-        <?php if(get_field('order', $post->ID) == 3){?>
-                <h2><?php the_title(); ?></h2>
-                <p><?php the_content(); ?></p>
-                <p><?php echo get_field('price', $post->ID);?> </p>
-            <?php } ?>    
-        </div>
-
     <?php } 
     wp_rest_query();
     ?>
