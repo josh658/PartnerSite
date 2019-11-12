@@ -20,13 +20,28 @@ class SendProfileInfo{
         
         if(this.postID != ""){
             //EDIT THIS TO ADD MORE ITEMS
-            var updates = {
-                // 'title': document.getElementById('comp-name').value,
-                // 'content': document.getElementById('desc').value,
-                // 'contactFirstName': document.getElementById('first-name').value,
-                // 'contactLastName': document.getElementById('last-name').value,
-                // 'contactEmail': document.getElementById('email').value
-                
+            
+            var accom = []
+            $.each($("input[name='accomodations']:checked"), ()=>{
+                accom.push($(this).val())
+            })
+            alert(accom.join(','))
+
+            let parks = [] 
+            $.each($("input[name='Parks']:checked"), () => {
+                parks.push($(this).val())
+            })
+
+            let attract = []
+            $('input').each($("[name='Attractions']:checked"), () => {
+                attract.push($(this).val())
+            })
+
+            let updates = {
+                'postID': this.postID,
+                'accomodations': accom.join(","),
+                'parks': parks,
+                'attractions': attract,
                 'title': $("#comp-name").val(),
                 'content': $("#desc").val(),
                 'contactFirstName': $(".first-name").val(),
@@ -42,7 +57,7 @@ class SendProfileInfo{
                     xhr.setRequestHeader('X-WP-Nonce', data.nonce);
                 },
 
-                url: data.root_url + '/wp-json/wp/v2/partners/' + this.postID,
+                url: data.root_url + '/wp-json/neont/v1/profile',
                 type:'POST',
                 data: updates,
                 success: (response) => {

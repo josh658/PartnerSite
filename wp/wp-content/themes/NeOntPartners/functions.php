@@ -4,6 +4,7 @@
 require get_theme_file_path('/inc/register-route.php');
 require get_theme_file_path('/inc/methods.php');
 require get_theme_file_path('/inc/redirect.php');
+require get_theme_file_path('/inc/profile-route.php');
 
 
 //for removing p tags when calling the_content
