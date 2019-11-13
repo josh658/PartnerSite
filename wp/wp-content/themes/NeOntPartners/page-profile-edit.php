@@ -176,115 +176,79 @@ wp_reset_postdata()
 
             <?php } ?>
             </ul>
-            <!-- pull in information about packages -->
+            <!-- pull in information about addons -->
             <form class="share-more-information-form">
                 <h3 class="form-more-info-header">Accomodations</h3>
                 <div class="row">
-                    <?php 
-                    //not pulling in all checkboxs
-                        $accom = get_field('accomodations', $thePartner->ID);
-                        if($accom){
-                            foreach ($accom as $a){
-                                if(true){
-                    ?>
-                    <div class="two-column">
-
-                                <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $a; ?>"> <?php echo $a; ?> </label>
-
-                        <!-- <label class="form-checkbox"><input type="checkbox" name="accomodations" value="B&B"> B&B </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Cabins"> Cabins </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Lodges"> Lodges </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Hotel & Motel"> Hotel & Motel </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Hostel"> Hostel </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Open All Year"> Open All Year </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Seasonal"> Seasonal </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Free Parking"> Free Parking </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Internet Access"> Internet Access </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Restaurant"> Restaurant </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Kitchen"> Kitchen </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="American Plan"> American Plan </label> -->
-                    </div> 
-                        <?php } else { ?>
-                    <div class="two-column col-2">
-                                <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $a; ?>"> <?php echo $a; ?> </label>
-                        <!-- <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Private Bath"> Private Bath </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Laundry"> Laundry </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Waterfront"> Waterfront </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Spa/Pool"> Spa/Pool </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Wheelchair Access"> Wheelchair Access </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Shuttle Service"> Shuttle Service </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Motorcyce Friendly"> Motorcyce Friendly </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Snowmonile Fiendly"> Snowmonile Fiendly </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Guided Tours"> Guided Tours </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Fuel"> Fuel </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Pets Welcome"> Pets Welcome </label> -->
+                    <div class="two-column"><?php 
+                        $count = 0;
+                        $accomodations = get_field_object('accomodations', $thePartner->ID);
+                        $choices = $accomodations['choices'];
+                        $checked = get_field('accomodations', $thePartner->ID);
+                        if($accomodations){
+                            foreach ($choices as $value => $label){
+                                $count++;
+                                if($count == count($choices)/2+1){
+                                ?>
+                                    </div>
+                                    <div class="two-column col-2">
+                                <?php
+                                }
+                                ?>
+                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                   
+                    <?php  }} ?>
                     </div>
-                    <?php   }}} ?>
                 </div>
                 <h3 class="form-more-info-header">Camping & Rv Parks</h3>
                 <div class="row">
                     <div class="two-column">
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="30 amp"> 30 amp</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="50 amp"> 50 amp</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Full hook-up"> Full hook-up</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Boat Launch"> Boat Launch</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Boat Rentals"> Boat Rentals</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Pull-through sites"> Pull-through sites</label>
-                    </div>    
-                    <div class="two-column col-2">
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Internet Access"> Internet Access</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Open year-round"> Open year-round</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Pets welcome"> Pets welcome</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Store"> Store</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Parks" value="Restaurant"> Restaurant</label>
+                    <?php 
+                        $count = 0;
+                        $camping = get_field_object('camping', $thePartner->ID);
+                        $choices = $camping['choices'];
+                        $checked = get_field('camping', $thePartner->ID);
+                        if($camping){
+                            foreach ($choices as $value => $label){
+                                //truncate count($choices)/2 it is giving a decimal which causes an error!
+                                
+                                //echo $count;
+                                //echo ((Int)count($choices)/2);
+                                //echo (($count == count($choices)/2) ? "true" : "false");
+                                $count++;
+                                if($count == (int)(count($choices)/2)+1){
+                                ?>
+                                    </div>
+                                    <div class="two-column col-2">
+                                <?php
+                                }
+                                ?>
+                        <label class="form-checkbox"><input type="checkbox" name="camping" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                   
+                    <?php  }} ?>
                     </div>
                 </div>
                 <h3 class="form-more-info-header">Attractions, Activities & Services</h3>
                 <div class="row">
                     <div class="two-column">
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Air Service"> Air Service</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Art gallery"> Art gallery</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Attraction"> Attraction</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Aurora/Dark sky viewing"> Aurora/Dark sky viewing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Boat rental"> Boat rental</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Bus/Motorcoach"> Bus/Motorcoach</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Cruise & Ferries"> Cruise & Ferries</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Cultural/Interpretive center"> Cultural/Interpretive center</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Day trip"> Day trip</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Dogsledding"> Dogsledding</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Event"> Event</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Festival"> Festival</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Fishing"> Fishing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Ice-fishing"> Ice-fishing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Flightseeing"> Flightseeing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="General Store"> General Store</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Grocery store"> Grocery store</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Golf"> Golf</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Hiking"> Hiking</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Guided Hiking"> Guided Hiking</label>
-                    </div>    
-                    <div class="two-column col-2">
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Hunting"> Hunting</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Guided Hunting"> Guided Hunting</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Paddling"> Paddling</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Guided Paddling"> Guided Paddling</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Rafting"> Rafting</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Guided Rafting"> Guided Rafting</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Mountain Biking"> Mountain Biking</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Museum"> Museum</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Rail"> Rail</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Shopping"> Shopping</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Skiing"> Skiing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Snowmobiling"> Snowmobiling</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Vehicle rental"> Vehicle rental</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Snowshoeing"> Snowshoeing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Wildlife viewing"> Wildlife viewing</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Hunting"> Hunting</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Bear"> Bear</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Deer"> Deer</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Moose"> Moose</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Small Game"> Small Game</label>
-                        <label class="form-checkbox"><input type="checkbox" name="Attractions" value="Waterfowl"> Waterfowl</label>
+                    <?php 
+                        $count = 0;
+                        $attractions = get_field_object('attractions', $thePartner->ID);
+                        $choices = $attractions['choices'];
+                        $checked = get_field('attractions', $thePartner->ID);
+                        if($attractions){
+                            foreach ($choices as $value => $label){
+                                $count++;
+                                if($count == count($choices)/2+1){
+                                ?>
+                                    </div>
+                                    <div class="two-column col-2">
+                                <?php
+                                }
+                                ?>
+                        <label class="form-checkbox"><input type="checkbox" name="attractions" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                   
+                    <?php  }} ?>
                     </div>
                 </div>
             </form>
