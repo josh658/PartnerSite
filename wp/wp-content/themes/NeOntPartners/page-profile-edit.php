@@ -4,6 +4,48 @@
     $userID = get_current_user_id();
 ?>
 <main>
+<?php
+
+/**
+ * check if there is already created partner profile for user
+ * if not check if there is a live version
+ * if so duplicate live post and make copy into pending
+ * if no live (new user) create a profile post
+ */
+$PartnerQuery = new WP_Query(array(
+    'post_type' => 'partners',
+    'posts_per_page' => 1,
+    'author' => $userID,
+    'post_status' => array(
+        'pending', 
+        'draft',
+        'future'
+    )
+));
+$thePartner;
+if(!$PartnerQuery->have_posts()){
+    wp_reset_postdata();
+    $publicPartner = new WP_Query(array(
+        'post_type' => 'partners',
+        'posts_per_page' => 1,
+        'author' => $userID,
+        'post_status' => 'public'
+    ));
+    if($publicPartner->have_posts()){
+        $publicPartner->the_post();
+        //this function is in methods.php
+        $draftPost = duplicate_post($post->ID);
+        $thePartner = get_post($draftPost);
+    } else {
+        $thePartner = create_custom_post('partners', get_current_user_id());
+    }
+} else if($PartnerQuery->have_posts()){
+    $PartnerQuery->the_post(); 
+    $thePartner = get_post($post->ID);
+}
+wp_reset_postdata()
+?>
+
     <h2 class="profile-header">Your Profile</h2>
     <h3 id="profile-status" class="profile-header"><!--use JS to Dynamically change this --> </h3>
     <?php if(is_user_logged_in()){ 
@@ -138,8 +180,18 @@
             <form class="share-more-information-form">
                 <h3 class="form-more-info-header">Accomodations</h3>
                 <div class="row">
+                    <?php 
+                    //not pulling in all checkboxs
+                        $accom = get_field('accomodations', $thePartner->ID);
+                        if($accom){
+                            foreach ($accom as $a){
+                                if(true){
+                    ?>
                     <div class="two-column">
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="B&B"> B&B </label>
+
+                                <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $a; ?>"> <?php echo $a; ?> </label>
+
+                        <!-- <label class="form-checkbox"><input type="checkbox" name="accomodations" value="B&B"> B&B </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Cabins"> Cabins </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Lodges"> Lodges </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Hotel & Motel"> Hotel & Motel </label>
@@ -150,10 +202,12 @@
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Internet Access"> Internet Access </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Restaurant"> Restaurant </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Kitchen"> Kitchen </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="American Plan"> American Plan </label>
-                    </div>    
+                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="American Plan"> American Plan </label> -->
+                    </div> 
+                        <?php } else { ?>
                     <div class="two-column col-2">
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Private Bath"> Private Bath </label>
+                                <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $a; ?>"> <?php echo $a; ?> </label>
+                        <!-- <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Private Bath"> Private Bath </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Laundry"> Laundry </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Waterfront"> Waterfront </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Spa/Pool"> Spa/Pool </label>
@@ -163,8 +217,9 @@
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Snowmonile Fiendly"> Snowmonile Fiendly </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Guided Tours"> Guided Tours </label>
                         <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Fuel"> Fuel </label>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Pets Welcome"> Pets Welcome </label>
+                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="Pets Welcome"> Pets Welcome </label> -->
                     </div>
+                    <?php   }}} ?>
                 </div>
                 <h3 class="form-more-info-header">Camping & Rv Parks</h3>
                 <div class="row">
@@ -235,47 +290,7 @@
             </form>
         </div>
         <!-- right Side-->
-        <?php
 
-            /**
-             * check if there is already created partner profile for user
-             * if not check if there is a live version
-             * if so duplicate live post and make copy into pending
-             * if no live (new user) create a profile post
-             */
-            $PartnerQuery = new WP_Query(array(
-                'post_type' => 'partners',
-                'posts_per_page' => 1,
-                'author' => $userID,
-                'post_status' => array(
-                    'pending', 
-                    'draft',
-                    'future'
-                )
-            ));
-            $thePartner;
-            if(!$PartnerQuery->have_posts()){
-                wp_reset_postdata();
-                $publicPartner = new WP_Query(array(
-                    'post_type' => 'partners',
-                    'posts_per_page' => 1,
-                    'author' => $userID,
-                    'post_status' => 'public'
-                ));
-                if($publicPartner->have_posts()){
-                    $publicPartner->the_post();
-                    //this function is in methods.php
-                    $draftPost = duplicate_post($post->ID);
-                    $thePartner = get_post($draftPost);
-                } else {
-                    $thePartner = create_custom_post('partners', get_current_user_id());
-                }
-            } else if($PartnerQuery->have_posts()){
-                $PartnerQuery->the_post(); 
-                $thePartner = get_post($post->ID);
-            }
-            wp_reset_postdata()
-        ?>
         <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
             <!-- <div class="container"> -->
             <h3 class="form-section">Location Information</h3>

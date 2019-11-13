@@ -22,24 +22,26 @@ class SendProfileInfo{
             //EDIT THIS TO ADD MORE ITEMS
             
             var accom = []
-            $.each($("input[name='accomodations']:checked"), ()=>{
+            $("[name=accomodations]:checked").each( function(){
                 accom.push($(this).val())
             })
-            alert(accom.join(','))
+            
 
-            let parks = [] 
-            $.each($("input[name='Parks']:checked"), () => {
+            let parks = []
+            $("[name=Parks]:checked").each( function(){
                 parks.push($(this).val())
             })
-
+                
+                
             let attract = []
-            $('input').each($("[name='Attractions']:checked"), () => {
+            $("[name=Attractions]:checked").each( function(){
                 attract.push($(this).val())
             })
+            
 
             let updates = {
                 'postID': this.postID,
-                'accomodations': accom.join(","),
+                'accomodations': accom,
                 'parks': parks,
                 'attractions': attract,
                 'title': $("#comp-name").val(),
@@ -50,6 +52,7 @@ class SendProfileInfo{
                 'status': 'pending'
             }
 
+            console.log(updates)
 
             //---- JQUERY WAY OF REQUEST CALL MIGHT BE MORE SECURE ----
             $.ajax({

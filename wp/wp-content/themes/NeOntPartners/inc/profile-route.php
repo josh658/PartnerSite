@@ -24,7 +24,9 @@ function profileForm($data){
     echo get_post($data['postID'])->post_author;
 
     if(get_post($data['postID'])->post_author == get_current_user_id()){
-
+        foreach  ($data["accomodations"] as $value){
+            
+        }
         return new WP_REST_Response( array('message' => 'OK'), 200);
     } else {
         return new WP_REST_Response( array('message' => 'Email already exists.',
