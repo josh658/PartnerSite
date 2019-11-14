@@ -28,13 +28,13 @@ class SendProfileInfo{
             
 
             let parks = []
-            $("[name=Parks]:checked").each( function(){
+            $("[name=camping]:checked").each( function(){
                 parks.push($(this).val())
             })
                 
                 
             let attract = []
-            $("[name=Attractions]:checked").each( function(){
+            $("[name=attractions]:checked").each( function(){
                 attract.push($(this).val())
             })
             

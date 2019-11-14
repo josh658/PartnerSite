@@ -22,7 +22,7 @@ $PartnerQuery = new WP_Query(array(
         'future'
     )
 ));
-$thePartner;
+$thePartnerPost;
 if(!$PartnerQuery->have_posts()){
     wp_reset_postdata();
     $publicPartner = new WP_Query(array(
@@ -35,21 +35,27 @@ if(!$PartnerQuery->have_posts()){
         $publicPartner->the_post();
         //this function is in methods.php
         $draftPost = duplicate_post($post->ID);
-        $thePartner = get_post($draftPost);
+        $thePartnerPost = get_post($draftPost);
     } else {
-        $thePartner = create_custom_post('partners', get_current_user_id());
+        $draftPost = create_custom_post('partners', get_current_user_id(), array(
+            'accomodations',
+            'camping',
+            'attractions'
+        ));
+        $thePartnerPost = get_post($draftPost);
     }
 } else if($PartnerQuery->have_posts()){
     $PartnerQuery->the_post(); 
-    $thePartner = get_post($post->ID);
+    $thePartnerPost = get_post($post->ID);
 }
-wp_reset_postdata()
+wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
     <h3 id="profile-status" class="profile-header"><!--use JS to Dynamically change this --> </h3>
     <?php if(is_user_logged_in()){ 
-        $user_info = get_userdata($userID); ?>
+        $user_info = get_userdata($userID);     
+    ?>
     <div class="twoColumns" id="profile-container" data-id="<?php echo $userID; ?>">
         <!--left side-->
 
@@ -115,14 +121,14 @@ wp_reset_postdata()
                     $thePackage[get_field('package_id', $post->ID)] = $post;
                 }
                 wp_reset_postdata();
-                if($packageQuery->found_posts() < 6){
+                if($packageQuery->found_posts() < 4){
                     $publicPackageQuery = new WP_Query(array(
                         'post_type' => 'packages',
                         'posts_per_page' => -1,
                         'author' => $userID,
                         'post_status' => 'public'
                     ));
-                    for( $count = 1; $count <= 6; $count++){
+                    for( $count = 1; $count <= 4; $count++){
                         $doesExist = false;
                         foreach( $thePackage as $value){
                             if( $count == get_field('package_id', $value->ID)){
@@ -153,7 +159,7 @@ wp_reset_postdata()
             ?> 
             <ul> 
             <?php
-                for($i = 1; $i <= 6; $i++){ ?>
+                for($i = 1; $i <= 4; $i++){ ?>
             
                 <!-- when clicked this link will bring you to a page for package editing -->
                 <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); /*the_permalink($thePackage[$i]);*/ ?>" class="package-thumnail">
@@ -174,7 +180,9 @@ wp_reset_postdata()
                 </a>
 
 
-            <?php } ?>
+            <?php } 
+            // MARK : Pulling checkbox information
+            ?>
             </ul>
             <!-- pull in information about addons -->
             <form class="share-more-information-form">
@@ -182,13 +190,13 @@ wp_reset_postdata()
                 <div class="row">
                     <div class="two-column"><?php 
                         $count = 0;
-                        $accomodations = get_field_object('accomodations', $thePartner->ID);
+                        $accomodations = get_field_object('accomodations', $thePartnerPost->ID);
                         $choices = $accomodations['choices'];
-                        $checked = get_field('accomodations', $thePartner->ID);
+                        $checked = get_field('accomodations', $thePartnerPost->ID);
                         if($accomodations){
                             foreach ($choices as $value => $label){
                                 $count++;
-                                if($count == count($choices)/2+1){
+                                if($count == (int)(count($choices)/2)+1){
                                 ?>
                                     </div>
                                     <div class="two-column col-2">
@@ -205,9 +213,9 @@ wp_reset_postdata()
                     <div class="two-column">
                     <?php 
                         $count = 0;
-                        $camping = get_field_object('camping', $thePartner->ID);
+                        $camping = get_field_object('camping', $thePartnerPost->ID);
                         $choices = $camping['choices'];
-                        $checked = get_field('camping', $thePartner->ID);
+                        $checked = get_field('camping', $thePartnerPost->ID);
                         if($camping){
                             foreach ($choices as $value => $label){
                                 //truncate count($choices)/2 it is giving a decimal which causes an error!
@@ -233,13 +241,13 @@ wp_reset_postdata()
                     <div class="two-column">
                     <?php 
                         $count = 0;
-                        $attractions = get_field_object('attractions', $thePartner->ID);
+                        $attractions = get_field_object('attractions', $thePartnerPost->ID);
                         $choices = $attractions['choices'];
-                        $checked = get_field('attractions', $thePartner->ID);
+                        $checked = get_field('attractions', $thePartnerPost->ID);
                         if($attractions){
                             foreach ($choices as $value => $label){
                                 $count++;
-                                if($count == count($choices)/2+1){
+                                if($count == (int)(count($choices)/2)+1){
                                 ?>
                                     </div>
                                     <div class="two-column col-2">
@@ -255,15 +263,15 @@ wp_reset_postdata()
         </div>
         <!-- right Side-->
 
-        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartner->ID; ?>">
+        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartnerPost->ID; ?>">
             <!-- <div class="container"> -->
             <h3 class="form-section">Location Information</h3>
             
             <label class="form-header">Business Name:</label>
-            <input id='comp-name' class="form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartner->post_title); ?>" data-char-cap="40">
+            <input id='comp-name' class="form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartnerPost->post_title); ?>" data-char-cap="40">
             
             <label class="form-header">Business Description:</label>
-            <textarea id='desc' class="form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartner->post_content); ?></textarea>
+            <textarea id='desc' class="form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartnerPost->post_content); ?></textarea>
             
             <label class="form-header">
                 Website:

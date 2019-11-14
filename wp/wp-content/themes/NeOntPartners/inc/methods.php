@@ -43,23 +43,28 @@ function update_public_post($draftPostID, $originalPostID){
 }
 
 /**
- * creating a package post with status draft and current user as author
+ * creating a post post with status draft and current user as author
  * 
- * @param String  &type of custom post
+ * @param String  $type of custom post
  * @param Int     $userID
- * @return Int    new ID of package
+ * @param Array   $acfArr array of acf field that need to be initialized on load
+ * @return Int    new ID of post
  */
-function create_custom_post($type, $userID){
-  $newPackageID = wp_insert_post(array(
+
+//TODO: add post_parent to array 
+function create_custom_post($type, $userID, $acfArr = array()){
+  $newPostID = wp_insert_post(array(
     'post_title' => " ",
     'post_status' => 'draft',
     'post_author' => $userID,
     'post_type'   => $type
   ));
 
-  return $newPackageID;
+  foreach ($acfArr as $value){
+    update_field($value, array(), $newPostID);
+  }
+
+
+  return $newPostID;
 }
-//strip the tags off the UNUSED
-// function strip_the_content($content){
-//     return strip_tags($content);
-// }
+
