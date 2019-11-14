@@ -12,6 +12,7 @@ class SendProfileInfo{
     events(){
         this.btn.addEventListener("click", this.updateProfile.bind(this))
         document.addEventListener('keyup', this.btnEnable.bind(this))
+        document.addEventListener('click', this.updateProfile.bind(this))
     }
 
     //methods
@@ -40,16 +41,37 @@ class SendProfileInfo{
             
 
             let updates = {
+                //acf will be an array made to loop through
+                'acf': {
+                    'accomodations': accom,
+                    'parks': parks,
+                    'attractions': attract,
+                    'secondary_contact_firstname': $("#s-first-name").val(),
+                    'secondary_contact_lastname': $("#s-last-name").val(),
+                    'secondary_contact_email': $("#s-email").val() ,
+                    'website_url' : $("#website").val(),
+                    'business_email': $("#business-email").val(),
+                    'business_street_address': $("#business-addr").val(),
+                    'business_city': [$("#b-city").val()],
+                    'business_postal_code': $("#b-postal-code").val(),
+                    'latitude': $("#lat").val(),
+                    'longitude': $("#lng").val(),
+                    'business_phone_number': $("#b-phonenumber").val(),
+                    'toll_free_number': $("#toll-free").val(),
+                    'head_office_street_address': $("#head-addr").val(),
+                    'head_office_city': $("#head-city").val(),
+                    'head_office_provincestate': $("#head-province").val(),
+                    'head_office_postal_code': $("#head-postal").val(),
+                    'head_office_phone_number': $("#head-phone").val()
+                },
                 'postID': this.postID,
-                'accomodations': accom,
-                'parks': parks,
-                'attractions': attract,
                 'title': $("#comp-name").val(),
                 'content': $("#desc").val(),
+                'status': 'pending',
+                //contact 1 information is saved directly to user
                 'contactFirstName': $(".first-name").val(),
                 'contactLastName': $(".last-name").val(),
                 'contactEmail': $(".email").val(),
-                'status': 'pending'
             }
 
             console.log(updates)

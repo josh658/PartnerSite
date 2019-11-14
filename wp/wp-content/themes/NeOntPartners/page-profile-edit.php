@@ -296,7 +296,7 @@ wp_reset_postdata();
                 <div class="center-split"></div>
                 <div class="half-split">
                     <label class="form-header">Business Postal Code</label>
-                    <input type="text" class="form-element" id="postal-code" placeholder="Postal Code">
+                    <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code">
                 </div>
             </div>
 
@@ -337,16 +337,16 @@ wp_reset_postdata();
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">First Name</label>
-                    <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="">
+                    <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" value="">
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">   
                     <label class="form-header">Last Name</label>
-                    <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="">
+                    <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="">
                 </div>
             </div>
             <label class="form-header">Email:</label>
-            <input id="email--secondary" class="form-element email" type="textbox" placeholder="Email" value="">
+            <input id="s-email" class="form-element email" type="textbox" placeholder="Email" value="">
             
             <h3 class="form-section">Head Office Information</h3>
 
@@ -355,28 +355,28 @@ wp_reset_postdata();
 
             <label class="form-header">
                 Head Office Street Address
-                <input type="text" class="form-element" placeholder='Street Address'>
+                <input id='head-addr' type="text" class="form-element" placeholder='Street Address'>
             </label>
             <label class="form-header">
                 City
-                <input type="text" class="form-element" placeholder='City'>
+                <input id='head-city' type="text" class="form-element" placeholder='City'>
             </label>
             <label class="form-header">
                 Province/State
-                <input type="text" class="form-element" placeholder='Province/State'>
+                <input id='head-province' type="text" class="form-element" placeholder='Province/State'>
             </label>
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">
                         Postal/Zip Code
-                        <input type="text" class="form-element" placeholder='Postal/Zip Code'>
+                        <input id='head-postal' type="text" class="form-element" placeholder='Postal/Zip Code'>
                     </label>
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">
                     <label class="form-header">
                         phone number
-                        <input class="form-element" placeholder='Phone Number'>
+                        <input id='head-phone' class="form-element" placeholder='Phone Number'>
                     </label>
                 </div>
             </div>

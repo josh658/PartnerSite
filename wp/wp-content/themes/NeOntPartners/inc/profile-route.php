@@ -16,16 +16,29 @@ function editProfile(){
 }
 
 function profileForm($data){
-    //check to see if email is already in use 
-    // if($data['email'] == "" || $data['FirstName'] == "" || $data['LastName'] == "" || $data['Password'] == ""){
-    //     return new WP_REST_Response(array('message' => 'missing arg'), 200);
-    // }
 
     if(get_post($data['postID'])->post_author == get_current_user_id()){
-        update_field('accomodations', $data['accomodations'], $data['postID']);
-        update_field('camping', $data['parks'], $data['postID']);
-        update_field('attractions', $data['attractions'], $data['postID']);
+        foreach ($data['acf'] as $key => $val){
+            update_field($key, $val, $data['postID']);
+        }
         
+        // update_field('camping', $data['parks'], $data['postID']);
+        // update_field('attractions', $data['attractions'], $data['postID']);
+        
+        //TODO: escape all this
+        wp_update_post(array(
+            'ID'    => $data['postID'],
+            'post_title' => $data['title'],
+            'post_content' => $data['content'],
+            'post_status' => $data['status']
+        ));
+
+        wp_update_user(array(
+            'ID' => get_current_user_id(),
+            'first_name' => $data['contactFirstName'],
+            'last_name' => $data['contactLastName'],
+            'user_email' => $data['contactEmail']
+        ));
 
         return new WP_REST_Response( array('message' => 'OK'), 200);
     } else {
