@@ -275,47 +275,47 @@ wp_reset_postdata();
             
             <label class="form-header">
                 Website:
-                <input type="text" class="form-element website" id="website" placeholder="Website">
+                <input type="text" class="form-element website" id="website" placeholder="Website" value='<?php echo get_field('website_url', $thePartnerPost->ID); ?>'>
             </label>
             
             <label class="form-header">
                 Business Email:
-                <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email">
+                <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email" placeholder="Website" value='<?php echo get_field('business_email', $thePartnerPost->ID); ?>'>
             </label>
 
             <!-- <h4 class="form-header">Business Address</h4> -->
             <label class="form-header">
                 Business Street Address:
-                <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address">
+                <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address" placeholder="Street Address" value='<?php echo get_field('business_street_address', $thePartnerPost->ID); ?>'>
             </label>
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">Business City</label>
-                    <input type="text" class="form-element" id="b-city" placeholder="Business City">
+                    <input type="text" class="form-element" id="b-city" placeholder="Business City" placeholder="Website" value='<?php echo get_field('business_city', $thePartnerPost->ID); ?>'>
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">
                     <label class="form-header">Business Postal Code</label>
-                    <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code">
+                    <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code" placeholder="Website" value='<?php echo get_field('business_postal_code', $thePartnerPost->ID); ?>'>
                 </div>
             </div>
 
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">Latitude</label>
-                    <input type="text" class="form-element" id="lat" placeholder="Latitude">
+                    <input type="text" class="form-element" id="lat" placeholder="Latitude" placeholder="Website" value='<?php echo get_field('latitude', $thePartnerPost->ID); ?>'>
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">
                     <label class="form-header">Longitude</label>
-                    <input type="text" class="form-element" id="lng" placeholder="Longitude">
+                    <input type="text" class="form-element" id="lng" placeholder="Longitude" placeholder="Website" value='<?php echo get_field('longitude', $thePartnerPost->ID); ?>'>
                 </div>
             </div>
             <label class="form-header">Business Phone number</label>
-            <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number">
+            <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number" placeholder="Website" value='<?php echo get_field('business_phone_number', $thePartnerPost->ID); ?>'>
             
             <label class="form-header">Toll-Free Number</label>
-            <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number">
+            <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number" placeholder="Website" value='<?php echo get_field('toll_free_nunber', $thePartnerPost->ID); ?>'>
 
             <!-- Billing information -->
             <h3 class="form-section">Billing Information</h3>
@@ -327,26 +327,26 @@ wp_reset_postdata();
                 <div class="center-split"></div>
                 <div class="half-split">   
                     <label class="form-header">Last Name</label>
-                    <input id="last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
+                    <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
                 </div>
             </div>
             <label class="form-header">Email</label>
-            <input id="email" class="form-element email" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
+            <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
 
             <label class="form-header">Secondary Contact</label>
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">First Name</label>
-                    <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" value="">
+                    <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" placeholder="Website" value='<?php echo get_field('secondary_contact_firstname', $thePartnerPost->ID); ?>'>
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">   
                     <label class="form-header">Last Name</label>
-                    <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" value="">
+                    <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" placeholder="Website" value='<?php echo get_field('secondary_contact_lastname', $thePartnerPost->ID); ?>'>
                 </div>
             </div>
             <label class="form-header">Email:</label>
-            <input id="s-email" class="form-element email" type="textbox" placeholder="Email" value="">
+            <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
             
             <h3 class="form-section">Head Office Information</h3>
 
@@ -355,28 +355,28 @@ wp_reset_postdata();
 
             <label class="form-header">
                 Head Office Street Address
-                <input id='head-addr' type="text" class="form-element" placeholder='Street Address'>
+                <input id='head-addr' type="text" class="form-element" placeholder='Street Address' placeholder="Website" value='<?php echo get_field('head_office_street_address', $thePartnerPost->ID); ?>'>
             </label>
             <label class="form-header">
                 City
-                <input id='head-city' type="text" class="form-element" placeholder='City'>
+                <input id='head-city' type="text" class="form-element" placeholder='City' placeholder="Website" value='<?php echo get_field('head_office_city', $thePartnerPost->ID); ?>'>
             </label>
             <label class="form-header">
                 Province/State
-                <input id='head-province' type="text" class="form-element" placeholder='Province/State'>
+                <input id='head-province' type="text" class="form-element" placeholder='Province/State' placeholder="Website" value='<?php echo get_field('head_office_provicestate', $thePartnerPost->ID); ?>'>
             </label>
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">
                         Postal/Zip Code
-                        <input id='head-postal' type="text" class="form-element" placeholder='Postal/Zip Code'>
+                        <input id='head-postal' type="text" class="form-element" placeholder='Postal/Zip Code' placeholder="Website" value='<?php echo get_field('head_office_postal_code', $thePartnerPost->ID); ?>'>
                     </label>
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">
                     <label class="form-header">
                         phone number
-                        <input id='head-phone' class="form-element" placeholder='Phone Number'>
+                        <input id='head-phone' class="form-element" placeholder='Phone Number' placeholder="Website" value='<?php echo get_field('head_office_phone_number', $thePartnerPost->ID); ?>'>
                     </label>
                 </div>
             </div>

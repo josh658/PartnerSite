@@ -42,17 +42,20 @@ class SendProfileInfo{
 
             let updates = {
                 //acf will be an array made to loop through
-                'acf': {
+                'acfCheckbox': {
                     'accomodations': accom,
                     'parks': parks,
                     'attractions': attract,
+                    
+                },
+                'acfString': {
                     'secondary_contact_firstname': $("#s-first-name").val(),
                     'secondary_contact_lastname': $("#s-last-name").val(),
                     'secondary_contact_email': $("#s-email").val() ,
                     'website_url' : $("#website").val(),
                     'business_email': $("#business-email").val(),
                     'business_street_address': $("#business-addr").val(),
-                    'business_city': [$("#b-city").val()],
+                    'business_city': $("#b-city").val(),
                     'business_postal_code': $("#b-postal-code").val(),
                     'latitude': $("#lat").val(),
                     'longitude': $("#lng").val(),
@@ -69,9 +72,9 @@ class SendProfileInfo{
                 'content': $("#desc").val(),
                 'status': 'pending',
                 //contact 1 information is saved directly to user
-                'contactFirstName': $(".first-name").val(),
-                'contactLastName': $(".last-name").val(),
-                'contactEmail': $(".email").val(),
+                'contactFirstName': $("#first-name").val(),
+                'contactLastName': $("#last-name").val(),
+                'contactEmail': $("#email").val(),
             }
 
             console.log(updates)

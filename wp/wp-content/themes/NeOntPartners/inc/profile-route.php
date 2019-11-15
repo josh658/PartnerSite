@@ -18,8 +18,14 @@ function editProfile(){
 function profileForm($data){
 
     if(get_post($data['postID'])->post_author == get_current_user_id()){
-        foreach ($data['acf'] as $key => $val){
+        foreach ($data['acfCheckbox'] as $key => $val){
             update_field($key, $val, $data['postID']);
+        }
+
+        foreach ($data['acfString'] as $key => $val){
+            update_field($key, $val, $data['postID']);
+            // return new WP_REST_Response( array('key' => $key,
+            //                                     'value' => $val));
         }
         
         // update_field('camping', $data['parks'], $data['postID']);
