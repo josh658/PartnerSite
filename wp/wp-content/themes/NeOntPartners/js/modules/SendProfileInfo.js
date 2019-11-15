@@ -4,15 +4,22 @@ class SendProfileInfo{
     constructor(){
         this.btn = document.getElementById('Submit-Profile')
         this.postID = $('#profile-edit-form').data('postid')
-        if(this.btn){
-            this.events();    
-        }
+        this.moreInfo = document.getElementById('more-info')
+        this.typingTime;
+        this.events();  
     }
 
     events(){
         this.btn.addEventListener("click", this.updateProfile.bind(this))
         document.addEventListener('keyup', this.btnEnable.bind(this))
-        document.addEventListener('click', this.updateProfile.bind(this))
+        //save a second after a key is presses
+        document.addEventListener('keyup', this.typingLogic.bind(this))
+        this.moreInfo.addEventListener('click', this.updateProfile.bind(this))
+    }
+
+    typingLogic(){
+        clearTimeout(this.typingLogic)
+        this.typingLogic = setTimeout(this.updateProfile.bind(this), 1000)
     }
 
     //methods
@@ -76,8 +83,6 @@ class SendProfileInfo{
                 'contactLastName': $("#last-name").val(),
                 'contactEmail': $("#email").val(),
             }
-
-            console.log(updates)
 
             //---- JQUERY WAY OF REQUEST CALL MIGHT BE MORE SECURE ----
             $.ajax({

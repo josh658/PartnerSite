@@ -2,6 +2,12 @@
     //pulling in header
     get_header();
     $userID = get_current_user_id();
+
+    /**
+     * TODO:
+     *  -sanitize all echoed data
+     *  -
+     */
 ?>
 <main>
 <?php
@@ -162,7 +168,7 @@ wp_reset_postdata();
                 for($i = 1; $i <= 4; $i++){ ?>
             
                 <!-- when clicked this link will bring you to a page for package editing -->
-                <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); /*the_permalink($thePackage[$i]);*/ ?>" class="package-thumnail">
+                <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
                     <?php //check to see if there is a title
                     if(apply_filters('the_title', $thePackage[$i]->post_title == "")){
                         ?>
@@ -185,7 +191,7 @@ wp_reset_postdata();
             ?>
             </ul>
             <!-- pull in information about addons -->
-            <form class="share-more-information-form">
+            <form id='more-info' class="share-more-information-form">
                 <h3 class="form-more-info-header">Accomodations</h3>
                 <div class="row">
                     <div class="two-column"><?php 

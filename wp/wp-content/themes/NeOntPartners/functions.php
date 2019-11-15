@@ -21,56 +21,5 @@ function files(){
 }
 add_action('wp_enqueue_scripts', 'files');
 
-//customizing the rest api
-// function custom_rest(){
-//     //Post type profile
-//     register_rest_field('partners', 'authorName', array(
-//         'get_callback' => function() {return get_the_author();}
-//     ));
-//     register_rest_field( 'partners', 'contactFirstName', array(
-//         'get_callback' => function() {
-//             return get_field('contact_firstname');
-//         },
-//         'update_callback' => function($value, $obj) {
-//             //echo &obj->ID ***debugging to consol***
-//             update_field('contact_firstname', $value, $obj->ID);
-//             return true;
-//         }
-//     ));
-//     register_rest_field( 'partners', 'contactLastName', array(
-//         'get_callback' => function() {return get_field('contact_lastname');},
-//         'update_callback' => function($value, $obj) {
-//             update_field('contact_lastname', $value, $obj->ID);
-//             return true;
-//         }
-//     ));
-//     register_rest_field( 'partners', 'contactEmail', array(
-//         'get_callback' => function() {return get_field('contact_email');},
-//         'update_callback' => function($value, $obj) {
-//             update_field('contact_email', $value, $obj->ID);
-//             return true;
-//         }
-//     ));
-
-//     //post type package
-//     register_rest_field('packages', 'authorName', array(
-//         'get_callback' => function() {return get_the_author();}
-//     ));
-//     register_rest_field('packages', 'startDate', array(
-//         'get_callback' => function() {return get_field('start_date');},
-//         'update_callback' => function($value, $obj){
-//             update_field('start_date', $value, $obj->ID);
-//             return true;
-//         }
-//     ));
-//     register_rest_field('packages', 'endDate', array(
-//         'get_callback' => function() {return get_field('end_date');},
-//         'update_callback' => function($value, $obj){
-//             update_field('end_date', $value, $obj->ID);
-//             return true;
-//         }
-//     ));
-// }
-// add_action('rest_api_init', 'custom_rest');
 
 ?>
