@@ -306,6 +306,8 @@ wp_reset_postdata();
                 </div>
             </div>
 
+            <button id="locate">user current position</button>
+
             <div class="form-split">
                 <div class="half-split">
                     <label class="form-header">Latitude</label>
@@ -356,9 +358,11 @@ wp_reset_postdata();
             
             <h3 class="form-section">Head Office Information</h3>
 
-            <label class="form-header"><input type="checkbox" > same as location information</label>
+            <!-- make sure you dynamically change the checked onption depending on the option the user chose
+            this information must be stored in WP -->
+            <label class="form-header"><input id='same-as-location' type="checkbox" checked> same as location information</label>
 
-
+            <div id="same-as-location-content">
             <label class="form-header">
                 Head Office Street Address
                 <input id='head-addr' type="text" class="form-element" placeholder='Street Address' placeholder="Website" value='<?php echo get_field('head_office_street_address', $thePartnerPost->ID); ?>'>
@@ -385,6 +389,7 @@ wp_reset_postdata();
                         <input id='head-phone' class="form-element" placeholder='Phone Number' placeholder="Website" value='<?php echo get_field('head_office_phone_number', $thePartnerPost->ID); ?>'>
                     </label>
                 </div>
+            </div>
             </div>
 
             <button id="Submit-Profile" class="form-element submit-btn">Submit</button>
