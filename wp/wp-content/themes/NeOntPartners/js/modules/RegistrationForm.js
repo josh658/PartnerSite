@@ -9,7 +9,7 @@ class RegistrationForm{
     //events
     events(){
         $("#register-btn").on("click", this.clickListner.bind(this))
-        $('.card-sub-select').on('click', this.subSelect)
+        $('.card-sub-select').on('click', this.subSelect) 
     }
     //methods
     clickListner(e){

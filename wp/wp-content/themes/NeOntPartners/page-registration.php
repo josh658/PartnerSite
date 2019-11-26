@@ -20,13 +20,17 @@
         <?php 
             $SubscriptionQuery = new WP_Query(array(
                 'post_type' => 'subscriptions',
-                'posts_per_page' => 3,
+                'posts_per_page' => -1,
+                'post_status' => 'private',
                 //querying is_addon custom field to only accept
                 'meta_key' => 'is_addon',
                 'meta_value' => 'no'
             ));
             while($SubscriptionQuery->have_posts()){
                 $SubscriptionQuery->the_post();
+                if (get_field('static_name', $post->ID) == 'Free' ||
+                    get_field('static_name', $post->ID) == 'Standard' ||
+                    get_field('static_name', $post->ID) == 'Premium'){
         ?>
         <div    data-subID="<?php echo get_field('price', $post->ID)?>"
                 class="card-subscription
@@ -35,9 +39,9 @@
                 <h2><?php the_title(); ?></h2>
                 <p><?php the_content(); ?></p>
                 <h5><?php echo get_field('display_price', $post->ID); ?> </h5>
-                <button id="card-sub-select" class="card-sub-select">Select</button>
+                <button class="card-sub-select">Select</button>
         </div>
-            <?php } 
+            <?php } }
             wp_reset_query();
             ?>
 

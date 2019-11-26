@@ -11,7 +11,9 @@ class SendProfileInfo{
         this.same = document.getElementById('same-as-location')
         this.sameContent = document.getElementById('same-as-location-content')
         this.typingTime;
-        this.events();  
+        if( this.postID != null){
+            this.events();  
+        }
     }
 
     events(){
