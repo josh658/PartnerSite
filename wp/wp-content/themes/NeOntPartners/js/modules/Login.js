@@ -6,6 +6,7 @@ class Login{
         this.password = $('#login-password')
         this.btn = $('#login-btn')
         this.form = $('#login-form')
+        this.error = $('#login-error')
         this.events()
     }
     //for adding event listners or running functions at the start
@@ -29,7 +30,13 @@ class Login{
                 console.log("Congrats")
                 console.log(response)
                 if(response.message == "OK"){
-                    setTimeout(() => {this.form.submit()}, 1000)
+                    this.form.submit()
+                } else {
+                    //reset the error container to nothing
+                    this.error.html("")
+                    for (const element of response.message){
+                        this.error.append("<p>" + element + "</p>")
+                    }
                 }
             },
             error: (response) => {

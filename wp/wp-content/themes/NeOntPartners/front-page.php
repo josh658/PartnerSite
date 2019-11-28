@@ -18,6 +18,7 @@
         //insert form
         ?>
         <form id='login-form' class='sign-in-form-card' method='post' action=<?php echo esc_url(site_url('wp-login.php', 'login_post'));?>>
+            <div id='login-error'></div>
             <p>Sign In to Northeastern Ontario Tourism Partners</p>
             <input id='login-email' name='log' placeholder='Email Address'>
             <input id='login-password' type='password' name="pwd" placeholder='password'>

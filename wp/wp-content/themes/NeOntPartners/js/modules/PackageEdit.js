@@ -3,7 +3,8 @@ import 'jquery-ui/ui/widgets/datepicker'
 
 class PackageEdit{
     constructor(){
-        /**
+      this.postID = $('#package-edit-form').data('postid')  
+      /**
          * the below code will allow for a date picker range
          */
         var dateFormat = "mm/dd/yy",
@@ -57,6 +58,7 @@ class PackageEdit{
 
     packageUpdate(){
         var updates = {
+            'postID': this.postID,
             'title': $("#package-name").val(),
             'content': $("#package-desc").val(),
             'startDate': $("#start").val(),
@@ -69,7 +71,7 @@ class PackageEdit{
                 xhr.setRequestHeader('X-WP-Nonce', data.nonce);
             },
 
-            url: 'http://localhost:3000/wp-json/wp/v2/packages/' + document.getElementById('profile-edit-form').dataset.postid,
+            url: data.root_url + '/wp-json/neont/v1/packages',
             type:'POST',
             data: updates,
             success: (response) => {

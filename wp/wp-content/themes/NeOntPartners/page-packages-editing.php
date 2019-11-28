@@ -5,7 +5,7 @@
     $userID = get_current_user_id();
 ?>
 <main>
-    <h2 class="profile-header">Your Package</h2>
+    <h2 class="package-header">Your Package</h2>
     <?php if(is_user_logged_in()){ ?>
         <!-- right Side-->
         <?php
@@ -32,7 +32,7 @@
                 $packageQuery->the_post();
             
         ?>
-        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
+        <section id="package-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
             <!-- <div class="container"> -->
             <h4 class="form-heading">Information</h4>
             <input id='package-name' class="form-element comp-name" type="textbox" placeholder="Package Name" value="<?php echo apply_filters('the_title', $post->post_title); ?>">

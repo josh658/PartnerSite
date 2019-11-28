@@ -11,7 +11,7 @@ class SendProfileInfo{
         this.same = document.getElementById('same-as-location')
         this.sameContent = document.getElementById('same-as-location-content')
         this.typingTime;
-        if( this.postID != null){
+        if( window.location.pathname == '/profile-edit'){
             this.events();  
         }
     }
@@ -39,6 +39,8 @@ class SendProfileInfo{
     }
 
     locating(){
+        this.lat.value = "locating..."
+        this.lng.value = "locating..."
         function success(position){
             this.lat.value = position.coords.latitude
             this.lng.value = position.coords.longitude

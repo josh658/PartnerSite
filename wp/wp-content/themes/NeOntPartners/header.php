@@ -19,6 +19,10 @@
                     <a class="list-item" href="<?php echo site_url('/board-minutes');?>">
                         <li class="list-item--name">Board Minutes</li>
                     </a>
+                    <!-- TODO: only show if the user is admin -->
+                    <a class='list-item' href="<?php echo site_url('/pending-review');?>">
+                        <li class="list-item--name">Pending Review</li>
+                    </a>
                     <div class="list-item">                        
                         <li class="list-item--name dropdown">Organizations
                             <ul class="dropdown-list">
