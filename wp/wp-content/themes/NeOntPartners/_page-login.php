@@ -12,7 +12,8 @@
         <?php
     }else{
         wp_login_form( array(
-            'redirect' => home_url()
+            'redirect' => home_url(),
+            'echo' => false
         ));
     }
 
