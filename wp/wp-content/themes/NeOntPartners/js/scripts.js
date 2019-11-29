@@ -9,6 +9,7 @@ import RegistrationForm from './modules/RegistrationForm'
 import PackageEdit from './modules/PackageEdit'
 import WordCap from './modules/WordCap'
 import Login from './modules/Login'
+import Pending from './modules/Pending'
 
 //instantiate a new object usign our modules/classes
     //var search = new Search
@@ -18,3 +19,4 @@ import Login from './modules/Login'
     var packageEdit = new PackageEdit
     var wordCap = new WordCap
     var login = new Login
+    var pending = new Pending

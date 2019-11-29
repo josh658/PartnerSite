@@ -241,6 +241,19 @@ input:focus, textarea:focus {
   .sign-in-form-card > * {
     margin-bottom: 1em; }
 
+.pending-card--small, .pending-card--large {
+  width: 100%;
+  height: 5em;
+  border-style: solid;
+  margin-top: 1em;
+  transition: 0.25s; }
+
+.pending-card--large {
+  background-color: white;
+  width: 90vw;
+  height: 90vh;
+  transition: .25s; }
+
 /*
 TODO: for main
     main{
