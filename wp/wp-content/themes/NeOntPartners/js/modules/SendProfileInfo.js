@@ -11,7 +11,7 @@ class SendProfileInfo{
         this.same = document.getElementById('same-as-location')
         this.sameContent = document.getElementById('same-as-location-content')
         this.typingTime;
-        if( window.location.pathname == '/profile-edit'){
+        if( window.location.pathname == '/profile-edit/'){
             this.events();  
         }
     }

@@ -238,7 +238,7 @@ input:focus, textarea:focus {
   width: 10em;
   display: flex;
   flex-direction: column; }
-  .sign-in-form-card > * {
+  x .sign-in-form-card > * {
     margin-bottom: 1em; }
 
 .pending-card--small, .pending-card--large {
@@ -246,13 +246,19 @@ input:focus, textarea:focus {
   height: 5em;
   border-style: solid;
   margin-top: 1em;
-  transition: 0.25s; }
+  transition: 0.500s; }
 
 .pending-card--large {
   background-color: white;
-  width: 90vw;
-  height: 90vh;
-  transition: .25s; }
+  width: 100%;
+  height: 90%;
+  transition: 0.500s; }
+
+.isHidden {
+  display: none; }
+
+.isShown {
+  display: block; }
 
 /*
 TODO: for main
