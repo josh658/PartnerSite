@@ -32,14 +32,35 @@ function duplicate_post($postID){
 }
 
 /**
- * use the original post id to update the public post with the pending post data
+ * used to update a profile post. makes sure that all the information we want updated is, in fact updated
  * 
- * @param Int $draftPostID
- * @param Int $originalPostID
+ * @param Int $postID the ID of the post you want to update
+ * @param Int $data the data you want to replace
  * 
  */
-function update_public_post($draftPostID, $originalPostID){
+function update_profile_post($postID, $data, $status = 'pending'){
+  foreach ($data['acfCheckbox'] as $key => $val){
+      update_field($key, $val, $postID);
+  }
 
+  foreach ($data['acfString'] as $key => $val){
+      update_field($key, $val, $postID);
+  }
+
+  //TODO: escape all this
+  wp_update_post(array(
+      'ID'    => $postID,
+      'post_title' => $data['title'],
+      'post_content' => $data['content'],
+      'post_status' => $status
+  ));
+
+  wp_update_user(array(
+      'ID' => $postID->post_author,
+      'first_name' => $data['contactFirstName'],
+      'last_name' => $data['contactLastName'],
+      'user_email' => $data['contactEmail']
+  ));
 }
 
 /**
@@ -60,8 +81,8 @@ function create_custom_post($type, $userID, $acfArr = array()){
     'post_type'   => $type
   ));
 
-  foreach ($acfArr as $value){
-    update_field($value, array(), $newPostID);
+  foreach ($acfArr as $key => $value){
+    update_field($key, $value, $newPostID);
   }
 
 

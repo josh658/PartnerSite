@@ -20,3 +20,5 @@ import Pending from './modules/Pending'
     var wordCap = new WordCap
     var login = new Login
     var pending = new Pending
+    
+    

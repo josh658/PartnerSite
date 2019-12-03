@@ -1,15 +1,18 @@
 import $ from 'jquery'
+import profileDataPull from './functions'
 
 class Pending {
     constructor(){
         this.pendingBox = $('.pending-card--small')
         this.editBtn = $('.edit-btn')
+        this.publishBtn = $('.publish-btn')
         this.event()
     }
 
     event(){
         this.pendingBox.on('click',this.enlarge)
         this.editBtn.on('click', this.toggleEdit)
+        this.publishBtn.on('click', this.publish)
     }
 
     enlarge(){
@@ -37,12 +40,26 @@ class Pending {
         if($(toggle).data('state') == 'editable'){
             $(toggle).find('input, textarea').prop('disabled', true)
             $(toggle).data('state', 'cancel')
+            $(this).html('Edit')
+            $(this).siblings('.edit-btn').html('Edit')
         } else {
             $(toggle).find('input, textarea').prop('disabled', false)
             $(toggle).data('state', 'editable')
+            $(this).html('Cancel')
+            $(this).siblings('.edit-btn').html('Cancel')
         }
     }
 
+    publish(){
+        if ($(this).parent().data('post-type') == 'partners'){
+            //use ajax to publish partners post
+            profileDataPull($(this).parents('.pending-card--large').attr('id'), 'publish')
+            $(this).parents('.pending-card--large').hide()
+        } else if ($(this).parent().data('post-type') == 'packages'){
+            //use ajax to publish packages post
+
+        }
+    }
 }
 
 export default Pending

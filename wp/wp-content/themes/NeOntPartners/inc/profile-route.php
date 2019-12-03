@@ -17,39 +17,20 @@ function editProfile(){
 
 function profileForm($data){
 
-    if(get_post($data['postID'])->post_author == get_current_user_id()){
-        foreach ($data['acfCheckbox'] as $key => $val){
-            update_field($key, $val, $data['postID']);
-        }
-
-        foreach ($data['acfString'] as $key => $val){
-            update_field($key, $val, $data['postID']);
-            // return new WP_REST_Response( array('key' => $key,
-            //                                     'value' => $val));
+    if((get_post($data['postID'])->post_author == get_current_user_id()) || in_array('administrator', wp_get_current_user()->roles) ){
+        $originalPostID = get_field('original_post_id', $data['postID']);
+        if( $originalPostID == null){
+            update_profile_post($originalPostID, $data, 'publish');
+        } else {
+            create_custom_post('partners', get_post($data['postID'])->author, $data);
         }
         
-        // update_field('camping', $data['parks'], $data['postID']);
-        // update_field('attractions', $data['attractions'], $data['postID']);
-        
-        //TODO: escape all this
-        wp_update_post(array(
-            'ID'    => $data['postID'],
-            'post_title' => $data['title'],
-            'post_content' => $data['content'],
-            'post_status' => $data['status']
-        ));
+        update_profile_post($data['postID'], $data, 'draft');
 
-        wp_update_user(array(
-            'ID' => get_current_user_id(),
-            'first_name' => $data['contactFirstName'],
-            'last_name' => $data['contactLastName'],
-            'user_email' => $data['contactEmail']
-        ));
 
         return new WP_REST_Response( array('message' => 'OK'), 200);
     } else {
-        return new WP_REST_Response( array('message' => 'Email already exists.',
-                                           'email_exists' => email_exists($data['email'])), 200);
+        return new WP_REST_Response( array('message' => 'Error'), 200);
     }
     
     

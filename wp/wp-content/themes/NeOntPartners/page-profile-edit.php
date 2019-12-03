@@ -58,7 +58,6 @@ wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
-    <h3 id="profile-status" class="profile-header"><!--use JS to Dynamically change this --> </h3>
     <?php if(is_user_logged_in()){ 
         $user_info = get_userdata($userID);     
     ?>
@@ -155,7 +154,9 @@ wp_reset_postdata();
                             }
                             if(!$doesExist){
                                 //echo "making new";
-                                $thePackage[$count] = get_post(create_custom_post('packages', $userID));
+                                $thePackage[$count] = get_post(create_custom_post('packages', $userID, array (
+                                    'owner_id' => $thePartnerPost->ID
+                                )));
                                 update_field('package_id', $count, $thePackage[$count]->ID);
                             }
                         }

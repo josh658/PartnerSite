@@ -25,10 +25,10 @@
         ?>
 
             <!-- html template for any partners -->
-            <div class="twoColumns isHidden" id="profile-container">
+            <div class="twoColumns isHidden" id="profile-container" data-post-type='partners'>
                 <button id='edit-top' class='edit-btn'>Edit</button>
                 <button id='publish-top' class='publish-btn'>Publish</button>
-                <form id='more-info' class="share-more-information-form">
+                <div id='more-info' class="share-more-indivation-form">
                     <h3 class="form-more-info-header">Accomodations</h3>
                     <div class="row">
                         <div class="two-column"><?php 
@@ -98,10 +98,10 @@
                         <?php  }} ?>
                         </div>
                     </div>
-                </form>
+                </div>
                 <!-- right Side-->
 
-                <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
+                <div id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $post->ID; ?>">
                     <!-- <div class="container"> -->
                     <h3 class="form-section">Location Information</h3>
                     
@@ -225,7 +225,7 @@
                         </div>
                     </div>
                     <!-- content of the form -->
-                </section>
+                </div>
                 <button id='edit-bottom' class='edit-btn'>Edit</button>
                 <button id='publish-bottom' class='publish-btn'>Publish</button>
             </div>
@@ -233,7 +233,7 @@
             } else if ($post->post_type == "packages"){
         ?>
         <!-- html for packages -->
-            <div id="package-edit-form" class="profile-edit-form isHidden">
+            <div id="package-edit-form" class="profile-edit-form isHidden" data-post-type='packages'>
                 <!-- <div class="container"> -->
                 <button id='edit-top' class='edit-btn'>Edit</button>
                 <button id='publish-top' class='publish-btn'>Publish</button>
