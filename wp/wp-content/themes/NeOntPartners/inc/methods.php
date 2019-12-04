@@ -35,7 +35,8 @@ function duplicate_post($postID){
  * used to update a profile post. makes sure that all the information we want updated is, in fact updated
  * 
  * @param Int $postID the ID of the post you want to update
- * @param Int $data the data you want to replace
+ * @param Array $data the data you want to updated
+ * @param String $status to be able to change the status of the post
  * 
  */
 function update_profile_post($postID, $data, $status = 'pending'){
@@ -64,6 +65,27 @@ function update_profile_post($postID, $data, $status = 'pending'){
 }
 
 /**
+ * class to update package posts. 
+ * 
+ * @param Int $postID the ID of the post you want to update
+ * @param Array $data the data you want to updated
+ * @param String $status to be able to change the status of the post
+ * 
+ */
+
+ function update_package_post($postID, $data, $status = 'pending'){
+  update_field('start_date', $data['startDate'], $data['postID']);
+  update_field('end_date', $data['endDate'], $data['postID']);
+
+  wp_update_post( array(
+      'ID'    => $data['postID'],
+      'post_title' => $data['title'],
+      'post_content' => $data['content'],
+      'post_status' => $data['status']
+  ));
+ }
+
+/**
  * creating a post post with status draft and current user as author
  * 
  * @param String  $type of custom post
@@ -81,8 +103,15 @@ function create_custom_post($type, $userID, $acfArr = array()){
     'post_type'   => $type
   ));
 
-  foreach ($acfArr as $key => $value){
-    update_field($key, $value, $newPostID);
+  //check if array is associative of sequencial
+  if(array_keys($acfArr) !== range(0, count($acfArr) -1)){
+    foreach ($acfArr as $key => $value){
+      update_field($key, $value, $newPostID);
+    }
+  } else {
+    foreach ($acfArr as $value){
+      update_field($value, array(), $newPostID);
+    }
   }
 
 

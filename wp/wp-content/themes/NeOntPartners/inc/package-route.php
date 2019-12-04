@@ -11,15 +11,23 @@ function editPackage(){
 
 function packages($data){
 
-    update_field('start_date', $data['startDate'], $data['postID']);
-    update_field('end_date', $data['endDate'], $data['postID']);
-
-    wp_update_post( array(
-        'ID'    => $data['postID'],
-        'post_title' => $data['title'],
-        'post_content' => $data['content'],
-        'post_status' => $data['status']
-    ));
-
-    return new WP_REST_Response( array('message' => 'OK'));
+    if(get_post($data['postID'])->post_author == get_current_user_id() || in_array('administrator', wp_get_current_user()->roles)){ 
+        
+        if($data['status'] == 'public'){
+            $originalPostID = get_field('original_post_id', $data['postID']);
+            if(!is_null($originalPostID)){
+                update_package_post($originalPostID, $data, 'publish');
+            } else {
+                $newPostID = create_custom_post('packages', get_post($data['postID'])->post_author);
+                update_package_post($newPostID, $data, 'publish');
+                update_field('original_post_id', $newPostID, $data['postID']);
+            }
+            update_package_post($data['postID'], $data, 'draft');
+        } else {
+            update_package_post($data['postID'], $data, 'pending');
+        }
+        return new WP_REST_Response( array('message' => 'OK'));
+    } else {
+        return new WP_REST_Response( array('message' => 'Error'));
+    }
 }

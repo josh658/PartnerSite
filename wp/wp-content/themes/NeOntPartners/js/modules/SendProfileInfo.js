@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import profileDataPull from './functions'
+import profileDataPull from './Functions/profileDataPull'
 
 class SendProfileInfo{
     constructor(){
@@ -20,11 +20,11 @@ class SendProfileInfo{
     events(){
         this.same.addEventListener("click", this.sameAs.bind(this))
         this.locate.addEventListener("click", this.locating.bind(this))
-        this.btn.addEventListener("click", this.updateProfile.bind(this))
+        this.btn.addEventListener("click", this.updateProfile.bind(this.moreInfo, this.postID))
         document.addEventListener('keyup', this.btnEnable.bind(this))
         //save a second after a key is presses
         document.addEventListener('keyup', this.typingLogic.bind(this))
-        this.moreInfo.addEventListener('click', this.updateProfile.bind(this))
+        this.moreInfo.addEventListener('click', this.updateProfile.bind(this.moreInfo, this.postID))
 
     }
 
@@ -45,29 +45,30 @@ class SendProfileInfo{
         function success(position){
             this.lat.value = position.coords.latitude
             this.lng.value = position.coords.longitude
-            this.updateProfile()
+            this.updateProfile.bind(this.moreInfo, this.postID)
         }
 
         function error(){
+            this.lat.value = "location unavailable"
+            this.lng.value = "location unavailable"
         }
 
         if(!navigator.geolocation){
             //status.textContent = 'Geolocation is not supported by your browser'
         } else {
             //must bing success or else it will have the wrong values
-            navigator.geolocation.getCurrentPosition(success.bind(this), error)
+            navigator.geolocation.getCurrentPosition(success.bind(this), error.bind(this))
         }
     }
 
     typingLogic(){
         clearTimeout(this.typingLogic)
-        this.typingLogic = setTimeout(this.updateProfile.bind(this), 1000)
+        this.typingLogic = setTimeout(this.updateProfile.bind(this.moreInfo, this.postID), 1000)
     }
 
     //methods
-    updateProfile(){
-        
-        profileDataPull(this.postID, 'pending')
+    updateProfile(postID){
+        profileDataPull.call(this, postID, 'pending')
     }
 
     btnEnable(){

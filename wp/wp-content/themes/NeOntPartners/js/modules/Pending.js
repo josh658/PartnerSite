@@ -1,5 +1,6 @@
 import $ from 'jquery'
-import profileDataPull from './functions'
+import profileDataPull from './Functions/profileDataPull'
+import packageDataPull from './Functions/packageDataPull'
 
 class Pending {
     constructor(){
@@ -42,11 +43,17 @@ class Pending {
             $(toggle).data('state', 'cancel')
             $(this).html('Edit')
             $(this).siblings('.edit-btn').html('Edit')
+            //alert($(this).parents('.pending-card--large').attr('id'))
+            if($(this).parent().data('post-type') == 'partners'){
+                profileDataPull.call(this, $(this).parents('.pending-card--large').attr('id'), 'pending')
+            } else if($(this).parent().data('post-type') == 'packages'){
+                packageDataPull.call(this, $(this).parents('.pending-card--large').attr('id'), 'pending')
+            }
         } else {
             $(toggle).find('input, textarea').prop('disabled', false)
             $(toggle).data('state', 'editable')
-            $(this).html('Cancel')
-            $(this).siblings('.edit-btn').html('Cancel')
+            $(this).html('Save')
+            $(this).siblings('.edit-btn').html('Save')
         }
     }
 
@@ -57,7 +64,8 @@ class Pending {
             $(this).parents('.pending-card--large').hide()
         } else if ($(this).parent().data('post-type') == 'packages'){
             //use ajax to publish packages post
-
+            packageDataPull($(this).parents('.pending-card--large').attr('id'), 'publish')
+            $(this).parents('.pending-card--large').hide()
         }
     }
 }

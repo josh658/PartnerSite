@@ -1,5 +1,6 @@
 import $ from "jquery"
 import 'jquery-ui/ui/widgets/datepicker'
+import packageDataPull from './Functions/packageDataPull'
 
 class PackageEdit{
     constructor(){
@@ -53,37 +54,11 @@ class PackageEdit{
     }
 
     event(){
-        this.btn.on('click', this.packageUpdate.bind(this))
+        this.btn.on('click', this.packageUpdate.bind(this.btn, this.postID))
     }
 
-    packageUpdate(){
-        var updates = {
-            'postID': this.postID,
-            'title': $("#package-name").val(),
-            'content': $("#package-desc").val(),
-            'startDate': $("#start").val(),
-            'endDate': $("#end").val(),
-            'status': 'pending'
-        }
-
-        $.ajax({
-            beforeSend:(xhr) => {
-                xhr.setRequestHeader('X-WP-Nonce', data.nonce);
-            },
-
-            url: data.root_url + '/wp-json/neont/v1/packages',
-            type:'POST',
-            data: updates,
-            success: (response) => {
-                console.log("Congrats")
-                console.log(updates)
-                console.log(response)
-            },
-            error: (response) => {
-                console.log("Error")
-                console.log(response)
-            }
-        })
+    packageUpdate(postID){
+        packageDataPull.call(this, postID, 'pending')
     }
 }
 
