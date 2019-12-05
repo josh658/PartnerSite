@@ -18,7 +18,10 @@
         $pendingQue->the_post();
 ?>
     <div id='<?php echo $post->ID ?>' class='pending-card--small'>
+    <div class='pending-title-card'>
         <h1><?php the_title() ?> </h1>
+        <div class='close-button-card pending-card-close'></div>
+    </div>    
         <?php 
             // if it is a package write this template
             if ($post->post_type == 'partners'){ 
@@ -137,8 +140,6 @@
                             <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code" placeholder="Website" value='<?php echo get_field('business_postal_code', $post->ID); ?>'>
                         </div>
                     </div>
-
-                    <button id="locate">user current position</button>
 
                     <div class="form-split">
                         <div class="half-split">

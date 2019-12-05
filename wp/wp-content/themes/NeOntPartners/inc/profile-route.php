@@ -30,7 +30,7 @@ function profileForm($data){
             }
             update_profile_post($data['postID'], $data, 'draft');
         } else {
-            update_profile_post($data['postID'], $data, 'pending');
+            update_profile_post($data['postID'], $data, $data['status']);
         }
         
 

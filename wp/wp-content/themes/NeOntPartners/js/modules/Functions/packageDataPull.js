@@ -3,7 +3,7 @@ import $ from 'jquery'
 function packageDataPull(postID, postStatus){
     var updates = {
         'postID': postID,
-        'title': $(this).siblings("#package-name").val(),
+        'title': $(this).parents('div, section, form').find("#package-name").val(),
         'content': $(this).parents('div, section, form').find("#package-desc").val(),
         'startDate': $(this).parents('div, section, form').find("#start").val(),
         'endDate': $(this).parents('div, section, form').find("#end").val(),

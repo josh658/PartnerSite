@@ -13,7 +13,7 @@ function packages($data){
 
     if(get_post($data['postID'])->post_author == get_current_user_id() || in_array('administrator', wp_get_current_user()->roles)){ 
         
-        if($data['status'] == 'public'){
+        if($data['status'] == 'publish'){
             $originalPostID = get_field('original_post_id', $data['postID']);
             if(!is_null($originalPostID)){
                 update_package_post($originalPostID, $data, 'publish');
@@ -24,7 +24,7 @@ function packages($data){
             }
             update_package_post($data['postID'], $data, 'draft');
         } else {
-            update_package_post($data['postID'], $data, 'pending');
+            update_package_post($data['postID'], $data, $data['status']);
         }
         return new WP_REST_Response( array('message' => 'OK'));
     } else {

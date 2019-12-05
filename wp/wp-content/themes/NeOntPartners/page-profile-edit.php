@@ -35,7 +35,7 @@ if(!$PartnerQuery->have_posts()){
         'post_type' => 'partners',
         'posts_per_page' => 1,
         'author' => $userID,
-        'post_status' => 'public'
+        'post_status' => 'publish'
     ));
     if($publicPartner->have_posts()){
         $publicPartner->the_post();
@@ -123,21 +123,21 @@ wp_reset_postdata();
                 $thePackage = array();
                 while($packageQuery->have_posts()){
                     $packageQuery->the_post();
-                    $thePackage[get_field('package_id', $post->ID)] = $post;
+                    $thePackage[get_field('package_order', $post->ID)] = $post;
                 }
-                wp_reset_postdata();
                 if($packageQuery->found_posts() < 4){
+                    wp_reset_postdata();
                     $publicPackageQuery = new WP_Query(array(
                         'post_type' => 'packages',
                         'posts_per_page' => -1,
                         'author' => $userID,
-                        'post_status' => 'public'
+                        'post_status' => 'publish'
                     ));
                     for( $count = 1; $count <= 4; $count++){
                         $doesExist = false;
                         foreach( $thePackage as $value){
-                            if( $count == get_field('package_id', $value->ID)){
-                                //echo get_field('package_id', $value->ID);
+                            if( $count == get_field('package_order', $value->ID)){
+                                //echo get_field('package_order', $value->ID);
                                 $doesExist = true;
                                 break;
                             }
@@ -145,8 +145,11 @@ wp_reset_postdata();
                         if(!$doesExist){
                             while($publicPackageQuery->have_posts()){
                                 $publicPackageQuery->the_post();
-                                if($count == get_field('package_id', $post->ID)){
-                                    update_field('original_post_id', $post->ID, duplicate_post($post->ID));
+                                //duplicate_post returns the new post id 
+                                if($count == get_field('package_order', $post->ID)){
+                                    $newPost = duplicate_post($post->ID);
+                                    update_field('original_post_id', $post->ID, $newPost);
+                                    $thePackage[$count] = get_post($newPost);
                                     //echo "publicTrue";
                                     $doesExist = true;
                                     break;
@@ -154,10 +157,8 @@ wp_reset_postdata();
                             }
                             if(!$doesExist){
                                 //echo "making new";
-                                $thePackage[$count] = get_post(create_custom_post('packages', $userID, array (
-                                    'owner_id' => $thePartnerPost->ID
-                                )));
-                                update_field('package_id', $count, $thePackage[$count]->ID);
+                                $thePackage[$count] = get_post(create_custom_post('packages', $userID));
+                                update_field('package_order', $count, $thePackage[$count]->ID);
                             }
                         }
                     }
@@ -166,8 +167,8 @@ wp_reset_postdata();
             ?> 
             <ul> 
             <?php
-                for($i = 1; $i <= 4; $i++){ ?>
-            
+                for($i = 1; $i <= 4; $i++){ 
+            ?>
                 <!-- when clicked this link will bring you to a page for package editing -->
                 <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
                     <?php //check to see if there is a title

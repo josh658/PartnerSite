@@ -7,6 +7,8 @@ class Pending {
         this.pendingBox = $('.pending-card--small')
         this.editBtn = $('.edit-btn')
         this.publishBtn = $('.publish-btn')
+        this.closeBtn = $('.pending-card-close')
+        this.closeBtn.hide()
         this.event()
     }
 
@@ -14,19 +16,31 @@ class Pending {
         this.pendingBox.on('click',this.enlarge)
         this.editBtn.on('click', this.toggleEdit)
         this.publishBtn.on('click', this.publish)
+        this.closeBtn.on('click', this.shrink.bind(this))
+    }
+
+    shrink(e){
+        e.stopPropagation();
+        this.currentCard = $(e.target).parents('.pending-card--large')
+        this.currentCard.addClass('pending-card--small').removeClass("pending-card--large")
+        this.currentCard.find('.isShown').addClass('isHidden').removeClass('isShown')
+        this.currentCard.find('.pending-card-close').hide()
     }
 
     enlarge(){
         if($(this).hasClass('pending-card--small')){
             this.tmp = $('.pending-card--large')
-            this.tmp.removeClass("pending-card--large")
-            this.tmp.children('.isShown').removeClass('isShown').addClass('isHidden')
             this.tmp.addClass('pending-card--small')
-            $(this).removeClass('pending-card--small')
-            $(this).addClass('pending-card--large')
-            $(this).children('.isHidden').removeClass('isHidden').addClass('isShown')
+            this.tmp.removeClass("pending-card--large")
+            this.tmp.children('.isShown').addClass('isHidden').removeClass('isShown')
+            this.tmp.find('.pending-card-close').hide()
+            
+            $(this).addClass('pending-card--large').removeClass('pending-card--small')
+            // $(this).removeClass('pending-card--small')
+            $(this).children('.isHidden').addClass('isShown').removeClass('isHidden')
             $(this).find('input, textarea').prop('disabled', true)
-            // $(this).find('textarea').prop('disabled', true) 
+            $(this).find('.pending-card-close').show()
+            
             setTimeout(() => {
                 $('html, boday, main').animate({
                     //ugly equation to get it to sit nicely under the header... yuck
@@ -43,7 +57,6 @@ class Pending {
             $(toggle).data('state', 'cancel')
             $(this).html('Edit')
             $(this).siblings('.edit-btn').html('Edit')
-            //alert($(this).parents('.pending-card--large').attr('id'))
             if($(this).parent().data('post-type') == 'partners'){
                 profileDataPull.call(this, $(this).parents('.pending-card--large').attr('id'), 'pending')
             } else if($(this).parent().data('post-type') == 'packages'){
@@ -60,11 +73,11 @@ class Pending {
     publish(){
         if ($(this).parent().data('post-type') == 'partners'){
             //use ajax to publish partners post
-            profileDataPull($(this).parents('.pending-card--large').attr('id'), 'publish')
+            profileDataPull.call(this, $(this).parents('.pending-card--large').attr('id'), 'publish')
             $(this).parents('.pending-card--large').hide()
         } else if ($(this).parent().data('post-type') == 'packages'){
             //use ajax to publish packages post
-            packageDataPull($(this).parents('.pending-card--large').attr('id'), 'publish')
+            packageDataPull.call(this, $(this).parents('.pending-card--large').attr('id'), 'publish')
             $(this).parents('.pending-card--large').hide()
         }
     }

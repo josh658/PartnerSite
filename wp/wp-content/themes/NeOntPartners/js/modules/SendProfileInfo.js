@@ -39,13 +39,13 @@ class SendProfileInfo{
         console.log(document.getElementById('same-as-location').checked)
     }
 
-    locating(){
+    locating(e){
         this.lat.value = "locating..."
         this.lng.value = "locating..."
         function success(position){
             this.lat.value = position.coords.latitude
             this.lng.value = position.coords.longitude
-            this.updateProfile.bind(this.moreInfo, this.postID)
+            profileDataPull.call(e.target, this.post, 'draft')
         }
 
         function error(){
@@ -61,9 +61,9 @@ class SendProfileInfo{
         }
     }
 
-    typingLogic(){
+    typingLogic(e){
         clearTimeout(this.typingLogic)
-        this.typingLogic = setTimeout(this.updateProfile.bind(this.moreInfo, this.postID), 1000)
+        this.typingLogic = setTimeout(profileDataPull.bind(e.target, this.postID, 'draft'), 1500)
     }
 
     //methods

@@ -55,10 +55,17 @@ class PackageEdit{
 
     event(){
         this.btn.on('click', this.packageUpdate.bind(this.btn, this.postID))
+        $('main').on('keyup', this.typingLogic.bind(this))
     }
+
+    typingLogic(e){
+      clearTimeout(this.typingLogic)
+      this.typingLogic = setTimeout(packageDataPull.bind(e.target, this.postID, 'draft'), 1500)
+  }
 
     packageUpdate(postID){
         packageDataPull.call(this, postID, 'pending')
+        window.location.replace(data.root_url + "/profile-edit")
     }
 }
 

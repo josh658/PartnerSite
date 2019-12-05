@@ -71,3 +71,15 @@ function register_redirect(){
     }
 }
 add_action('init', 'register_redirect');
+
+function pending_review_redirect(){
+    $home_page = home_url('/');
+    $page_viewed = basename($_SERVER['REQUEST_URI']);
+
+    if($page_viewed == 'pending-review' && in_array('administrator', get_user_by(get_current_user_id())->user_roles)){
+        wp_redirect($home_page);
+        //might want to change it to profile page
+        exit;
+    }
+}
+add_action('init', 'pending_review_redirect');
