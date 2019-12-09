@@ -27,12 +27,26 @@ function evaluateForm($data){
         return new WP_REST_Response(array('message' => 'missing arg'), 200);
     }
 
+    /**
+     * if user already exists add a number to the end of the new registring user.
+     */
+    $LastName;
+    if( username_exists( $data['FirstName'] . ' ' . $data['LastName'] )){
+        $count = 0;
+        do{
+            $LastName = $data['LastName'];
+            $count++;
+            $LastName .= $count;
+        } while (username_exists( $data['FirstName'] . ' ' . $LastName));
+    }
 
+    //return new WP_REST_Response(array('message' => (!empty($LastName) ? $LastName : $data['LastName'])), 200);
+    $user_login = $data['FirstName'] . " " . (!empty($LastName) ? $LastName : $data['LastName']);
 
     if(!email_exists($data['email'])){
         //create new user and store new user ID
         $newID = wp_insert_user( array(
-            'user_login' => $data['FirstName'], 
+            'user_login' => $user_login, 
             'user_pass' => $data['Password'], 
             'user_email' => $data['email'],
             'first_name' => $data['FirstName'],
@@ -46,7 +60,7 @@ function evaluateForm($data){
         //ERROR CHECK newID
         //sign new user in
         $new_user = wp_signon(array(
-            'user_login' => $data['FirstName'],
+            'user_login' => $user_login,
             'user_password' => $data['Password'],
             'remember' => false
         ));
@@ -58,6 +72,4 @@ function evaluateForm($data){
     
     
     //create two partners pages for them (one draft one published) (will be passed in through $data)
-
-    //reload page to help redirect
 }

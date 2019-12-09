@@ -76,7 +76,10 @@ function pending_review_redirect(){
     $home_page = home_url('/');
     $page_viewed = basename($_SERVER['REQUEST_URI']);
 
-    if($page_viewed == 'pending-review' && in_array('administrator', get_user_by(get_current_user_id())->user_roles)){
+    if($page_viewed == 'pending-review' && get_current_user_id() == 0){
+        wp_redirect($home_page);
+        exit;
+    } else if($page_viewed == 'pending-review' && !in_array('administrator', get_userdata(get_current_user_id())->roles)){
         wp_redirect($home_page);
         //might want to change it to profile page
         exit;

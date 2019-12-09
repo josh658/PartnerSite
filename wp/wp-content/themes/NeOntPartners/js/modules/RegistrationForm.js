@@ -2,6 +2,11 @@ import $ from 'jquery'
 
 class RegistrationForm{
     constructor(){
+        //this. passwordError = $('#pasword-error')
+        this.password = $('#password')
+        this.email = $("#email")
+        this.passwordErrorDisplay = $('.password-error-message')
+        this.emailErrorDisplay = $('.email-error-message')
         $('#error-message').hide()
         this.events()
     }
@@ -15,12 +20,55 @@ class RegistrationForm{
     clickListner(e){
         e.preventDefault()
 
+        //check if the password has all required criteris
+        if(this.password.val() != ""){
+            let errorMessage = []
+            if(!/[a-z]/.test(this.password.val())){
+                errorMessage.push("password must have at least one lowercase letter")
+            }
+            if(!/[A-Z]/.test(this.password.val())){
+                errorMessage.push("password must have at least one uppercase letter")
+            }
+            if(!/\d/.test(this.password.val())){
+                errorMessage.push("password must contain at least one number")
+            }
+            if(!/\w{8,}/.test(this.password.val())){
+                errorMessage.push("password must be longet then 8 charcters")
+            }
+            if(/\W/.test(this.password.val())){
+                errorMessage.push("Password cannot contain any special charaters")
+            }
+            //pass word cannot be username/email
+            if(this.password.val() == this.email.val()){
+                errorMessage.push("Password cannot be your email")
+            }
+            //alert(errorMessage.length)
+            if(errorMessage.length){
+                // clear innerHTML 
+                this.passwordErrorDisplay.html("")
+                for (const error of errorMessage){
+                    //insert innerHTML
+                    this.passwordErrorDisplay.append("<p>" + error + "</p>")
+                }
+                return
+            }
+        } else {
+            this.passwordErrorDisplay.html("Empty Password")
+            return
+        }
+
+        //don't allow submission if email is not correct
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(this.email.val())){
+            alert("invalid email")
+            return
+        }
+
         //if a value is changed here it must be changed in register.route
         var formValues = {
             'FirstName': $("#first-name").val(),
             'LastName': $("#last-name").val(),
-            'Password': $("#password").val(),
-            'email': $("#email").val(),
+            'Password': this.password.val(),
+            'email': this.email.val(),
             'package': $('.card-selected').data('subID')
         }
 

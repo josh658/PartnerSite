@@ -20,9 +20,11 @@
                         <li class="list-item--name">Board Minutes</li>
                     </a>
                     <!-- TODO: only show if the user is admin -->
+                    <?php if(in_array('administrator', get_userdata(get_current_user_id())->roles)){ ?>
                     <a class='list-item' href="<?php echo site_url('/pending-review');?>">
                         <li class="list-item--name">Pending Review</li>
                     </a>
+                    <?php } ?>
                     <div class="list-item">                        
                         <li class="list-item--name dropdown">Organizations
                             <ul class="dropdown-list">

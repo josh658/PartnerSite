@@ -58,6 +58,11 @@ wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
+    <label>Auto Save</label>
+    <label class='auto-save-btn'>
+        <input type="checkbox" id='auto-save-btn' class='checkbox-slider-btn' checked>
+        <span class='slider-btn round-btn'></span>
+    </label>
     <?php if(is_user_logged_in()){ 
         $user_info = get_userdata($userID);     
     ?>
@@ -67,44 +72,6 @@ wp_reset_postdata();
 
         <div class="packages">
 
-        <h3 class="form-section">Partnership Information</h3>
-        <label class="partnershipStatus">Status of Partnership</label>
-        <button class="upgrade-btn">Upgrade</button>
-
-        <div class="addons">
-            <div class="addon-elements">
-                <label class="addon-title">Advertising packages</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon" name="Advertising packages" value="Platinum">
-                    Platinum</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Gold</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Silver</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Bronze</label>
-            </div>
-            
-            <div class="addon-elements">
-                <label class="addon-title">Online Packages</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    E-newletter</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Facebook: $250</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Social Media</label>
-                <label class="addon-label">
-                    <input type="checkbox" class="addon">
-                    Website</label>
-            </div>
-        </div>
-        <button>Purchase Addon</button>
 
 
 

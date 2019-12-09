@@ -47,9 +47,9 @@ class PackageEdit{
 
       //making the package form editable
       this.btn = $("#submit-package")
-      if(this.btn){
-          this.event()
-      }
+      if( window.location.pathname == '/package-editing/'){
+        this.events();  
+    }
 
     }
 

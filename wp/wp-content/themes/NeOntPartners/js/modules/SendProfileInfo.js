@@ -3,6 +3,7 @@ import profileDataPull from './Functions/profileDataPull'
 
 class SendProfileInfo{
     constructor(){
+        this.autosaveBtn = $('#auto-save-btn')
         this.btn = document.getElementById('Submit-Profile')
         this.postID = $('#profile-edit-form').data('postid')
         this.moreInfo = document.getElementById('more-info')
@@ -62,8 +63,11 @@ class SendProfileInfo{
     }
 
     typingLogic(e){
-        clearTimeout(this.typingLogic)
-        this.typingLogic = setTimeout(profileDataPull.bind(e.target, this.postID, 'draft'), 1500)
+        //alert(this.autosaveBtn.prop('checked'))
+        if (this.autosaveBtn.prop('checked')){
+            clearTimeout(this.typingLogic)
+            this.typingLogic = setTimeout(profileDataPull.bind(e.target, this.postID, 'draft'), 1500)
+        }
     }
 
     //methods

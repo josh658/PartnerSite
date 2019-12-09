@@ -20,3 +20,60 @@
 .submit-btn:hover{
     background-color: #fff;
 }
+
+/**
+MARK: slider buttons
+*/
+
+$autosaveWidth: 30px;
+$autosaveHeight: 17px;
+$sliderDimentions: 13px;
+
+.auto-save-btn{
+    position: relative;
+    display: inline-block;
+    width: $autosaveWidth;
+    height: $autosaveHeight;
+}
+
+.auto-save-btn input{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-btn{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: $autosaveWidth;
+}
+
+.slider-btn:before{
+    position: absolute;
+    content: "";
+    height: $sliderDimentions;
+    width: $sliderDimentions;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.checkbox-slider-btn:checked + .slider-btn{
+    background-color: #2196F3;
+}
+
+.checkbox-slider-btn:focus + .slider-btn{
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.checkbox-slider-btn:checked + .slider-btn:before{
+    transform: translateX($sliderDimentions);
+}

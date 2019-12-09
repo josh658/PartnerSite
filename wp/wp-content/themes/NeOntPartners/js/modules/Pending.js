@@ -9,10 +9,12 @@ class Pending {
         this.publishBtn = $('.publish-btn')
         this.closeBtn = $('.pending-card-close')
         this.closeBtn.hide()
-        this.event()
+        if( window.location.pathname == '/pending-review/'){
+            this.events();  
+        }
     }
 
-    event(){
+    events(){
         this.pendingBox.on('click',this.enlarge)
         this.editBtn.on('click', this.toggleEdit)
         this.publishBtn.on('click', this.publish)

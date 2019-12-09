@@ -12,8 +12,10 @@
     <input id="first-name" class="form-element" placeholder="First Name" >
     <label>Last Name:</label>
     <input id="last-name" class="form-element" placeholder="Last Name">
+    <div class='password-error-message'></div>
     <label>Password:</label>
     <input id="password" class="form-element" type="password" placeholder="Password">
+    <div class="email-error-message"></div>
     <label>Email:</label>
     <input id="email" class="form-element" type="email" placeholder="Email">
     <div class="card-row">
