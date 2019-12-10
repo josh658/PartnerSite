@@ -118,3 +118,43 @@ function create_custom_post($type, $userID, $acfArr = array()){
   return $newPostID;
 }
 
+function upload_media($filePath, $filename, $parent_post_id){
+
+  $upload_fir = wp_upload_dir( null, true, true );
+  $file_type = mime_content_type( $filename['tmp_name']);
+
+
+  if( $filename['error']){
+    return new WP_Error(array('message' => $filename['error']));
+  }
+
+  if( $filename['size'] > wp_max_upload_size()){
+    return new WP_Error(array('message' => "file size to large"));
+  }
+
+  if( !in_array($fine_mime, get_allowed_mime_types() )){
+    return new WP_Error(array('message' => "this file type is not allowed"));
+  }
+
+
+
+  if(!$upload_file['error']){
+    $wp_filetype = wp_check_filetype($filename, null);
+    $attachment = array(
+      'post_mime_type' => $wp_filetype['type'],
+      'post_parent' => $parent_post_id,
+      'post_ttle' => preg_replace('/\.[^.]+$/', '', $filename),
+      'post_content' => '',
+      'post_status' => 'inherit'
+    );
+    $attachement_id = wp_insert_attachment($attachment, $upload_file['file'], $parent_post_id);
+    if(!is_wp_error($attachment_id)){
+      //require_once(ABSPATH . 'wp_admin' . '/includes/image.php');
+      $attachment_data = wp_generate_attachemnt_metadata($attachment_id, $upload_file['file']);
+      wp_update_attachment_metadata( $attachment_id, $attachment_data );
+    }
+  } else {
+    // return an error
+  }
+  
+}

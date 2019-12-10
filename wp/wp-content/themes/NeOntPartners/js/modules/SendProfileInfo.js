@@ -3,6 +3,7 @@ import profileDataPull from './Functions/profileDataPull'
 
 class SendProfileInfo{
     constructor(){
+        this.dropArea = $('#drop-area')
         this.autosaveBtn = $('#auto-save-btn')
         this.btn = document.getElementById('Submit-Profile')
         this.postID = $('#profile-edit-form').data('postid')
@@ -19,6 +20,16 @@ class SendProfileInfo{
     }
 
     events(){
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            this.dropArea.on(eventName, this.preventDefault)
+        });
+        ['dragenter', 'dragover'].forEach(eventName => {
+            this.dropArea.on(eventName, this.highlight.bind(this))
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            this.dropArea.on(eventName, this.unhighlight.bind(this))
+        });
+        this.dropArea.on('drop', this.handleDrop.bind(this))
         this.same.addEventListener("click", this.sameAs.bind(this))
         this.locate.addEventListener("click", this.locating.bind(this))
         this.btn.addEventListener("click", this.updateProfile.bind(this.moreInfo, this.postID))
@@ -27,6 +38,34 @@ class SendProfileInfo{
         document.addEventListener('keyup', this.typingLogic.bind(this))
         this.moreInfo.addEventListener('click', this.updateProfile.bind(this.moreInfo, this.postID))
 
+    }
+
+    preventDefault(e){
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    highlight(){
+        this.dropArea.addClass('highlight')
+    }
+
+    unhighlight(){
+        this.dropArea.removeClass('highlight')
+    }
+
+    handleDrop(e){
+        let dt = e.dataTransfer
+        let files = dt.files
+
+        this.handleFiles(files)
+    }
+
+    handleFiles(files){
+        ([...files]).forEach(this.uploadFile)
+    }
+
+    uploadFile(file){
+        
     }
 
     sameAs(){

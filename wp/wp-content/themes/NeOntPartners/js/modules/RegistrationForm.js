@@ -7,6 +7,7 @@ class RegistrationForm{
         this.email = $("#email")
         this.passwordErrorDisplay = $('.password-error-message')
         this.emailErrorDisplay = $('.email-error-message')
+        this.form = $("#register-form")
         $('#error-message').hide()
         this.events()
     }
@@ -15,8 +16,19 @@ class RegistrationForm{
     events(){
         $("#register-btn").on("click", this.clickListner.bind(this))
         $('.card-sub-select').on('click', this.subSelect) 
+        this.form.on('keypress', this.enter.bind(this))
     }
     //methods
+
+    enter(e){
+        console.log(e.keyCode)
+        if(e.keyCode == 13){
+            e.preventDefault()
+            // **remove the below comment to have enter submit the form
+            // this.clickListner.call(this, event)
+        }
+    }
+
     clickListner(e){
         e.preventDefault()
 
@@ -58,8 +70,9 @@ class RegistrationForm{
         }
 
         //don't allow submission if email is not correct
+        this.emailErrorDisplay.html()
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(this.email.val())){
-            alert("invalid email")
+            this.emailErrorDisplay.html('Invalid Email')
             return
         }
 

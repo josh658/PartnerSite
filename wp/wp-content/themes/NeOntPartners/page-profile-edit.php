@@ -72,6 +72,13 @@ wp_reset_postdata();
 
         <div class="packages">
 
+            <div id="drop-area">
+                <form class="my-form">
+                    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+                    <input type="file" id="fileElem" multiple accept="image/*">
+                    <label class="button" for="fileElem">Select some files</label>
+                </form>
+            </div>
 
 
 

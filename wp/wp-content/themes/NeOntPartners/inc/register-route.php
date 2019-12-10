@@ -23,8 +23,8 @@ function registerNewUser(){
 
 function evaluateForm($data){
     //check to see if email is already in use 
-    if($data['email'] == "" || $data['FirstName'] == "" || $data['LastName'] == "" || $data['Password'] == ""){
-        return new WP_REST_Response(array('message' => 'missing arg'), 200);
+    if($data['FirstName'] == "" || $data['LastName'] == "" ){
+        return new WP_REST_Response(array('message' => 'Missing Name'), 200);
     }
 
     /**
