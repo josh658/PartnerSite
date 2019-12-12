@@ -37,7 +37,7 @@ class PackageEdit{
           date = $.datepicker.parseDate( dateFormat, element.value );
         } catch( error ) {
           date = null;
-        }
+        } 
    
         return date;
       }
@@ -47,13 +47,14 @@ class PackageEdit{
 
       //making the package form editable
       this.btn = $("#submit-package")
-      if( window.location.pathname == '/package-editing/'){
+      if( window.location.pathname == '/packages-editing/'){
         this.events();  
-    }
+      }
+      //this.events();
 
     }
 
-    event(){
+    events(){
         this.btn.on('click', this.packageUpdate.bind(this.btn, this.postID))
         $('main').on('keyup', this.typingLogic.bind(this))
     }

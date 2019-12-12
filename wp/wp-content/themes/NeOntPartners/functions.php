@@ -7,6 +7,7 @@ require get_theme_file_path('/inc/redirect.php');
 require get_theme_file_path('/inc/profile-route.php');
 require get_theme_file_path('/inc/login-route.php');
 require get_theme_file_path('/inc/package-route.php');
+require get_theme_file_path('/inc/imgUpload-route.php');
 
 //for removing p tags when calling the_content
 remove_filter ('the_content', 'wpautop'); 

@@ -118,9 +118,13 @@ function create_custom_post($type, $userID, $acfArr = array()){
   return $newPostID;
 }
 
-function upload_media($filePath, $filename, $parent_post_id){
 
-  $upload_fir = wp_upload_dir( null, true, true );
+/**
+ * might be deprecated soon
+ */
+function upload_media($filePath, $filename){
+
+  $upload_dir = wp_upload_dir( null, true, true );
   $file_type = mime_content_type( $filename['tmp_name']);
 
 
@@ -142,12 +146,11 @@ function upload_media($filePath, $filename, $parent_post_id){
     $wp_filetype = wp_check_filetype($filename, null);
     $attachment = array(
       'post_mime_type' => $wp_filetype['type'],
-      'post_parent' => $parent_post_id,
-      'post_ttle' => preg_replace('/\.[^.]+$/', '', $filename),
+      'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
       'post_content' => '',
       'post_status' => 'inherit'
     );
-    $attachement_id = wp_insert_attachment($attachment, $upload_file['file'], $parent_post_id);
+    $attachement_id = wp_insert_attachment($attachment, $upload_file['file']);
     if(!is_wp_error($attachment_id)){
       //require_once(ABSPATH . 'wp_admin' . '/includes/image.php');
       $attachment_data = wp_generate_attachemnt_metadata($attachment_id, $upload_file['file']);

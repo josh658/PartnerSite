@@ -78,10 +78,14 @@ $sliderDimentions: 13px;
     transform: translateX($sliderDimentions);
 }
 
+
+/**
+  drop area for file dropping
+*/
 #drop-area {
     border: 2px dashed #ccc;
     border-radius: 20px;
-    width: 480px;
+    max-width: 100%;
     font-family: sans-serif;
     margin: 100px auto;
     padding: 20px;

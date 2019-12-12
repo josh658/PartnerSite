@@ -73,9 +73,12 @@ wp_reset_postdata();
         <div class="packages">
 
             <div id="drop-area">
-                <form class="my-form">
+                <form class="my-form" enctype='multipart/form-data'>
+                    <div id="gallery"></div>
                     <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                    <input type="file" id="fileElem" multiple accept="image/*">
+                    <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
+                    <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
+                    <?php echo wp_nonce_field('fileElem', 'fileElem-nonce');?>
                     <label class="button" for="fileElem">Select some files</label>
                 </form>
             </div>

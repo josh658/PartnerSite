@@ -752,10 +752,13 @@ MARK: slider buttons
   box-shadow: 0 0 1px #2196F3; }
 .checkbox-slider-btn:checked + .slider-btn:before {
   transform: translateX(13px); }
+/**
+  drop area for file dropping
+*/
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
-  width: 480px;
+  max-width: 100%;
   font-family: sans-serif;
   margin: 100px auto;
   padding: 20px; }
