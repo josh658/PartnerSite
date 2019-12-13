@@ -72,14 +72,32 @@ wp_reset_postdata();
 
         <div class="packages">
 
-            <div id="drop-area">
+            <h3>Cover Image</h3>
+            <?php $imgs = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post_parent' => $thePartnerPost->ID))?>
+            <div id="drop-area" data-img='<?php echo count($imgs); ?>'>
                 <form class="my-form" enctype='multipart/form-data'>
-                    <div id="gallery"></div>
-                    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                    <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
-                    <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
-                    <?php echo wp_nonce_field('fileElem', 'fileElem-nonce');?>
-                    <label class="button" for="fileElem">Select some files</label>
+                <?php if(count($imgs) <= 0){ ?>
+                    <div id='drop-area-content'>
+                        <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+                        
+<!-- need to look at what events happen after a file has been chosen -->
+                        <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
+                        <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
+                        <?php echo wp_nonce_field('fileElem', 'fileElem-nonce');?>
+                        <label id='file-upload-btn' class="button" for="fileElem">Select some files</label>
+                    </div>
+                    <div id="loading-icon" style='display: none;'>Uploading...</div>
+                <?php }?>
+                    <div id="gallery">
+                        <?php 
+                        foreach( $imgs as $img){
+                            $thumbnail = wp_get_attachment_image($img->ID, 'thumbnail', true, array('data-id' => $img->ID));
+                            echo $thumbnail;
+                        }
+                        ?>
+                    </div>
+                    
+                    <button id='delete-img-btn' style='display: <?php echo $img > 0 ? "" : "none" ?>;'>Delete</button>
                 </form>
             </div>
 
