@@ -98,7 +98,6 @@ class RegistrationForm{
                     $('#error-message').show("slow")
                 } else {
                     window.location.replace(data.root_url + "/profile-edit")
-                    alert("welcome new memeber")
                 }
             },
             error: (response) => {

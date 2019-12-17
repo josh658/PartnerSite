@@ -58,6 +58,7 @@ wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
+    <h2 class='pending-message' style='<?php echo $thePartnerPost->post_status == 'pending' ? "display: none;" : ''?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
     <label>Auto Save</label>
     <label class='auto-save-btn'>
         <input type="checkbox" id='auto-save-btn' class='checkbox-slider-btn' checked>
@@ -76,20 +77,20 @@ wp_reset_postdata();
             <?php $imgs = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post_parent' => $thePartnerPost->ID))?>
             <div id="drop-area" data-img='<?php echo count($imgs); ?>'>
                 <form class="my-form" enctype='multipart/form-data'>
-                <?php if(count($imgs) <= 0){ ?>
-                    <div id='drop-area-content'>
+                    <div id='drop-area-content' <?php echo (count($imgs) <= 0) ? "" : "style='display: none'" ?>>
                         <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
                         
 <!-- need to look at what events happen after a file has been chosen -->
-                        <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
+<!-- name='fileElem' multiple accept="image/png, image/jpeg" -->
+                        <input type="file" id="fileElem" />
                         <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
                         <?php echo wp_nonce_field('fileElem', 'fileElem-nonce');?>
-                        <label id='file-upload-btn' class="button" for="fileElem">Select some files</label>
+                        <label class="button" for="fileElem">Select some files</label>
                     </div>
                     <div id="loading-icon" style='display: none;'>Uploading...</div>
-                <?php }?>
                     <div id="gallery">
                         <?php 
+                        echo (count($imgs) <= 0) ? "<img style='display: none'>" : "" ;
                         foreach( $imgs as $img){
                             $thumbnail = wp_get_attachment_image($img->ID, 'thumbnail', true, array('data-id' => $img->ID));
                             echo $thumbnail;
@@ -389,8 +390,11 @@ wp_reset_postdata();
             </div>
             </div>
 
-            <button id="Submit-Profile" class="form-element submit-btn">Submit</button>
-            <!-- content of the form -->
+            <div class="form-split">
+                <button id='save-profile' class='form-element submit-btn'>Save</button>
+                <button id="Submit-Profile" class="form-element submit-btn ">Submit</button>
+            </div>
+                <!-- content of the form -->
         </section>
     </div>
     <?php wp_reset_postdata(); } else{?>

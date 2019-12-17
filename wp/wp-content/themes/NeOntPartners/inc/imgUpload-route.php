@@ -28,19 +28,22 @@ function imageUpload($data){
         require_once( ABSPATH . 'wp-admin/includes/media.php');
         //require_once( ABSPATH . 'wp-admin/includes/class-admin.php');
         $attachement_id = media_handle_upload('file', $data['parent_id']);
-        return new WP_REST_Response(array('message' => $attachement_id), 200);
+        //return new WP_REST_Response(array('message' => $attachement_id), 200);
         if(is_wp_error($attachement_id)){
-            return new WP_REST_Response(array('message' => 'OK'), 200);
+            return new WP_REST_Response(array('message' => 'Error'), 200);
         } else {
-            return new WP_REST_Response(array('message' => 'error'), 200);
+            return new WP_REST_Response(array('message' => 'OK',
+                                              'ID' => $attachement_id), 200);
         }
     }
 }
 
 function imageDelete($data){
-    if(is_wp_error(wp_delete_attachment( $data['postID'], false ))){
+    $imgID = wp_delete_attachment( $data['postID'], false );
+    if(is_wp_error($imgID)){
         return new WP_REST_Response(array('message' => 'Error'), 200);
     } else {
-        return new WP_REST_Response(array('message' => 'OK'), 200);
+        return new WP_REST_Response(array('message' => 'OK',
+                                        'ID' => $imgID->ID), 200);
     }
 }
