@@ -4,71 +4,43 @@ import imgUpload from'./Functions/imgUpload'
 
 class SendProfileInfo{
     constructor(){
+        //disable all input if data-status id pending.
+        if($('#top-pending-message').attr('data-status') == 'pending'){
+            $("input, textarea").prop('disabled', true)
+            
+        }
+        this.switchDraft = $('#switch-draft-top-btn')
+        this.editable = $('#top-pending-message').attr('data-status') == 'pending' ? false : true
         this.dropArea = $('#drop-area')
         this.autosaveBtn = $('#auto-save-btn')
-        this.btn = document.getElementById('Submit-Profile')
+        this.btn = document.getElementById('submit-profile-btn')
         this.postID = $('#profile-edit-form').data('postid')
-        this.moreInfo = document.getElementById('more-info')
+        this.moreInfo = $(':checkbox')
         this.locate = document.getElementById('locate')
         this.lat = document.getElementById('lat')
         this.lng = document.getElementById('lng')
         this.same = document.getElementById('same-as-location')
         this.sameContent = document.getElementById('same-as-location-content')
+        this.saveBtn = $('#save-profile-btn')
         this.typingTime;
-        if( window.location.pathname == '/profile-edit/'){
-            this.events();  
-        }
+
     }
 
     events(){
-        // ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        //     this.dropArea.on(eventName, this.preventDefault)
-        // });
-        // ['dragenter', 'dragover'].forEach(eventName => {
-        //     this.dropArea.on(eventName, this.highlight.bind(this))
-        // });
-        // ['dragleave', 'drop'].forEach(eventName => {
-        //     this.dropArea.on(eventName, this.unhighlight.bind(this))
-        // });
-        // this.dropArea.on('drop', this.handleDrop.bind(this))
         imgUpload(this.dropArea)
-        this.same.addEventListener("click", this.sameAs.bind(this))
-        this.locate.addEventListener("click", this.locating.bind(this))
-        this.btn.addEventListener("click", this.updateProfile.bind(this.moreInfo, this.postID))
-        document.addEventListener('keyup', this.btnEnable.bind(this))
+        // add switchToDraft so you can switch to draft
+        // look at getting this editable mode on the go
+        this.switchDraft.on('click', this.switchToDraft)
+        this.saveBtn.on('click', this.updateProfile.bind(this.moreInfo, this.postID, 'draft'), false)
+        this.same.addEventListener("click", this.sameAs.bind(this), false)
+        this.locate.addEventListener("click", this.locating.bind(this), false)
+        this.btn.addEventListener("click", this.updateProfile.bind(this.moreInfo, this.postID, 'pending'), false)
+        document.addEventListener('keyup', this.btnEnable.bind(this), false)
         //save a second after a key is presses
-        document.addEventListener('keyup', this.typingLogic.bind(this))
-        this.moreInfo.addEventListener('click', this.updateProfile.bind(this.moreInfo, this.postID))
-
+        document.addEventListener('keyup', this.typingLogic.bind(this), false)
+        this.moreInfo.on('change', this.updateProfile.bind(this.moreInfo, this.postID, 'draft'), false)
     }
 
-    // preventDefault(e){
-    //     e.preventDefault()
-    //     e.stopPropagation()
-    // }
-
-    // highlight(){
-    //     this.dropArea.addClass('highlight')
-    // }
-
-    // unhighlight(){
-    //     this.dropArea.removeClass('highlight')
-    // }
-
-    // handleDrop(e){
-    //     let dt = e.dataTransfer
-    //     let files = dt.files
-
-    //     this.handleFiles(files)
-    // }
-
-    // handleFiles(files){
-    //     ([...files]).forEach(this.uploadFile)
-    // }
-
-    // uploadFile(file){
-        
-    // }
 
     sameAs(){
         //this does not check if somehting is checked
@@ -112,8 +84,8 @@ class SendProfileInfo{
     }
 
     //methods
-    updateProfile(postID){
-        profileDataPull.call(this, postID, 'pending')
+    updateProfile(postID, status){
+        profileDataPull.call(this, postID, status)
     }
 
     btnEnable(){

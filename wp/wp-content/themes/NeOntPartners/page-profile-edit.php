@@ -58,7 +58,7 @@ wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
-    <h2 class='pending-message' style='<?php echo $thePartnerPost->post_status == 'pending' ? "display: none;" : ''?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
+    <h2 id='top-pending-message' class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>' data-status='<?php echo $thePartnerPost->post_status ?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
     <label>Auto Save</label>
     <label class='auto-save-btn'>
         <input type="checkbox" id='auto-save-btn' class='checkbox-slider-btn' checked>
@@ -82,9 +82,9 @@ wp_reset_postdata();
                         
 <!-- need to look at what events happen after a file has been chosen -->
 <!-- name='fileElem' multiple accept="image/png, image/jpeg" -->
-                        <input type="file" id="fileElem" />
+                        <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
                         <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
-                        <?php echo wp_nonce_field('fileElem', 'fileElem-nonce');?>
+                        <?php wp_nonce_field('fileElem', 'fileElem-nonce');?>
                         <label class="button" for="fileElem">Select some files</label>
                     </div>
                     <div id="loading-icon" style='display: none;'>Uploading...</div>
@@ -391,12 +391,13 @@ wp_reset_postdata();
             </div>
 
             <div class="form-split">
-                <button id='save-profile' class='form-element submit-btn'>Save</button>
-                <button id="Submit-Profile" class="form-element submit-btn ">Submit</button>
+                <button id='save-profile-btn' class='form-element submit-btn'>Save</button>
+                <button id="submit-profile-btn" class="form-element submit-btn ">Submit</button>
             </div>
                 <!-- content of the form -->
         </section>
     </div>
+    <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
     <?php wp_reset_postdata(); } else{?>
         <h2>Please Sign in First</h2>
     <?php } ?>
