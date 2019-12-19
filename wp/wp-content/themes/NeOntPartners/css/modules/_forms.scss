@@ -109,3 +109,7 @@ input:focus, textarea:focus{
     display: flex;
     flex-direction: column;
 }
+
+.required-field{
+    border-color: red;
+}

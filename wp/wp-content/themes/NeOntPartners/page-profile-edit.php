@@ -58,7 +58,11 @@ wp_reset_postdata();
 ?>
 
     <h2 class="profile-header">Your Profile</h2>
-    <h2 id='top-pending-message' class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>' data-status='<?php echo $thePartnerPost->post_status ?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
+    <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>' data-status='<?php echo $thePartnerPost->post_status ?>'>
+            Thank you for your submission we are currently reviweing your profile. 
+            <button id='switch'>switch to draft</button>
+    </h2> 
+    <div id='autosave-loader' class="loader autosave-loader"></div>
     <label>Auto Save</label>
     <label class='auto-save-btn'>
         <input type="checkbox" id='auto-save-btn' class='checkbox-slider-btn' checked>
@@ -272,10 +276,12 @@ wp_reset_postdata();
             <h3 class="form-section">Location Information</h3>
             
             <label class="form-header">Business Name:</label>
-            <input id='comp-name' class="form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartnerPost->post_title); ?>" data-char-cap="40">
+<!-- REQUIRED -->
+            <input id='comp-name' class="required form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartnerPost->post_title); ?>" data-char-cap="40">
             
+<!-- REQUIRED  -->
             <label class="form-header">Business Description:</label>
-            <textarea id='desc' class="form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400"><?php echo apply_filters('the_content', $thePartnerPost->post_content); ?></textarea>
+            <textarea id='desc' class="required form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400" ><?php echo apply_filters('the_content', $thePartnerPost->post_content); ?></textarea>
             
             <label class="form-header">
                 Website:
@@ -317,6 +323,7 @@ wp_reset_postdata();
                     <input type="text" class="form-element" id="lng" placeholder="Longitude" placeholder="Website" value='<?php echo get_field('longitude', $thePartnerPost->ID); ?>'>
                 </div>
             </div>
+<!-- REQUIRED -->
             <label class="form-header">Business Phone number</label>
             <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number" placeholder="Website" value='<?php echo get_field('business_phone_number', $thePartnerPost->ID); ?>'>
             
@@ -327,15 +334,18 @@ wp_reset_postdata();
             <h3 class="form-section">Billing Information</h3>
             <div class="form-split">
                 <div class="half-split">
+<!-- REQUIRED -->
                     <label class="form-header">First Name</label>
                     <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
                 </div>
                 <div class="center-split"></div>
                 <div class="half-split">   
+<!-- REQUIRED  -->
                     <label class="form-header">Last Name</label>
                     <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
                 </div>
             </div>
+<!-- REQUIRED -->
             <label class="form-header">Email</label>
             <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
 

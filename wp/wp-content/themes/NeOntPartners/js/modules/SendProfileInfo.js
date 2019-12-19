@@ -1,16 +1,18 @@
 import $ from 'jquery'
 import profileDataPull from './Functions/profileDataPull'
 import imgUpload from'./Functions/imgUpload'
+import requiredCheck from './Functions/requiredCheck'
 
 class SendProfileInfo{
     constructor(){
         //disable all input if data-status id pending.
-        if($('#top-pending-message').attr('data-status') == 'pending'){
-            $("input, textarea").prop('disabled', true)
+        this.lockable = $("input, textarea")
+        this.pendingMessage = $('.pending-message')
+        if(this.pendingMessage.attr('data-status') == 'pending'){
+            this.lockable.prop('disabled', true)
             
         }
-        this.switchDraft = $('#switch-draft-top-btn')
-        this.editable = $('#top-pending-message').attr('data-status') == 'pending' ? false : true
+        this.switchDraft = $('#switch')
         this.dropArea = $('#drop-area')
         this.autosaveBtn = $('#auto-save-btn')
         this.btn = document.getElementById('submit-profile-btn')
@@ -22,25 +24,32 @@ class SendProfileInfo{
         this.same = document.getElementById('same-as-location')
         this.sameContent = document.getElementById('same-as-location-content')
         this.saveBtn = $('#save-profile-btn')
-        this.typingTime;
+        if( window.location.pathname == '/profile-edit/'){
+            this.events();
+        }
 
     }
 
     events(){
         imgUpload(this.dropArea)
-        // add switchToDraft so you can switch to draft
-        // look at getting this editable mode on the go
-        this.switchDraft.on('click', this.switchToDraft)
-        this.saveBtn.on('click', this.updateProfile.bind(this.moreInfo, this.postID, 'draft'), false)
-        this.same.addEventListener("click", this.sameAs.bind(this), false)
-        this.locate.addEventListener("click", this.locating.bind(this), false)
-        this.btn.addEventListener("click", this.updateProfile.bind(this.moreInfo, this.postID, 'pending'), false)
-        document.addEventListener('keyup', this.btnEnable.bind(this), false)
+        // add switchToDraft so you can switch to draft $("input, textarea").prop('disabled', true)
+        // look at getting this editableBtn mode on the go
+        this.switchDraft.on('click', this.switchToDraft.bind(this))
+        this.saveBtn.on('click', this.updateProfile.bind(this, this.postID, 'draft'))
+        this.same.addEventListener("click", this.sameAs.bind(this))
+        this.locate.addEventListener("click", this.locating.bind(this))
+        this.btn.addEventListener("click", this.updateProfile.bind(this, this.postID, 'pending'))
+        document.addEventListener('keyup', this.btnEnable.bind(this))
         //save a second after a key is presses
-        document.addEventListener('keyup', this.typingLogic.bind(this), false)
-        this.moreInfo.on('change', this.updateProfile.bind(this.moreInfo, this.postID, 'draft'), false)
+        document.addEventListener('keyup', this.typingLogic.bind(this))
+        this.moreInfo.on('change', this.updateProfile.bind(this, this.postID, 'draft'))
     }
 
+    switchToDraft(e){
+        this.lockable.prop('disabled', false)
+        profileDataPull.call(this.moreInfo, this.postID, 'draft')
+        this.pendingMessage.hide('slow')
+    }
 
     sameAs(){
         //this does not check if somehting is checked
@@ -78,14 +87,28 @@ class SendProfileInfo{
     typingLogic(e){
         //alert(this.autosaveBtn.prop('checked'))
         if (this.autosaveBtn.prop('checked')){
+            $('#autosave-loader').show()
             clearTimeout(this.typingLogic)
-            this.typingLogic = setTimeout(profileDataPull.bind(e.target, this.postID, 'draft'), 1500)
+            //console.log(this)
+            this.typingLogic = setTimeout(() => {
+                console.log(this)
+                profileDataPull.call(this.moreInfo, this.postID, 'draft')
+                $('#autosave-loader').hide('slow')
+            }, 1500)
+            
         }
     }
 
     //methods
     updateProfile(postID, status){
-        profileDataPull.call(this, postID, status)
+
+        if(requiredCheck()){
+            if(status == 'pending'){
+                this.lockable.prop('disabled', true)
+                this.pendingMessage.show('slow')
+            }
+            profileDataPull.call(this.moreInfo, postID, status)
+        }
     }
 
     btnEnable(){

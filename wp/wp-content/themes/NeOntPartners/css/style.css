@@ -306,6 +306,9 @@ input:focus, textarea:focus {
   display: flex;
   flex-direction: column; }
 
+.required-field {
+  border-color: red; }
+
 .card-row {
   display: flex;
   justify-content: space-around;
@@ -355,6 +358,35 @@ input:focus, textarea:focus {
   width: 1em;
   margin: 0.5em;
   background: black; }
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 1s linear infinite;
+  /* Safari */
+  animation: spin 1s linear infinite; }
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.autosave-loader {
+  display: none;
+  position: fixed;
+  bottom: 4px;
+  right: 4px; }
 
 /*
 TODO: for main
