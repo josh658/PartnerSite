@@ -85,7 +85,9 @@ function imgUpload(dropArea){
     
     function handleFiles(files){
         ([...files]).forEach(file => {            
+            if(file.type == 'image/jpeg' || file.type == 'image/png' ){
             previewFile(file)
+            console.log(file.type)
             let formData = new FormData()
             formData.append('file', file)
             formData.append('fileElem_nonce', $('#fileElem-nonce').val())
@@ -95,30 +97,34 @@ function imgUpload(dropArea){
             // setup a spinning loading wheele instead of update
             dropArea.find('#loading-icon').show()
             
-            $.ajax({
-                beforeSend:(xhr) => {
-                    xhr.setRequestHeader('X-WP-Nonce', data.nonce);
-                },
-                
-                url: data.root_url + "/wp-json/neont/v1/imgUpload",
-                type:'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: (response) => {
-                    dropArea.find('#loading-icon').hide()
-                    dropArea.find('#delete-img-btn').show()
-                    dropArea.find('#delete-img-btn')
-                    dropArea.find('img').attr('data-id', response.ID)
+
+                $.ajax({
+                    beforeSend:(xhr) => {
+                        xhr.setRequestHeader('X-WP-Nonce', data.nonce);
+                    },
                     
-                    console.log("Congrats")
-                    console.log(response)
-                },
-                error: (response) => {
-                    console.log("Error")
-                    console.log(response)
-                }
-            })
+                    url: data.root_url + "/wp-json/neont/v1/imgUpload",
+                    type:'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: (response) => {
+                        dropArea.find('#loading-icon').hide()
+                        dropArea.find('#delete-img-btn').show()
+                        dropArea.find('#delete-img-btn')
+                        dropArea.find('img').attr('data-id', response.ID)
+                        
+                        console.log("Congrats")
+                        console.log(response)
+                    },
+                    error: (response) => {
+                        console.log("Error")
+                        console.log(response)
+                    }
+                })
+            } else {
+                alert('file type not allowed')
+            }
         });
     }
 

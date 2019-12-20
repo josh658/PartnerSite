@@ -32,6 +32,7 @@ class SendProfileInfo{
 
     events(){
         imgUpload(this.dropArea)
+        this.sameAs.call(this);
         // add switchToDraft so you can switch to draft $("input, textarea").prop('disabled', true)
         // look at getting this editableBtn mode on the go
         this.switchDraft.on('click', this.switchToDraft.bind(this))
@@ -45,7 +46,7 @@ class SendProfileInfo{
         this.moreInfo.on('change', this.updateProfile.bind(this, this.postID, 'draft'))
     }
 
-    switchToDraft(e){
+    switchToDraft(){
         this.lockable.prop('disabled', false)
         profileDataPull.call(this.moreInfo, this.postID, 'draft')
         this.pendingMessage.hide('slow')
@@ -54,10 +55,11 @@ class SendProfileInfo{
     sameAs(){
         //this does not check if somehting is checked
         //make this more future proof
+        // add class to gray out section and not have a none display
         if(this.same.checked == true){
-                this.sameContent.style.display = "block"
-        } else {
                 this.sameContent.style.display = "none"
+        } else {
+                this.sameContent.style.display = "block"
         }
         console.log(document.getElementById('same-as-location').checked)
     }
