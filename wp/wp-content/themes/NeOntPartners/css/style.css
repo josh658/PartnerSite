@@ -99,6 +99,10 @@ body {
     flex: .40;
     text-align: center; }
 
+input:disabled {
+  border: none;
+  border-top: solid; }
+
 .a-btn {
   border-style: solid;
   border-width: 1px;

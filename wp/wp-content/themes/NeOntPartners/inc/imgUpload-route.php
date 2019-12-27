@@ -30,7 +30,8 @@ function imageUpload($data){
         $attachement_id = media_handle_upload('file', $data['parent_id']);
         //return new WP_REST_Response(array('message' => $attachement_id), 200);
         if(is_wp_error($attachement_id)){
-            return new WP_REST_Response(array('message' => 'Error'), 200);
+            return new WP_REST_Response(array('message' => 'Error',
+                                               'Error' => $attachement_id), 200);
         } else {
             return new WP_REST_Response(array('message' => 'OK',
                                               'ID' => $attachement_id), 200);

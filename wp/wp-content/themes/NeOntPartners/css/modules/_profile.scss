@@ -88,3 +88,8 @@ $formWidth: 80%;
         // }
     // }
 }
+
+input:disabled{
+    border: none;
+    border-top: solid;
+}

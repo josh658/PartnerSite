@@ -22,7 +22,7 @@ class SendProfileInfo{
         this.lat = document.getElementById('lat')
         this.lng = document.getElementById('lng')
         this.same = document.getElementById('same-as-location')
-        this.sameContent = document.getElementById('same-as-location-content')
+        this.sameContent = $('#same-as-location-content')
         this.saveBtn = $('#save-profile-btn')
         if( window.location.pathname == '/profile-edit/'){
             this.events();
@@ -57,9 +57,9 @@ class SendProfileInfo{
         //make this more future proof
         // add class to gray out section and not have a none display
         if(this.same.checked == true){
-                this.sameContent.style.display = "none"
+                this.sameContent.find('input').prop('disabled', true) 
         } else {
-                this.sameContent.style.display = "block"
+                this.sameContent.find('input').prop('disabled', false)
         }
         console.log(document.getElementById('same-as-location').checked)
     }

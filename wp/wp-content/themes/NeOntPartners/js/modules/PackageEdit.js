@@ -1,6 +1,7 @@
 import $ from "jquery"
 import 'jquery-ui/ui/widgets/datepicker'
 import packageDataPull from './Functions/packageDataPull'
+import imageUpload from './Functions/imgUpload'
 
 class PackageEdit{
     constructor(){
@@ -45,18 +46,18 @@ class PackageEdit{
        * END of date picker range
        */
 
-      //making the package form editable
       this.btn = $("#submit-package")
-      if( window.location.pathname == '/packages-editing/'){
-        this.events();  
-      }
-      //this.events();
+      this.dropArea = $('#drop-area')
+        if( window.location.pathname == '/packages-editing/'){
+          this.events();  
+        }
 
     }
 
     events(){
-        this.btn.on('click', this.packageUpdate.bind(this.btn, this.postID))
-        $('main').on('keyup', this.typingLogic.bind(this))
+      imageUpload(this.dropArea)
+      this.btn.on('click', this.packageUpdate.bind(this.btn, this.postID))
+      $('main').on('keyup', this.typingLogic.bind(this))
     }
 
     typingLogic(e){
