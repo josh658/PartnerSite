@@ -4,7 +4,7 @@ services:
    db:
      image: mysql:5.7
      volumes:
-       - ./DB:/var/lib/mysql
+       - ./DB/mysql:/var/lib/mysql
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: somewordpress
@@ -45,4 +45,4 @@ services:
 networks:
    back:
 volumes:
-   db_data_partner:
+   DB:
