@@ -21,3 +21,10 @@ node_modules/
 *.log
 # *.sql
 *.sqlite
+
+# ignore some DB files
+DB/mysql/ib_logfile0
+DB/mysql/ib_logfile01
+DB/mysql/ibdata1
+DB/mysql/ibtmp1
+DB/mysql/wordepress/wp_options.ibd
