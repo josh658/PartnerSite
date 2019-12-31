@@ -3,10 +3,10 @@
 
 # ignore everything in the "wp-content" directory, except:
 # "mu-plugins", "plugins", "themes" directory
-wp/wp-content/*
-!wp/wp-content/mu-plugins/
-!wp/wp-content/plugins/
-!wp/wp-content/themes/
+# wp/wp-content/*
+# !wp/wp-content/mu-plugins/
+# !wp/wp-content/plugins/
+# !wp/wp-content/themes/
 
 # ignore these plugins
 wp/wp-content/plugins/hello.php
