@@ -172,7 +172,7 @@ wp_reset_postdata();
                 <!-- when clicked this link will bring you to a page for package editing -->
                 <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
                     <?php //check to see if there is a title
-                    if(apply_filters('the_title', $thePackage[$i]->post_title == "")){
+                    if(apply_filters('the_title', $thePackage[$i]->post_title) == ""){
                         ?>
                         <h2>Edit Me</h2>
                     <?php } else {?>
