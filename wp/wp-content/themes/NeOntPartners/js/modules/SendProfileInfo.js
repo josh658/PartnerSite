@@ -6,6 +6,8 @@ import requiredCheck from './Functions/requiredCheck'
 class SendProfileInfo{
     constructor(){
         //disable all input if data-status id pending.
+        
+        this.subnav = $('.sub-nav--item')
         this.lockable = $("input, textarea")
         this.pendingMessage = $('.pending-message')
         if(this.pendingMessage.attr('data-status') == 'pending'){
@@ -32,6 +34,7 @@ class SendProfileInfo{
 
     events(){
         imgUpload(this.dropArea)
+        this.subnav.on('click', this.showCatagory.bind(this))
         this.sameAs.call(this);
         // add switchToDraft so you can switch to draft $("input, textarea").prop('disabled', true)
         // look at getting this editableBtn mode on the go
@@ -44,6 +47,11 @@ class SendProfileInfo{
         //save a second after a key is presses
         document.addEventListener('keyup', this.typingLogic.bind(this))
         this.moreInfo.on('change', this.updateProfile.bind(this, this.postID, 'draft'))
+    }
+
+    //need to find a way to hide all sections show the click on item.
+    showCatagory(e){
+        
     }
 
     switchToDraft(){

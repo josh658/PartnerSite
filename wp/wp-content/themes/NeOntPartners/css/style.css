@@ -95,13 +95,26 @@ body {
 .twoColumns {
   display: flex;
   width: 100%; }
-  .twoColumns .packages {
-    flex: .40;
+  .twoColumns .update {
+    flex: .4;
     text-align: center; }
+  .twoColumns .account {
+    margin-left: 1.5em; }
+  .twoColumns .sub-nav {
+    margin-bottom: 1em; }
+    .twoColumns .sub-nav ul {
+      display: flex;
+      justify-content: space-between;
+      list-style-type: none; }
+      .twoColumns .sub-nav ul li {
+        cursor: pointer; }
 
 input:disabled {
   border: none;
   border-top: solid; }
+
+.section-selected {
+  font-weight: bold; }
 
 .a-btn {
   border-style: solid;
@@ -362,6 +375,15 @@ input:focus, textarea:focus {
   width: 1em;
   margin: 0.5em;
   background: black; }
+
+.update-card {
+  margin: 1em auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column; }
+  .update-card * {
+    margin: 0.7em 0;
+    margin-left: 0.2em; }
 
 .loader {
   border: 2px solid #f3f3f3;

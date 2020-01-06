@@ -15,9 +15,30 @@ $formWidth: 80%;
     width: 100%;
 
     //left side
-    .packages{
-        flex: .40;
+    .update{
+        flex: .4;
         text-align: center;
+    }
+
+    //right side
+    .account{
+        margin-left: 1.5em;
+    }
+
+    //sub navigation
+    .sub-nav{
+
+        margin-bottom: 1em;
+
+        ul{
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+
+            li{
+                cursor: pointer;
+            }
+        }
     }
 
     // //right side
@@ -92,4 +113,12 @@ $formWidth: 80%;
 input:disabled{
     border: none;
     border-top: solid;
+}
+
+.sub-nav--item{
+    
+}
+
+.section-selected{
+    font-weight: bold;
 }

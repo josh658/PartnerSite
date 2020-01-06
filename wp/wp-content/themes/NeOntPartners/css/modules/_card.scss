@@ -76,3 +76,15 @@
     margin: 0.5em;
     background: black;
 }
+
+.update-card{
+    margin: 1em auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+
+    *{
+        margin: 0.7em 0; 
+        margin-left: 0.2em;
+    }    
+}

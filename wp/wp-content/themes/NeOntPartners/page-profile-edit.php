@@ -12,6 +12,8 @@
 <main>
 <?php
 
+//echo 'Current PHP version: ' . phpversion();
+
 /**
  * check if there is already created partner profile for user
  * if not check if there is a live version
@@ -75,7 +77,20 @@ wp_reset_postdata();
         <!--left side-->
 
 
-        <div class="packages">
+        <div class="update">
+
+            <div class='update-card'>
+                <h2>Current Package</h2>
+                <label>Status:</label>
+                <label>Advertising Plan:</label>
+                <label>Plan Expires:</label>
+                <label>Autorenewl:</label>
+                <!-- line seperator -->
+                <h2>Current Add-ons</h2>
+                <!-- list of items -->
+            </div>
+
+
 
             <h3>Cover Image</h3>
             <?php $imgs = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post_parent' => $thePartnerPost->ID))?>
@@ -270,144 +285,180 @@ wp_reset_postdata();
             </form>
         </div>
         <!-- right Side-->
+        <div class='account'>
 
-        <section id="profile-edit-form" class="profile-edit-form" data-postID="<?php echo $thePartnerPost->ID; ?>">
-            <!-- <div class="container"> -->
-            <h3 class="form-section">Location Information</h3>
+            <nav class="sub-nav">
+                <ul class="sub-nav--list">
+                    <li class="sub-nav--item section-selected" data-id='profile'>Profile</li>
+                    <li class="sub-nav--item " data-id='gallery'>Gallery</li>
+                    <li class="sub-nav--item " data-id='plans'>Plans</li>
+                    <li class="sub-nav--item " data-id='advertising'>Advertising</li>
+                    <li class="sub-nav--item " data-id='account-billing'>Account Billing</li>
+                    <li class="sub-nav--item " data-id='additional-info'>Additional Info</li>
+                </ul>
+            </nav>
             
-            <label class="form-header">Business Name:</label>
-<!-- REQUIRED -->
-            <input id='comp-name' class="required form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartnerPost->post_title); ?>" data-char-cap="40">
-            
-<!-- REQUIRED  -->
-            <label class="form-header">Business Description:</label>
-            <textarea id='desc' class="required form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400" ><?php echo apply_filters('the_content', $thePartnerPost->post_content); ?></textarea>
-            
-            <label class="form-header">
-                Website:
-                <input type="text" class="form-element website" id="website" placeholder="Website" value='<?php echo get_field('website_url', $thePartnerPost->ID); ?>'>
-            </label>
-            
-            <label class="form-header">
-                Business Email:
-                <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email" placeholder="Website" value='<?php echo get_field('business_email', $thePartnerPost->ID); ?>'>
-            </label>
+            <!-- PROFILE -->
+            <section id='profile' class="account-card profile-edit-form" data-postID="<?php echo $thePartnerPost->ID; ?>">
+                
+                <label class="form-header">Business Name:</label>
+                <!-- REQUIRED -->
+                <input id='comp-name' class="required form-element" type="textbox" placeholder="Company Name" value="<?php echo apply_filters('the_title', $thePartnerPost->post_title); ?>" data-char-cap="40">
+                
+                <label class="form-header">
+                    Business Email:
+                    <input type="text" class="form-element b-email" id="business-email" placeholder="Business Email" placeholder="Website" value='<?php echo get_field('business_email', $thePartnerPost->ID); ?>'>
+                </label>
 
-            <!-- <h4 class="form-header">Business Address</h4> -->
-            <label class="form-header">
-                Business Street Address:
-                <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address" placeholder="Street Address" value='<?php echo get_field('business_street_address', $thePartnerPost->ID); ?>'>
-            </label>
-            <div class="form-split">
-                <div class="half-split">
-                    <label class="form-header">Business City</label>
-                    <input type="text" class="form-element" id="b-city" placeholder="Business City" placeholder="Website" value='<?php echo get_field('business_city', $thePartnerPost->ID); ?>'>
+                <!-- REQUIRED  -->
+                <label class="form-header">Business Description:</label>
+                <textarea id='desc' class="required form-element desc" resize="false" placeholder="Description of your company" data-char-cap="400" ><?php echo apply_filters('the_content', $thePartnerPost->post_content); ?></textarea>
+                
+                <label class="form-header">
+                    Website:
+                    <input type="text" class="form-element website" id="website" placeholder="Website" value='<?php echo get_field('website_url', $thePartnerPost->ID); ?>'>
+                </label>
+                
+                <!-- <h4 class="form-header">Business Address</h4> -->
+                <label class="form-header">
+                    Business Street Address:
+                    <input type="text" class="form-element b-addr" id="business-addr" placeholder="Business Address" placeholder="Street Address" value='<?php echo get_field('business_street_address', $thePartnerPost->ID); ?>'>
+                </label>
+                <div class="form-split">
+                    <div class="half-split">
+                        <label class="form-header">Business City</label>
+                        <input type="text" class="form-element" id="b-city" placeholder="Business City" placeholder="Website" value='<?php echo get_field('business_city', $thePartnerPost->ID); ?>'>
+                    </div>
+                    <div class="center-split"></div>
+                    <div class="half-split">
+                        <label class="form-header">Business Postal Code</label>
+                        <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code" placeholder="Website" value='<?php echo get_field('business_postal_code', $thePartnerPost->ID); ?>'>
+                    </div>
                 </div>
-                <div class="center-split"></div>
-                <div class="half-split">
-                    <label class="form-header">Business Postal Code</label>
-                    <input type="text" class="form-element" id="b-postal-code" placeholder="Postal Code" placeholder="Website" value='<?php echo get_field('business_postal_code', $thePartnerPost->ID); ?>'>
+                
+                <button id="locate">user current position</button>
+                
+                <div class="form-split">
+                    <div class="half-split">
+                        <label class="form-header">Latitude</label>
+                        <input type="text" class="form-element" id="lat" placeholder="Latitude" placeholder="Website" value='<?php echo get_field('latitude', $thePartnerPost->ID); ?>'>
+                    </div>
+                    <div class="center-split"></div>
+                    <div class="half-split">
+                        <label class="form-header">Longitude</label>
+                        <input type="text" class="form-element" id="lng" placeholder="Longitude" placeholder="Website" value='<?php echo get_field('longitude', $thePartnerPost->ID); ?>'>
+                    </div>
                 </div>
-            </div>
-
-            <button id="locate">user current position</button>
-
-            <div class="form-split">
-                <div class="half-split">
-                    <label class="form-header">Latitude</label>
-                    <input type="text" class="form-element" id="lat" placeholder="Latitude" placeholder="Website" value='<?php echo get_field('latitude', $thePartnerPost->ID); ?>'>
+                <!-- REQUIRED -->
+                <label class="form-header">Business Phone number</label>
+                <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number" placeholder="Website" value='<?php echo get_field('business_phone_number', $thePartnerPost->ID); ?>'>
+                
+                <label class="form-header">Toll-Free Number</label>
+                <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number" placeholder="Website" value='<?php echo get_field('toll_free_nunber', $thePartnerPost->ID); ?>'>
+                
+                <!-- Billing information -->
+                <h3 class="form-section">Billing Information</h3>
+                <div class="form-split">
+                    <div class="half-split">
+                        <!-- REQUIRED -->
+                        <label class="form-header">First Name</label>
+                        <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
+                    </div>
+                    <div class="center-split"></div>
+                    <div class="half-split">   
+                        <!-- REQUIRED  -->
+                        <label class="form-header">Last Name</label>
+                        <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
+                    </div>
                 </div>
-                <div class="center-split"></div>
-                <div class="half-split">
-                    <label class="form-header">Longitude</label>
-                    <input type="text" class="form-element" id="lng" placeholder="Longitude" placeholder="Website" value='<?php echo get_field('longitude', $thePartnerPost->ID); ?>'>
+                <!-- REQUIRED -->
+                <label class="form-header">Email</label>
+                <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
+                
+                <label class="form-header">Secondary Contact</label>
+                <div class="form-split">
+                    <div class="half-split">
+                        <label class="form-header">First Name</label>
+                        <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" placeholder="Website" value='<?php echo get_field('secondary_contact_firstname', $thePartnerPost->ID); ?>'>
+                    </div>
+                    <div class="center-split"></div>
+                    <div class="half-split">   
+                        <label class="form-header">Last Name</label>
+                        <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" placeholder="Website" value='<?php echo get_field('secondary_contact_lastname', $thePartnerPost->ID); ?>'>
+                    </div>
                 </div>
-            </div>
-<!-- REQUIRED -->
-            <label class="form-header">Business Phone number</label>
-            <input class="phonenumber form-element" id="b-phonenumber" placeholder="Phone Number" placeholder="Website" value='<?php echo get_field('business_phone_number', $thePartnerPost->ID); ?>'>
-            
-            <label class="form-header">Toll-Free Number</label>
-            <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number" placeholder="Website" value='<?php echo get_field('toll_free_nunber', $thePartnerPost->ID); ?>'>
-
-            <!-- Billing information -->
-            <h3 class="form-section">Billing Information</h3>
-            <div class="form-split">
-                <div class="half-split">
-<!-- REQUIRED -->
-                    <label class="form-header">First Name</label>
-                    <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
-                </div>
-                <div class="center-split"></div>
-                <div class="half-split">   
-<!-- REQUIRED  -->
-                    <label class="form-header">Last Name</label>
-                    <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
-                </div>
-            </div>
-<!-- REQUIRED -->
-            <label class="form-header">Email</label>
-            <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
-
-            <label class="form-header">Secondary Contact</label>
-            <div class="form-split">
-                <div class="half-split">
-                    <label class="form-header">First Name</label>
-                    <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" placeholder="Website" value='<?php echo get_field('secondary_contact_firstname', $thePartnerPost->ID); ?>'>
-                </div>
-                <div class="center-split"></div>
-                <div class="half-split">   
-                    <label class="form-header">Last Name</label>
-                    <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" placeholder="Website" value='<?php echo get_field('secondary_contact_lastname', $thePartnerPost->ID); ?>'>
-                </div>
-            </div>
-            <label class="form-header">Email:</label>
-            <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
-            
-            <h3 class="form-section">Head Office Information</h3>
-
-            <!-- make sure you dynamically change the checked onption depending on the option the user chose
-            this information must be stored in WP -->
-            <label class="form-header"><input id='same-as-location' type="checkbox" checked> same as location information</label>
-
-            <div id="same-as-location-content">
-            <label class="form-header">
-                Head Office Street Address
-                <input id='head-addr' type="text" class="form-element" placeholder='Street Address' placeholder="Website" value='<?php echo get_field('head_office_street_address', $thePartnerPost->ID); ?>'>
-            </label>
-            <label class="form-header">
-                City
-                <input id='head-city' type="text" class="form-element" placeholder='City' placeholder="Website" value='<?php echo get_field('head_office_city', $thePartnerPost->ID); ?>'>
-            </label>
-            <label class="form-header">
-                Province/State
-                <input id='head-province' type="text" class="form-element" placeholder='Province/State' placeholder="Website" value='<?php echo get_field('head_office_provicestate', $thePartnerPost->ID); ?>'>
-            </label>
-            <div class="form-split">
-                <div class="half-split">
+                <label class="form-header">Email:</label>
+                <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
+                
+                <h3 class="form-section">Head Office Information</h3>
+                
+                <!-- make sure you dynamically change the checked onption depending on the option the user chose
+                this information must be stored in WP -->
+                <label class="form-header"><input id='same-as-location' type="checkbox" checked> same as location information</label>
+                    
+                <div id="same-as-location-content">
                     <label class="form-header">
-                        Postal/Zip Code
-                        <input id='head-postal' type="text" class="form-element" placeholder='Postal/Zip Code' placeholder="Website" value='<?php echo get_field('head_office_postal_code', $thePartnerPost->ID); ?>'>
+                        Head Office Street Address
+                        <input id='head-addr' type="text" class="form-element" placeholder='Street Address' placeholder="Website" value='<?php echo get_field('head_office_street_address', $thePartnerPost->ID); ?>'>
                     </label>
-                </div>
-                <div class="center-split"></div>
-                <div class="half-split">
                     <label class="form-header">
-                        phone number
-                        <input id='head-phone' class="form-element" placeholder='Phone Number' placeholder="Website" value='<?php echo get_field('head_office_phone_number', $thePartnerPost->ID); ?>'>
+                        City
+                        <input id='head-city' type="text" class="form-element" placeholder='City' placeholder="Website" value='<?php echo get_field('head_office_city', $thePartnerPost->ID); ?>'>
                     </label>
+                    <label class="form-header">
+                        Province/State
+                        <input id='head-province' type="text" class="form-element" placeholder='Province/State' placeholder="Website" value='<?php echo get_field('head_office_provicestate', $thePartnerPost->ID); ?>'>
+                    </label>
+                    <div class="form-split">
+                        <div class="half-split">
+                            <label class="form-header">
+                                Postal/Zip Code
+                                <input id='head-postal' type="text" class="form-element" placeholder='Postal/Zip Code' placeholder="Website" value='<?php echo get_field('head_office_postal_code', $thePartnerPost->ID); ?>'>
+                            </label>
+                        </div>
+                        <div class="center-split"></div>
+                        <div class="half-split">
+                            <label class="form-header">
+                                phone number
+                                <input id='head-phone' class="form-element" placeholder='Phone Number' placeholder="Website" value='<?php echo get_field('head_office_phone_number', $thePartnerPost->ID); ?>'>
+                            </label>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="form-split">
+                    <button id='save-profile-btn' class='form-element submit-btn'>Save</button>
+                    <button id="submit-profile-btn" class="form-element submit-btn ">Submit</button>
+                </div>
+                </section>
+                
+                <!-- GALLERY -->
+                <section id='gallery' class='account-card'>
+                    
+                </section>
+                
+                <!-- PLANS -->
+                <section id='plans' class='account-card'>
+                    
+                </section>
+                    
+                <!-- ADVERTISING -->
+                <section id='advertising' class='account-card'>
+                        
+                </section>
+                        
+                <!-- ACCOUNT BILLING -->
+                <section id='account-billing' class='account-card'>
+                            
+                </section>
+                            
+                <!-- ADDITION -->
+                <section id='additional info' class='account-card'>
+                                
+                </section>
             </div>
-            </div>
-
-            <div class="form-split">
-                <button id='save-profile-btn' class='form-element submit-btn'>Save</button>
-                <button id="submit-profile-btn" class="form-element submit-btn ">Submit</button>
-            </div>
-                <!-- content of the form -->
-        </section>
-    </div>
-    <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
+            <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
+        </div>
     <?php wp_reset_postdata(); } else{?>
         <h2>Please Sign in First</h2>
     <?php } ?>
