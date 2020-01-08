@@ -11,6 +11,7 @@ $formWidth: 80%;
 }
 
 .twoColumns{
+
     display: flex;
     width: 100%;
 
@@ -22,6 +23,7 @@ $formWidth: 80%;
 
     //right side
     .account{
+        flex: 1;
         margin-left: 1.5em;
     }
 
@@ -115,10 +117,13 @@ input:disabled{
     border-top: solid;
 }
 
-.sub-nav--item{
-    
+.subnav-selected{
+    font-weight: bold;
 }
 
-.section-selected{
-    font-weight: bold;
+.ad-nav--list{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
 }

@@ -59,7 +59,7 @@ if(!$PartnerQuery->have_posts()){
 wp_reset_postdata();
 ?>
 
-    <h2 class="profile-header">Your Profile</h2>
+    <h2 class="profile-header">My Account</h2>
     <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>' data-status='<?php echo $thePartnerPost->post_status ?>'>
             Thank you for your submission we are currently reviweing your profile. 
             <button id='switch'>switch to draft</button>
@@ -89,207 +89,13 @@ wp_reset_postdata();
                 <h2>Current Add-ons</h2>
                 <!-- list of items -->
             </div>
-
-
-
-            <h3>Cover Image</h3>
-            <?php $imgs = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post_parent' => $thePartnerPost->ID))?>
-            <div id="drop-area" data-img='<?php echo count($imgs); ?>'>
-                <form class="my-form" enctype='multipart/form-data'>
-                    <div id='drop-area-content' <?php echo (count($imgs) <= 0) ? "" : "style='display: none'" ?>>
-                        <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                        
-<!-- need to look at what events happen after a file has been chosen -->
-<!-- name='fileElem' multiple accept="image/png, image/jpeg" -->
-                        <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
-                        <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
-                        <?php wp_nonce_field('fileElem', 'fileElem-nonce');?>
-                        <label class="button" for="fileElem">Select some files</label>
-                    </div>
-                    <div id="loading-icon" style='display: none;'>Uploading...</div>
-                    <div id="gallery">
-                        <?php 
-                        echo (count($imgs) <= 0) ? "<img style='display: none'>" : "" ;
-                        foreach( $imgs as $img){
-                            $thumbnail = wp_get_attachment_image($img->ID, 'thumbnail', true, array('data-id' => $img->ID));
-                            echo $thumbnail;
-                        }
-                        ?>
-                    </div>
-                    
-                    <button id='delete-img-btn' style='display: <?php echo $img > 0 ? "" : "none" ?>;'>Delete</button>
-                </form>
-            </div>
-
-
-
-            <h3>Packages</h3>
-            <?php //custome query for packages by this user
-                $packageQuery = new WP_Query(array(
-                    'post_type' => 'packages',
-                    'posts_per_page' => -1,
-                    'author' => $userID,
-                    'post_status' => array(
-                        'pending', 
-                        'draft',
-                        'future'
-                    )
-                ));
-                $thePackage = array();
-                while($packageQuery->have_posts()){
-                    $packageQuery->the_post();
-                    $thePackage[get_field('package_order', $post->ID)] = $post;
-                }
-                if($packageQuery->found_posts() < 4){
-                    wp_reset_postdata();
-                    $publicPackageQuery = new WP_Query(array(
-                        'post_type' => 'packages',
-                        'posts_per_page' => -1,
-                        'author' => $userID,
-                        'post_status' => 'publish'
-                    ));
-                    for( $count = 1; $count <= 4; $count++){
-                        $doesExist = false;
-                        foreach( $thePackage as $value){
-                            if( $count == get_field('package_order', $value->ID)){
-                                //echo get_field('package_order', $value->ID);
-                                $doesExist = true;
-                                break;
-                            }
-                        }
-                        if(!$doesExist){
-                            while($publicPackageQuery->have_posts()){
-                                $publicPackageQuery->the_post();
-                                //duplicate_post returns the new post id 
-                                if($count == get_field('package_order', $post->ID)){
-                                    $newPost = duplicate_post($post->ID);
-                                    update_field('original_post_id', $post->ID, $newPost);
-                                    $thePackage[$count] = get_post($newPost);
-                                    //echo "publicTrue";
-                                    $doesExist = true;
-                                    break;
-                                }
-                            }
-                            if(!$doesExist){
-                                //echo "making new";
-                                $thePackage[$count] = get_post(create_custom_post('packages', $userID));
-                                update_field('package_order', $count, $thePackage[$count]->ID);
-                            }
-                        }
-                    }
-                }
-                wp_reset_postdata();
-            ?> 
-            <ul> 
-            <?php
-                for($i = 1; $i <= 4; $i++){ 
-            ?>
-                <!-- when clicked this link will bring you to a page for package editing -->
-                <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
-                    <?php //check to see if there is a title
-                    if(apply_filters('the_title', $thePackage[$i]->post_title) == ""){
-                        ?>
-                        <h2>Edit Me</h2>
-                    <?php } else {?>
-                    <h2><?php echo apply_filters('the_title', $thePackage[$i]->post_title);?></h2>
-                    <div>
-                        <p><?php echo apply_filters('the_content', $thePackage[$i]->post_content); ?></p>
-                        <div>
-                            <div><?php echo get_field('start_date', $thePackage[$i]->ID); ?></div>
-                            <div><?php echo get_field('end_date', $thePackage[$i]->ID); ?></div>
-                        </div>
-                    </div>
-                    <?php } ?>
-                </a>
-
-
-            <?php } 
-            // MARK : Pulling checkbox information
-            ?>
-            </ul>
-            <!-- pull in information about addons -->
-            <form id='more-info' class="share-more-information-form">
-                <h3 class="form-more-info-header">Accomodations</h3>
-                <div class="row">
-                    <div class="two-column"><?php 
-                        $count = 0;
-                        $accomodations = get_field_object('accomodations', $thePartnerPost->ID);
-                        $choices = $accomodations['choices'];
-                        $checked = get_field('accomodations', $thePartnerPost->ID);
-                        if($accomodations){
-                            foreach ($choices as $value => $label){
-                                $count++;
-                                if($count == (int)(count($choices)/2)+1){
-                                ?>
-                                    </div>
-                                    <div class="two-column col-2">
-                                <?php
-                                }
-                                ?>
-                        <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
-                   
-                    <?php  }} ?>
-                    </div>
-                </div>
-                <h3 class="form-more-info-header">Camping & Rv Parks</h3>
-                <div class="row">
-                    <div class="two-column">
-                    <?php 
-                        $count = 0;
-                        $camping = get_field_object('camping', $thePartnerPost->ID);
-                        $choices = $camping['choices'];
-                        $checked = get_field('camping', $thePartnerPost->ID);
-                        if($camping){
-                            foreach ($choices as $value => $label){
-                                //truncate count($choices)/2 it is giving a decimal which causes an error!
-                                
-                                //echo $count;
-                                //echo ((Int)count($choices)/2);
-                                //echo (($count == count($choices)/2) ? "true" : "false");
-                                $count++;
-                                if($count == (int)(count($choices)/2)+1){
-                                ?>
-                                    </div>
-                                    <div class="two-column col-2">
-                                <?php
-                                }
-                                ?>
-                        <label class="form-checkbox"><input type="checkbox" name="camping" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
-                   
-                    <?php  }} ?>
-                    </div>
-                </div>
-                <h3 class="form-more-info-header">Attractions, Activities & Services</h3>
-                <div class="row">
-                    <div class="two-column">
-                    <?php 
-                        $count = 0;
-                        $attractions = get_field_object('attractions', $thePartnerPost->ID);
-                        $choices = $attractions['choices'];
-                        $checked = get_field('attractions', $thePartnerPost->ID);
-                        if($attractions){
-                            foreach ($choices as $value => $label){
-                                $count++;
-                                if($count == (int)(count($choices)/2)+1){
-                                ?>
-                                    </div>
-                                    <div class="two-column col-2">
-                                <?php
-                                }
-                                ?>
-                        <label class="form-checkbox"><input type="checkbox" name="attractions" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
-                   
-                    <?php  }} ?>
-                    </div>
-                </div>
-            </form>
         </div>
         <!-- right Side-->
         <div class='account'>
 
             <nav class="sub-nav">
                 <ul class="sub-nav--list">
-                    <li class="sub-nav--item section-selected" data-id='profile'>Profile</li>
+                    <li class="sub-nav--item subnav-selected" data-id='profile'>Profile</li>
                     <li class="sub-nav--item " data-id='gallery'>Gallery</li>
                     <li class="sub-nav--item " data-id='plans'>Plans</li>
                     <li class="sub-nav--item " data-id='advertising'>Advertising</li>
@@ -356,39 +162,8 @@ wp_reset_postdata();
                 <label class="form-header">Toll-Free Number</label>
                 <input class="form-element tollfree" id="toll-free" placeholder="Toll-Free Phone Number" placeholder="Website" value='<?php echo get_field('toll_free_nunber', $thePartnerPost->ID); ?>'>
                 
-                <!-- Billing information -->
-                <h3 class="form-section">Billing Information</h3>
-                <div class="form-split">
-                    <div class="half-split">
-                        <!-- REQUIRED -->
-                        <label class="form-header">First Name</label>
-                        <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
-                    </div>
-                    <div class="center-split"></div>
-                    <div class="half-split">   
-                        <!-- REQUIRED  -->
-                        <label class="form-header">Last Name</label>
-                        <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
-                    </div>
-                </div>
-                <!-- REQUIRED -->
-                <label class="form-header">Email</label>
-                <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
                 
-                <label class="form-header">Secondary Contact</label>
-                <div class="form-split">
-                    <div class="half-split">
-                        <label class="form-header">First Name</label>
-                        <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" placeholder="Website" value='<?php echo get_field('secondary_contact_firstname', $thePartnerPost->ID); ?>'>
-                    </div>
-                    <div class="center-split"></div>
-                    <div class="half-split">   
-                        <label class="form-header">Last Name</label>
-                        <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" placeholder="Website" value='<?php echo get_field('secondary_contact_lastname', $thePartnerPost->ID); ?>'>
-                    </div>
-                </div>
-                <label class="form-header">Email:</label>
-                <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
+                <!-- REQUIRED -->
                 
                 <h3 class="form-section">Head Office Information</h3>
                 
@@ -430,38 +205,262 @@ wp_reset_postdata();
                     <button id='save-profile-btn' class='form-element submit-btn'>Save</button>
                     <button id="submit-profile-btn" class="form-element submit-btn ">Submit</button>
                 </div>
-                </section>
+            </section>
                 
                 <!-- GALLERY -->
-                <section id='gallery' class='account-card'>
-                    
+            <section id='gallery' class='account-card'>
+                    <h3>Cover Image</h3>
+                    <?php $imgs = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post_parent' => $thePartnerPost->ID))?>
+                    <div id="drop-area" data-img='<?php echo count($imgs); ?>'>
+                        <form class="my-form" enctype='multipart/form-data'>
+                            <div id='drop-area-content' <?php echo (count($imgs) <= 0) ? "" : "style='display: none'" ?>>
+                                <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+                                
+        <!-- need to look at what events happen after a file has been chosen -->
+        <!-- name='fileElem' multiple accept="image/png, image/jpeg" -->
+                                <input type="file" id="fileElem" name='fileElem' multiple accept="image/png, image/jpeg"/>
+                                <input type='hidden' id="parent_id" value='<?php echo $thePartnerPost->ID; ?>'/>
+                                <?php wp_nonce_field('fileElem', 'fileElem-nonce');?>
+                                <label class="button" for="fileElem">Select some files</label>
+                            </div>
+                            <div id="loading-icon" style='display: none;'>Uploading...</div>
+                            <div id="gallery">
+                                <?php 
+                                echo (count($imgs) <= 0) ? "<img style='display: none'>" : "" ;
+                                foreach( $imgs as $img){
+                                    $thumbnail = wp_get_attachment_image($img->ID, 'thumbnail', true, array('data-id' => $img->ID));
+                                    echo $thumbnail;
+                                }
+                                ?>
+                            </div>
+                            
+                            <button id='delete-img-btn' style='display: <?php echo $img > 0 ? "" : "none" ?>;'>Delete</button>
+                        </form>
+                    </div>
                 </section>
                 
                 <!-- PLANS -->
                 <section id='plans' class='account-card'>
-                    
+                    <h3>Packages</h3>
+                    <?php //custome query for packages by this user
+                        $packageQuery = new WP_Query(array(
+                            'post_type' => 'packages',
+                            'posts_per_page' => -1,
+                            'author' => $userID,
+                            'post_status' => array(
+                                'pending', 
+                                'draft',
+                                'future'
+                            )
+                        ));
+                        $thePackage = array();
+                        while($packageQuery->have_posts()){
+                            $packageQuery->the_post();
+                            $thePackage[get_field('package_order', $post->ID)] = $post;
+                        }
+                        if($packageQuery->found_posts() < 4){
+                            wp_reset_postdata();
+                            $publicPackageQuery = new WP_Query(array(
+                                'post_type' => 'packages',
+                                'posts_per_page' => -1,
+                                'author' => $userID,
+                                'post_status' => 'publish'
+                            ));
+                            for( $count = 1; $count <= 4; $count++){
+                                $doesExist = false;
+                                foreach( $thePackage as $value){
+                                    if( $count == get_field('package_order', $value->ID)){
+                                        //echo get_field('package_order', $value->ID);
+                                        $doesExist = true;
+                                        break;
+                                    }
+                                }
+                                if(!$doesExist){
+                                    while($publicPackageQuery->have_posts()){
+                                        $publicPackageQuery->the_post();
+                                        //duplicate_post returns the new post id 
+                                        if($count == get_field('package_order', $post->ID)){
+                                            $newPost = duplicate_post($post->ID);
+                                            update_field('original_post_id', $post->ID, $newPost);
+                                            $thePackage[$count] = get_post($newPost);
+                                            //echo "publicTrue";
+                                            $doesExist = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!$doesExist){
+                                        //echo "making new";
+                                        $thePackage[$count] = get_post(create_custom_post('packages', $userID));
+                                        update_field('package_order', $count, $thePackage[$count]->ID);
+                                    }
+                                }
+                            }
+                        }
+                        wp_reset_postdata();
+                    ?> 
+                    <ul> 
+                    <?php
+                        for($i = 1; $i <= 4; $i++){ 
+                    ?>
+                        <!-- when clicked this link will bring you to a page for package editing -->
+                        <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
+                            <?php //check to see if there is a title
+                            if(apply_filters('the_title', $thePackage[$i]->post_title) == ""){
+                                ?>
+                                <h2>Edit Me</h2>
+                            <?php } else {?>
+                            <h2><?php echo apply_filters('the_title', $thePackage[$i]->post_title);?></h2>
+                            <div>
+                                <p><?php echo apply_filters('the_content', $thePackage[$i]->post_content); ?></p>
+                                <div>
+                                    <div><?php echo get_field('start_date', $thePackage[$i]->ID); ?></div>
+                                    <div><?php echo get_field('end_date', $thePackage[$i]->ID); ?></div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </a>
+
+
+                        <?php } 
+                        // MARK : Pulling checkbox information
+                        ?>
+                    </ul>
                 </section>
                     
                 <!-- ADVERTISING -->
                 <section id='advertising' class='account-card'>
-                        
+                    <ul class="ad-nav--list">
+                        <li class="ad-nav--item subnav-selected">Packages</li>
+                        <li class="ad-nav--item">Digital</li>
+                        <li class="ad-nav--item">Print</li>
+                        <button class='cart-button'>Cart</button>
+                    </ul>
+                    <section id='package' class="ad-card">package card</section>
+                    <section id='digital' class="ad-card">digital advertising card</section>
+                    <section id='print' class="ad-card">print advertising card</section>
                 </section>
                         
                 <!-- ACCOUNT BILLING -->
                 <section id='account-billing' class='account-card'>
-                            
+                    <!-- Billing information -->
+                    <h3 class="form-section">Billing Information</h3>
+                    <div class="form-split">
+                        <div class="half-split">
+                            <!-- REQUIRED -->
+                            <label class="form-header">First Name</label>
+                            <input id="first-name" class="form-element" type="textbox" placeholder="First Name" value="<?php echo $user_info->user_firstname; ?>">
+                        </div>
+                        <div class="center-split"></div>
+                        <div class="half-split">   
+                            <!-- REQUIRED  -->
+                            <label class="form-header">Last Name</label>
+                            <input id="last-name" class="form-element" type="textbox" placeholder="Last Name" value="<?php echo $user_info->user_lastname; ?>">
+                        </div>
+                    </div> 
+                    <label class="form-header">Email</label>
+                <input id="email" class="form-element" type="textbox" placeholder="Email" value="<?php echo $user_info->user_email;?>">
+                
+                <label class="form-header">Secondary Contact</label>
+                <div class="form-split">
+                    <div class="half-split">
+                        <label class="form-header">First Name</label>
+                        <input id="s-first-name" class="form-element" type="textbox" placeholder="First Name" placeholder="Website" value='<?php echo get_field('secondary_contact_firstname', $thePartnerPost->ID); ?>'>
+                    </div>
+                    <div class="center-split"></div>
+                    <div class="half-split">   
+                        <label class="form-header">Last Name</label>
+                        <input id="s-last-name" class="form-element last-name" type="textbox" placeholder="Last Name" placeholder="Website" value='<?php echo get_field('secondary_contact_lastname', $thePartnerPost->ID); ?>'>
+                    </div>
+                </div>
+                <label class="form-header">Business Email:</label>
+                <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
+                     
                 </section>
                             
                 <!-- ADDITION -->
-                <section id='additional info' class='account-card'>
-                                
+                <section id='additional-info' class='account-card'>
+                    <form id='more-info' class="share-more-information-form">
+                        <h3 class="form-more-info-header">Accomodations</h3>
+                        <div class="row">
+                            <div class="two-column"><?php 
+                                $count = 0;
+                                $accomodations = get_field_object('accomodations', $thePartnerPost->ID);
+                                $choices = $accomodations['choices'];
+                                $checked = get_field('accomodations', $thePartnerPost->ID);
+                                if($accomodations){
+                                    foreach ($choices as $value => $label){
+                                        $count++;
+                                        if($count == (int)(count($choices)/2)+1){
+                                        ?>
+                                            </div>
+                                            <div class="two-column col-2">
+                                        <?php
+                                        }
+                                        ?>
+                                <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                        
+                            <?php  }} ?>
+                            </div>
+                        </div>
+                        <h3 class="form-more-info-header">Camping & Rv Parks</h3>
+                        <div class="row">
+                            <div class="two-column">
+                            <?php 
+                                $count = 0;
+                                $camping = get_field_object('camping', $thePartnerPost->ID);
+                                $choices = $camping['choices'];
+                                $checked = get_field('camping', $thePartnerPost->ID);
+                                if($camping){
+                                    foreach ($choices as $value => $label){
+                                        //truncate count($choices)/2 it is giving a decimal which causes an error!
+                                        
+                                        //echo $count;
+                                        //echo ((Int)count($choices)/2);
+                                        //echo (($count == count($choices)/2) ? "true" : "false");
+                                        $count++;
+                                        if($count == (int)(count($choices)/2)+1){
+                                        ?>
+                                            </div>
+                                            <div class="two-column col-2">
+                                        <?php
+                                        }
+                                        ?>
+                                <label class="form-checkbox"><input type="checkbox" name="camping" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                        
+                            <?php  }} ?>
+                            </div>
+                        </div>
+                        <h3 class="form-more-info-header">Attractions, Activities & Services</h3>
+                        <div class="row">
+                            <div class="two-column">
+                            <?php 
+                                $count = 0;
+                                $attractions = get_field_object('attractions', $thePartnerPost->ID);
+                                $choices = $attractions['choices'];
+                                $checked = get_field('attractions', $thePartnerPost->ID);
+                                if($attractions){
+                                    foreach ($choices as $value => $label){
+                                        $count++;
+                                        if($count == (int)(count($choices)/2)+1){
+                                        ?>
+                                            </div>
+                                            <div class="two-column col-2">
+                                        <?php
+                                        }
+                                        ?>
+                                <label class="form-checkbox"><input type="checkbox" name="attractions" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
+                        
+                            <?php  }} ?>
+                            </div>
+                        </div>
+                    </form>
                 </section>
-            </div>
             <h2 class='pending-message' style='<?php echo ($thePartnerPost->post_status == 'pending') ? "" : 'display: none;'?>'>Thank you for your sumission we are currently reviweing your profile.</h2> 
         </div>
-    <?php wp_reset_postdata(); } else{?>
-        <h2>Please Sign in First</h2>
-    <?php } ?>
+        <?php wp_reset_postdata(); } else{?>
+            <h2>Please Sign in First</h2>
+        <?php } ?>
+    </div>
 <!-- Place hetml for form here-->
 </main>
 

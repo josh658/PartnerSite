@@ -99,6 +99,7 @@ body {
     flex: .4;
     text-align: center; }
   .twoColumns .account {
+    flex: 1;
     margin-left: 1.5em; }
   .twoColumns .sub-nav {
     margin-bottom: 1em; }
@@ -113,8 +114,14 @@ input:disabled {
   border: none;
   border-top: solid; }
 
-.section-selected {
+.subnav-selected {
   font-weight: bold; }
+
+.ad-nav--list {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none; }
 
 .a-btn {
   border-style: solid;

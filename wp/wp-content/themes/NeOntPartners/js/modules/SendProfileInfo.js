@@ -7,26 +7,35 @@ class SendProfileInfo{
     constructor(){
         //disable all input if data-status id pending.
         
-        this.subnav = $('.sub-nav--item')
-        this.lockable = $("input, textarea")
-        this.pendingMessage = $('.pending-message')
-        if(this.pendingMessage.attr('data-status') == 'pending'){
-            this.lockable.prop('disabled', true)
-            
-        }
-        this.switchDraft = $('#switch')
-        this.dropArea = $('#drop-area')
-        this.autosaveBtn = $('#auto-save-btn')
-        this.btn = document.getElementById('submit-profile-btn')
-        this.postID = $('#profile-edit-form').data('postid')
-        this.moreInfo = $(':checkbox')
-        this.locate = document.getElementById('locate')
-        this.lat = document.getElementById('lat')
-        this.lng = document.getElementById('lng')
-        this.same = document.getElementById('same-as-location')
-        this.sameContent = $('#same-as-location-content')
-        this.saveBtn = $('#save-profile-btn')
         if( window.location.pathname == '/profile-edit/'){
+            this.subnav = $('.sub-nav--item')
+            this.accountCard = $('.account-card')
+            this.accountCard.hide()
+            $('#advertising').show()
+
+            this.adnav = $('.ad-nav--item')
+            this.adCard = $('.ad-card')
+            this.adCard.hide()
+            $('#package').show()
+
+            this.lockable = $("input, textarea")
+            this.pendingMessage = $('.pending-message')
+            if(this.pendingMessage.attr('data-status') == 'pending'){
+                this.lockable.prop('disabled', true)
+                
+            }
+            this.switchDraft = $('#switch')
+            this.dropArea = $('#drop-area')
+            this.autosaveBtn = $('#auto-save-btn')
+            this.btn = document.getElementById('submit-profile-btn')
+            this.postID = $('#profile-edit-form').data('postid')
+            this.moreInfo = $(':checkbox')
+            this.locate = document.getElementById('locate')
+            this.lat = document.getElementById('lat')
+            this.lng = document.getElementById('lng')
+            this.same = document.getElementById('same-as-location')
+            this.sameContent = $('#same-as-location-content')
+            this.saveBtn = $('#save-profile-btn')
             this.events();
         }
 
@@ -34,6 +43,7 @@ class SendProfileInfo{
 
     events(){
         imgUpload(this.dropArea)
+        this.adnav.on('click', this.showCatagory.bind(this))
         this.subnav.on('click', this.showCatagory.bind(this))
         this.sameAs.call(this);
         // add switchToDraft so you can switch to draft $("input, textarea").prop('disabled', true)
@@ -51,7 +61,10 @@ class SendProfileInfo{
 
     //need to find a way to hide all sections show the click on item.
     showCatagory(e){
-        
+        this.subnav.removeClass('subnav-selected')
+        e.target.classList.add('subnav-selected')
+        this.accountCard.hide()
+        $('#' + e.target.dataset.id).show('slow')
     }
 
     switchToDraft(){
