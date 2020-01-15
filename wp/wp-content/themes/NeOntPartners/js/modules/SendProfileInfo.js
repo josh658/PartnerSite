@@ -12,6 +12,7 @@ class SendProfileInfo{
         if( window.location.pathname == '/profile-edit/'){
             this.addToCart = $('.add-to-cart')
 
+            this.addOnPrice = $('#digital-add-on-price')
             this.addOnTitle = $('#digital-add-on-title')
             this.addOnDescription = $('#digital-add-on-description')
             this.addOnButton = $('#digital-add-to-cart')
@@ -70,7 +71,7 @@ class SendProfileInfo{
     }
 
     addButton(e){
-        console.log("adding to cart")
+        alert("adding to cart")
         addProductToCart(e.target.dataset.id)
     }
 

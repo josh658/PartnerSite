@@ -255,7 +255,7 @@ wp_reset_postdata();
                         <li class="ad-nav--item subnav-selected" data-id='package'>Packages</li>
                         <li class="ad-nav--item" data-id='digital'>Digital</li>
                         <li class="ad-nav--item" data-id='print'>Print</li>
-                        <button class='cart-button'>Cart</button>
+                        <a href='<?php echo site_url($path='cart')?>' class='cart-button'>Cart</a>
                     </ul>
                     <section id='package' class="ad-card">
                         <?php //custome query for packages by this user
@@ -342,7 +342,7 @@ wp_reset_postdata();
                             ?>
                         </ul>
                     </section>
-                    <section id='digital' class="ad-card">
+                    <section id='digital' class="ad-card addon-card">
                         <ul class='addon-list'>
                         <?php 
                             //make custom query to loop through all items
@@ -363,10 +363,11 @@ wp_reset_postdata();
                             //get cart content == WC()->cart->get_cart()
                         ?>
                         </ul>
-                        <div id="digital-add-on-details">
+                        <div class="add-on-details">
                             <h3 id='digital-add-on-title'></h3>
                             <p id='digital-add-on-description'></p>
-                            <button id='digital-add-to-cart' class='add-to-cart' data-id=''>add to cart</button>
+                            <p id='digital-add-on-price'></p>
+                            <button id='digital-add-to-cart' class='add-to-cart' data-id=''></button>
                         </div>
                     </section>
                     <section id='print' class="ad-card">print advertising card</section>

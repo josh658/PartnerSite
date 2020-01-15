@@ -423,6 +423,22 @@ input:focus, textarea:focus {
   bottom: 4px;
   right: 4px; }
 
+.addon-card {
+  display: flex;
+  justify-content: space-between; }
+  .addon-card .addon-list {
+    flex: 0.15;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style-type: none; }
+    .addon-card .addon-list li {
+      cursor: pointer; }
+  .addon-card .add-on-details {
+    flex: 0.75;
+    margin: auto;
+    text-align: center; }
+
 /*
 TODO: for main
     main{

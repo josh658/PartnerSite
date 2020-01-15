@@ -23,6 +23,8 @@ function pullAddOn(productId){
             this.addOnTitle.html(response.title)
             this.addOnDescription.html(response.description)
             this.addOnButton.attr("data-id", response.addToCartURL)
+            this.addOnPrice.html("$" + response.price)
+            this.addOnButton.html('add to cart')
         },
         error: (response) => {
             console.log("Error")
