@@ -126,4 +126,8 @@ input:disabled{
     display: flex;
     justify-content: space-around;
     list-style-type: none;
+
+    .ad-nav--item{
+        cursor: pointer;
+    }
 }

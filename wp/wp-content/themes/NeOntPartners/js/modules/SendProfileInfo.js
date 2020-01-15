@@ -2,27 +2,35 @@ import $ from 'jquery'
 import profileDataPull from './Functions/profileDataPull'
 import imgUpload from'./Functions/imgUpload'
 import requiredCheck from './Functions/requiredCheck'
+import pullAddOn from './Functions/pullAddOn'
+import addProductToCart from './Functions/addToCart'
 
 class SendProfileInfo{
     constructor(){
         //disable all input if data-status id pending.
-        
+
         if( window.location.pathname == '/profile-edit/'){
-            this.subnav = $('.sub-nav--item')
-            this.accountCard = $('.account-card')
-            this.accountCard.hide()
-            $('#advertising').show()
+            this.addToCart = $('.add-to-cart')
+
+            this.addOnTitle = $('#digital-add-on-title')
+            this.addOnDescription = $('#digital-add-on-description')
+            this.addOnButton = $('#digital-add-to-cart')
+            this.digitalAddOn = $('.add-on')
 
             this.adnav = $('.ad-nav--item')
             this.adCard = $('.ad-card')
             this.adCard.hide()
             $('#package').show()
+            
+            this.subnav = $('.sub-nav--item')
+            this.accountCard = $('.account-card')
+            this.accountCard.hide()
+            $('#profile').show()
 
             this.lockable = $("input, textarea")
             this.pendingMessage = $('.pending-message')
             if(this.pendingMessage.attr('data-status') == 'pending'){
                 this.lockable.prop('disabled', true)
-                
             }
             this.switchDraft = $('#switch')
             this.dropArea = $('#drop-area')
@@ -43,7 +51,9 @@ class SendProfileInfo{
 
     events(){
         imgUpload(this.dropArea)
-        this.adnav.on('click', this.showCatagory.bind(this))
+        this.addToCart.on('click', this.addButton.bind(this))
+        this.digitalAddOn.on('click', this.selectAddOn.bind(this))
+        this.adnav.on('click', this.showAdvertising.bind(this))
         this.subnav.on('click', this.showCatagory.bind(this))
         this.sameAs.call(this);
         // add switchToDraft so you can switch to draft $("input, textarea").prop('disabled', true)
@@ -59,11 +69,30 @@ class SendProfileInfo{
         this.moreInfo.on('change', this.updateProfile.bind(this, this.postID, 'draft'))
     }
 
+    addButton(e){
+        console.log("adding to cart")
+        addProductToCart(e.target.dataset.id)
+    }
+
+    selectAddOn(e){
+        this.digitalAddOn.removeClass('selected-addon')
+        e.target.classList.add('selected-addon')
+        console.log('product id ' + e.target.dataset.productid)
+        pullAddOn.call(this, e.target.dataset.productid)
+    }
+
     //need to find a way to hide all sections show the click on item.
     showCatagory(e){
         this.subnav.removeClass('subnav-selected')
         e.target.classList.add('subnav-selected')
         this.accountCard.hide()
+        $('#' + e.target.dataset.id).show('slow')
+    }
+
+    showAdvertising(e){
+        this.adnav.removeClass('subnav-selected')
+        e.target.classList.add('subnav-selected')
+        this.adCard.hide()
         $('#' + e.target.dataset.id).show('slow')
     }
 

@@ -122,6 +122,8 @@ input:disabled {
   display: flex;
   justify-content: space-around;
   list-style-type: none; }
+  .ad-nav--list .ad-nav--item {
+    cursor: pointer; }
 
 .a-btn {
   border-style: solid;

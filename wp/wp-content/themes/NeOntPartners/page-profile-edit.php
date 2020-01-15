@@ -96,10 +96,15 @@ wp_reset_postdata();
             <nav class="sub-nav">
                 <ul class="sub-nav--list">
                     <li class="sub-nav--item subnav-selected" data-id='profile'>Profile</li>
+                    <li>|</li>
                     <li class="sub-nav--item " data-id='gallery'>Gallery</li>
+                    <li>|</li>
                     <li class="sub-nav--item " data-id='plans'>Plans</li>
+                    <li>|</li>
                     <li class="sub-nav--item " data-id='advertising'>Advertising</li>
+                    <li>|</li>
                     <li class="sub-nav--item " data-id='account-billing'>Account Billing</li>
+                    <li>|</li>
                     <li class="sub-nav--item " data-id='additional-info'>Additional Info</li>
                 </ul>
             </nav>
@@ -241,102 +246,129 @@ wp_reset_postdata();
                 
                 <!-- PLANS -->
                 <section id='plans' class='account-card'>
-                    <h3>Packages</h3>
-                    <?php //custome query for packages by this user
-                        $packageQuery = new WP_Query(array(
-                            'post_type' => 'packages',
-                            'posts_per_page' => -1,
-                            'author' => $userID,
-                            'post_status' => array(
-                                'pending', 
-                                'draft',
-                                'future'
-                            )
-                        ));
-                        $thePackage = array();
-                        while($packageQuery->have_posts()){
-                            $packageQuery->the_post();
-                            $thePackage[get_field('package_order', $post->ID)] = $post;
-                        }
-                        if($packageQuery->found_posts() < 4){
-                            wp_reset_postdata();
-                            $publicPackageQuery = new WP_Query(array(
-                                'post_type' => 'packages',
-                                'posts_per_page' => -1,
-                                'author' => $userID,
-                                'post_status' => 'publish'
-                            ));
-                            for( $count = 1; $count <= 4; $count++){
-                                $doesExist = false;
-                                foreach( $thePackage as $value){
-                                    if( $count == get_field('package_order', $value->ID)){
-                                        //echo get_field('package_order', $value->ID);
-                                        $doesExist = true;
-                                        break;
-                                    }
-                                }
-                                if(!$doesExist){
-                                    while($publicPackageQuery->have_posts()){
-                                        $publicPackageQuery->the_post();
-                                        //duplicate_post returns the new post id 
-                                        if($count == get_field('package_order', $post->ID)){
-                                            $newPost = duplicate_post($post->ID);
-                                            update_field('original_post_id', $post->ID, $newPost);
-                                            $thePackage[$count] = get_post($newPost);
-                                            //echo "publicTrue";
-                                            $doesExist = true;
-                                            break;
-                                        }
-                                    }
-                                    if(!$doesExist){
-                                        //echo "making new";
-                                        $thePackage[$count] = get_post(create_custom_post('packages', $userID));
-                                        update_field('package_order', $count, $thePackage[$count]->ID);
-                                    }
-                                }
-                            }
-                        }
-                        wp_reset_postdata();
-                    ?> 
-                    <ul> 
-                    <?php
-                        for($i = 1; $i <= 4; $i++){ 
-                    ?>
-                        <!-- when clicked this link will bring you to a page for package editing -->
-                        <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
-                            <?php //check to see if there is a title
-                            if(apply_filters('the_title', $thePackage[$i]->post_title) == ""){
-                                ?>
-                                <h2>Edit Me</h2>
-                            <?php } else {?>
-                            <h2><?php echo apply_filters('the_title', $thePackage[$i]->post_title);?></h2>
-                            <div>
-                                <p><?php echo apply_filters('the_content', $thePackage[$i]->post_content); ?></p>
-                                <div>
-                                    <div><?php echo get_field('start_date', $thePackage[$i]->ID); ?></div>
-                                    <div><?php echo get_field('end_date', $thePackage[$i]->ID); ?></div>
-                                </div>
-                            </div>
-                            <?php } ?>
-                        </a>
-
-
-                        <?php } 
-                        // MARK : Pulling checkbox information
-                        ?>
-                    </ul>
+                    
                 </section>
                     
                 <!-- ADVERTISING -->
                 <section id='advertising' class='account-card'>
                     <ul class="ad-nav--list">
-                        <li class="ad-nav--item subnav-selected">Packages</li>
-                        <li class="ad-nav--item">Digital</li>
-                        <li class="ad-nav--item">Print</li>
+                        <li class="ad-nav--item subnav-selected" data-id='package'>Packages</li>
+                        <li class="ad-nav--item" data-id='digital'>Digital</li>
+                        <li class="ad-nav--item" data-id='print'>Print</li>
                         <button class='cart-button'>Cart</button>
                     </ul>
-                    <section id='package' class="ad-card">package card</section>
-                    <section id='digital' class="ad-card">digital advertising card</section>
+                    <section id='package' class="ad-card">
+                        <?php //custome query for packages by this user
+                            $packageQuery = new WP_Query(array(
+                                'post_type' => 'packages',
+                                'posts_per_page' => -1,
+                                'author' => $userID,
+                                'post_status' => array(
+                                    'pending', 
+                                    'draft',
+                                    'future'
+                                )
+                            ));
+                            $thePackage = array();
+                            while($packageQuery->have_posts()){
+                                $packageQuery->the_post();
+                                $thePackage[get_field('package_order', $post->ID)] = $post;
+                            }
+                            if($packageQuery->found_posts() < 4){
+                                wp_reset_postdata();
+                                $publicPackageQuery = new WP_Query(array(
+                                    'post_type' => 'packages',
+                                    'posts_per_page' => -1,
+                                    'author' => $userID,
+                                    'post_status' => 'publish'
+                                ));
+                                for( $count = 1; $count <= 4; $count++){
+                                    $doesExist = false;
+                                    foreach( $thePackage as $value){
+                                        if( $count == get_field('package_order', $value->ID)){
+                                            //echo get_field('package_order', $value->ID);
+                                            $doesExist = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!$doesExist){
+                                        while($publicPackageQuery->have_posts()){
+                                            $publicPackageQuery->the_post();
+                                            //duplicate_post returns the new post id 
+                                            if($count == get_field('package_order', $post->ID)){
+                                                $newPost = duplicate_post($post->ID);
+                                                update_field('original_post_id', $post->ID, $newPost);
+                                                $thePackage[$count] = get_post($newPost);
+                                                //echo "publicTrue";
+                                                $doesExist = true;
+                                                break;
+                                            }
+                                        }
+                                        if(!$doesExist){
+                                            //echo "making new";
+                                            $thePackage[$count] = get_post(create_custom_post('packages', $userID));
+                                            update_field('package_order', $count, $thePackage[$count]->ID);
+                                        }
+                                    }
+                                }
+                            }
+                            wp_reset_postdata();
+                        ?> 
+                        <ul> 
+                        <?php
+                            for($i = 1; $i <= 4; $i++){ 
+                        ?>
+                            <!-- when clicked this link will bring you to a page for package editing -->
+                            <a href="<?php echo (home_url() . "/packages-editing?id=" . $thePackage[$i]->ID); ?>" class="package-thumnail">
+                                <?php //check to see if there is a title
+                                if(apply_filters('the_title', $thePackage[$i]->post_title) == ""){
+                                    ?>
+                                    <h2>Edit Me</h2>
+                                <?php } else {?>
+                                <h2><?php echo apply_filters('the_title', $thePackage[$i]->post_title);?></h2>
+                                <div>
+                                    <p><?php echo apply_filters('the_content', $thePackage[$i]->post_content); ?></p>
+                                    <div>
+                                        <div><?php echo get_field('start_date', $thePackage[$i]->ID); ?></div>
+                                        <div><?php echo get_field('end_date', $thePackage[$i]->ID); ?></div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            </a>
+
+
+                            <?php } 
+                            // MARK : Pulling checkbox information
+                            ?>
+                        </ul>
+                    </section>
+                    <section id='digital' class="ad-card">
+                        <ul class='addon-list'>
+                        <?php 
+                            //make custom query to loop through all items
+                            $products = wc_get_products(array(
+                               'category' => array('digital'),
+                            ));
+                            foreach($products as $product){
+                                ?>
+                                    <li class='add-on' data-productid='<?php echo esc_attr($product->get_id());?>'>
+                                        <?php echo esc_attr($product->get_title());
+                                        ?>
+                                    </li>
+                                <?php
+                            }
+                            
+
+                            //do I want to load all information at once? or ajax style
+                            //get cart content == WC()->cart->get_cart()
+                        ?>
+                        </ul>
+                        <div id="digital-add-on-details">
+                            <h3 id='digital-add-on-title'></h3>
+                            <p id='digital-add-on-description'></p>
+                            <button id='digital-add-to-cart' class='add-to-cart' data-id=''>add to cart</button>
+                        </div>
+                    </section>
                     <section id='print' class="ad-card">print advertising card</section>
                 </section>
                         
