@@ -10,12 +10,14 @@ class SendProfileInfo{
         //disable all input if data-status id pending.
 
         if( window.location.pathname == '/profile-edit/'){
+            this.addonDetail = $('.add-on-detail')
+            this.addonLoader = $('.addon-loader')
             this.addToCart = $('.add-to-cart')
 
-            this.addOnPrice = $('#digital-add-on-price')
-            this.addOnTitle = $('#digital-add-on-title')
-            this.addOnDescription = $('#digital-add-on-description')
-            this.addOnButton = $('#digital-add-to-cart')
+            this.addOnPrice = $('.add-on-price')
+            this.addOnTitle = $('.add-on-title')
+            this.addOnDescription = $('.add-on-description')
+            this.addOnButton = $('.add-to-cart')
             this.digitalAddOn = $('.add-on')
 
             this.adnav = $('.ad-nav--item')

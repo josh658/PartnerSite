@@ -2,9 +2,9 @@
 Contributors: automattic, royho, akeda, mattyza, bor0, woothemes, dwainm, laurendavissmith001
 Tags: shipping, woocommerce, automattic
 Requires at least: 4.4
-Tested up to: 5.1
+Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 4.1.30
+Stable tag: 4.1.31
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,6 +46,9 @@ If you get stuck, you can ask for help in the Plugin Forum.
 
 == Changelog ==
 
+= 2020-01-05 - version 4.1.31 =
+* Tweak - WP 5.3 compatibility.
+
 = 2019-11-04 - version 4.1.30 =
 * Tweak - WC 3.8 compatibility.
 
@@ -58,5 +61,3 @@ If you get stuck, you can ask for help in the Plugin Forum.
 = 2019-01-07 - version 4.1.27 =
 * Fix - Use product name from order instead of product itself.
 * Fix - Prevent errors when WooCommerce isn't active.
-
-[See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce-shipstation/master/changelog.txt).

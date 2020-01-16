@@ -86,3 +86,19 @@ function pending_review_redirect(){
     }
 }
 add_action('init', 'pending_review_redirect');
+
+function woocommerce_page_redirect(){
+    $profile_page = home_url('profile-edit');
+    $page_viewed = basename($_SERVER['REQUEST_URI']);
+
+    if($page_viewed == 'my-account'){
+        wp_redirect($profile_page);
+        exit;
+    }
+
+    if($page_viewed == 'shop'){
+        wp_redirect($profile_page);
+        exit;
+    }
+}
+add_action('init', 'woocommerce_page_redirect');

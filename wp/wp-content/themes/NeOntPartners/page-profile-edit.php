@@ -255,7 +255,7 @@ wp_reset_postdata();
                         <li class="ad-nav--item subnav-selected" data-id='package'>Packages</li>
                         <li class="ad-nav--item" data-id='digital'>Digital</li>
                         <li class="ad-nav--item" data-id='print'>Print</li>
-                        <a href='<?php echo site_url($path='cart')?>' class='cart-button'>Cart</a>
+                        <a href='<?php echo site_url($path='cart')?>' class='cart-button'>Cart (<?php echo count(WC()->cart->get_cart())?>)</a>
                     </ul>
                     <section id='package' class="ad-card">
                         <?php //custome query for packages by this user
@@ -363,14 +363,49 @@ wp_reset_postdata();
                             //get cart content == WC()->cart->get_cart()
                         ?>
                         </ul>
-                        <div class="add-on-details">
-                            <h3 id='digital-add-on-title'></h3>
-                            <p id='digital-add-on-description'></p>
-                            <p id='digital-add-on-price'></p>
-                            <button id='digital-add-to-cart' class='add-to-cart' data-id=''></button>
+                        <div class='add-on-rightside'>
+                            <div class='loader addon-loader'></div>
+                            <div class="add-on-detail" style='display: none;'>
+                                <h3 class='add-on-title'></h3>
+                                <p class='add-on-description'></p>
+                                <p class='add-on-price'></p>
+                                <button class='add-to-cart' class='add-to-cart' data-id=''></button>
+                            </div>
                         </div>
                     </section>
-                    <section id='print' class="ad-card">print advertising card</section>
+                    
+                    
+                    <section id='print' class="ad-card addon-card">
+                        <ul class='addon-list'>
+                        <?php 
+                            //make custom query to loop through all items
+                            $products = wc_get_products(array(
+                               'category' => array('print'),
+                            ));
+                            foreach($products as $product){
+                                ?>
+                                    <li class='add-on' data-productid='<?php echo esc_attr($product->get_id());?>'>
+                                        <?php echo esc_attr($product->get_title());
+                                        ?>
+                                    </li>
+                                <?php
+                            }
+                            
+
+                            //do I want to load all information at once? or ajax style
+                            //get cart content == WC()->cart->get_cart()
+                        ?>
+                        </ul>
+                        <div class='add-on-rightside'>
+                            <div class='loader addon-loader'></div>
+                            <div class="add-on-detail" style='display: none;'>
+                                <h3 class='add-on-title'></h3>
+                                <p class='add-on-description'></p>
+                                <p class='add-on-price'></p>
+                                <button class='add-to-cart' class='add-to-cart' data-id=''></button>
+                            </div>
+                        </div>
+                    </section>
                 </section>
                         
                 <!-- ACCOUNT BILLING -->

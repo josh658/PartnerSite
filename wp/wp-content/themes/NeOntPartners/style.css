@@ -964,6 +964,9 @@ x .sign-in-form-card > * {
   position: fixed;
   bottom: 4px;
   right: 4px; }
+.addon-loader {
+  display: none;
+  margin: auto; }
 .addon-card {
   display: flex;
   justify-content: space-between; }
@@ -975,7 +978,7 @@ x .sign-in-form-card > * {
     list-style-type: none; }
 .addon-card .addon-list li {
       cursor: pointer; }
-.addon-card .add-on-details {
+.addon-card .add-on-rightside {
     flex: 0.75;
     margin: auto;
     text-align: center; }

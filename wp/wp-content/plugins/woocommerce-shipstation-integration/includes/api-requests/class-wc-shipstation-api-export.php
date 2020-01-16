@@ -213,7 +213,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 				}
 				$item_needs_no_shipping = ! $product || ! $product->needs_shipping();
 				$item_not_a_fee         = 'fee' !== $item['type'];
-				if ( $item_needs_no_shipping && $item_not_a_fee ) {
+				if ( apply_filters( 'woocommerce_shipstation_no_shipping_item', $item_needs_no_shipping && $item_not_a_fee, $product, $item ) ) {
 					continue;
 				}
 

@@ -1,5 +1,9 @@
 *** ShipStation for WooCommerce ***
 
+= 4.1.31 - 2020-01-15 =
+* Tweak - WP 5.3 compatibility.
+* Add   - Filter `woocommerce_shipstation_no_shipping_item` for when an item does not need shipping or is a fee.
+
 = 4.1.30 - 2019-11-04 =
 * Tweak - WC 3.8 compatibility.
 
