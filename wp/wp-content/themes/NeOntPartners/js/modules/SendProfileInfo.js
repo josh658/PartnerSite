@@ -78,6 +78,9 @@ class SendProfileInfo{
     }
 
     selectAddOn(e){
+        if(e.target.classList.contains("selected-addon")){
+            return
+        }
         this.digitalAddOn.removeClass('selected-addon')
         e.target.classList.add('selected-addon')
         console.log('product id ' + e.target.dataset.productid)
@@ -86,6 +89,9 @@ class SendProfileInfo{
 
     //need to find a way to hide all sections show the click on item.
     showCatagory(e){
+        if(e.target.classList.contains('subnav-selected')){
+            return
+        }
         this.subnav.removeClass('subnav-selected')
         e.target.classList.add('subnav-selected')
         this.accountCard.hide()
@@ -93,6 +99,9 @@ class SendProfileInfo{
     }
 
     showAdvertising(e){
+        if(e.target.classList.contains('subnav-selected')){
+            return
+        }
         this.adnav.removeClass('subnav-selected')
         e.target.classList.add('subnav-selected')
         this.adCard.hide()

@@ -982,6 +982,8 @@ x .sign-in-form-card > * {
     flex: 0.75;
     margin: auto;
     text-align: center; }
+.selected-addon {
+  font-weight: bold; }
 /*
 TODO: for main
     main{

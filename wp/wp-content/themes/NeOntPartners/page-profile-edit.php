@@ -88,6 +88,26 @@ wp_reset_postdata();
                 <!-- line seperator -->
                 <h2>Current Add-ons</h2>
                 <!-- list of items -->
+                <?php
+                    $customer_orders = get_posts(
+                        apply_filters(
+                            'woocommerce_my_account_my_orders_query',
+                            array(
+                                'numberposts' => $order_count,
+                                'meta_key'    => '_customer_user',
+                                'meta_value'  => get_current_user_id(),
+                                'post_type'   => wc_get_order_types( 'view-orders' ),
+                                'post_status' => array_keys( wc_get_order_statuses() ),
+                            )
+                        )
+                    );
+                    foreach($customer_orders as $order){
+                        ?>
+                            <label for=""></label>
+
+                        <?php
+                    }
+                ?>
             </div>
         </div>
         <!-- right Side-->
@@ -443,6 +463,8 @@ wp_reset_postdata();
                 <label class="form-header">Business Email:</label>
                 <input id="s-email" class="form-element email" type="textbox" placeholder="Email" placeholder="Website" value='<?php echo get_field('secondary_contact_email', $thePartnerPost->ID); ?>'>
                      
+                <?php require_once get_theme_file_path('/inc/payment-methods.php') ?>
+
                 </section>
                             
                 <!-- ADDITION -->
