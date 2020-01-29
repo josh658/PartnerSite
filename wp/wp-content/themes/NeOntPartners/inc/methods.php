@@ -161,3 +161,56 @@ function upload_media($filePath, $filename){
   }
   
 }
+
+function isOrdered($itemID){
+
+  $isItem = false;
+
+  $customer_orders = get_posts(
+    apply_filters(
+        'woocommerce_my_account_my_orders_query',
+        array(
+            'meta_key'    => '_customer_user',
+            'meta_value'  => get_current_user_id(),
+            'post_type'   => wc_get_order_types( 'view-orders' ),
+            'post_status' => array_keys( wc_get_order_statuses() ),
+        )
+    )
+  );
+  //print_r($customer_orders[0]);
+  //echo $customer_orders[0]->ID;
+  foreach($customer_orders as $customer_order){
+      $order = wc_get_order($customer_order->ID);
+      $order_items = $order->get_items();
+
+      // print_r($order_items);
+      foreach($order_items as $order_item){
+        if ( $itemID == $order_item->get_product_id() ){
+          return true;
+        }
+      }
+  }
+
+  return $isItem;
+}
+
+/**
+ * We have to tell WC that this should not be handled as a REST request.
+ * Otherwise we can't use the product loop template contents properly.
+ * Since WooCommerce 3.6
+ *
+ * @param bool $is_rest_api_request
+ * @return bool
+ */
+function simulate_as_not_rest( $is_rest_api_request ) {
+	if ( empty( $_SERVER['REQUEST_URI'] ) ) {
+			return $is_rest_api_request;
+	}
+
+	// Bail early if this is not our request.
+	if ( false === strpos( $_SERVER['REQUEST_URI'], 'neont' )) {
+		return $is_rest_api_request;
+	}
+
+	return false;
+}

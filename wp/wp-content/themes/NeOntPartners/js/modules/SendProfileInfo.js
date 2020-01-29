@@ -3,7 +3,7 @@ import profileDataPull from './Functions/profileDataPull'
 import imgUpload from'./Functions/imgUpload'
 import requiredCheck from './Functions/requiredCheck'
 import pullAddOn from './Functions/pullAddOn'
-import addProductToCart from './Functions/addToCart'
+import ajaxCartAction from './Functions/ajaxCartAction'
 
 class SendProfileInfo{
     constructor(){
@@ -12,12 +12,10 @@ class SendProfileInfo{
         if( window.location.pathname == '/profile-edit/'){
             this.addonDetail = $('.add-on-detail')
             this.addonLoader = $('.addon-loader')
-            this.addToCart = $('.add-to-cart')
-
+            this.cartAction = $('.cart-action')
             this.addOnPrice = $('.add-on-price')
             this.addOnTitle = $('.add-on-title')
             this.addOnDescription = $('.add-on-description')
-            this.addOnButton = $('.add-to-cart')
             this.digitalAddOn = $('.add-on')
 
             this.adnav = $('.ad-nav--item')
@@ -54,7 +52,7 @@ class SendProfileInfo{
 
     events(){
         imgUpload(this.dropArea)
-        this.addToCart.on('click', this.addButton.bind(this))
+        this.cartAction.on('click', this.cartActionButton.bind(this))
         this.digitalAddOn.on('click', this.selectAddOn.bind(this))
         this.adnav.on('click', this.showAdvertising.bind(this))
         this.subnav.on('click', this.showCatagory.bind(this))
@@ -72,9 +70,8 @@ class SendProfileInfo{
         this.moreInfo.on('change', this.updateProfile.bind(this, this.postID, 'draft'))
     }
 
-    addButton(e){
-        alert("adding to cart")
-        addProductToCart(e.target.dataset.id)
+    cartActionButton(e){
+        ajaxCartAction(e.target.dataset.action, e.target.dataset.id)
     }
 
     selectAddOn(e){

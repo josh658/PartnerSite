@@ -25,9 +25,10 @@ function pullAddOn(productId){
             this.addonLoader.hide()
             this.addOnTitle.html(response.title)
             this.addOnDescription.html(response.description)
-            this.addOnButton.attr("data-id", response.addToCartURL)
+            this.cartAction.attr("data-action", response.action)
+            this.cartAction.attr("data-id", productId)
             this.addOnPrice.html("$" + response.price)
-            this.addOnButton.html('add to cart')
+            this.cartAction.html(response.buttonTitle)
             this.addonDetail.show()
             
         },

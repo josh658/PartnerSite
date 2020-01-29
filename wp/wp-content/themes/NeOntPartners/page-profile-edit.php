@@ -93,7 +93,6 @@ wp_reset_postdata();
                         apply_filters(
                             'woocommerce_my_account_my_orders_query',
                             array(
-                                'numberposts' => $order_count,
                                 'meta_key'    => '_customer_user',
                                 'meta_value'  => get_current_user_id(),
                                 'post_type'   => wc_get_order_types( 'view-orders' ),
@@ -101,11 +100,20 @@ wp_reset_postdata();
                             )
                         )
                     );
-                    foreach($customer_orders as $order){
+                    //print_r($customer_orders[0]);
+                    //echo $customer_orders[0]->ID;
+                    foreach($customer_orders as $customer_order){
+                        $order = wc_get_order($customer_order->ID);
+                        $items = $order->get_items();
+
+                        // print_r($items);
+                        foreach($items as $item){
+                            //print_r($item['name']);
                         ?>
-                            <label for=""></label>
+                            <label for=""><?php echo $item['name'];?></label>
 
                         <?php
+                        }
                     }
                 ?>
             </div>
@@ -389,7 +397,7 @@ wp_reset_postdata();
                                 <h3 class='add-on-title'></h3>
                                 <p class='add-on-description'></p>
                                 <p class='add-on-price'></p>
-                                <button class='add-to-cart' class='add-to-cart' data-id=''></button>
+                                <button class='cart-action' data-id=''></button>
                             </div>
                         </div>
                     </section>
@@ -422,7 +430,7 @@ wp_reset_postdata();
                                 <h3 class='add-on-title'></h3>
                                 <p class='add-on-description'></p>
                                 <p class='add-on-price'></p>
-                                <button class='add-to-cart' class='add-to-cart' data-id=''></button>
+                                <button class='cart-action' data-id=''></button>
                             </div>
                         </div>
                     </section>
