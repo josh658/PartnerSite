@@ -232,6 +232,19 @@ p {
 #fileElem {
   display: none; }
 
+/** MARK: add on action button **/
+.cart-action-btn {
+  background-color: dodgerblue; }
+
+.cart-add-btn:after {
+  content: 'add to cart'; }
+
+.cart-remove-btn:after {
+  content: 'remove from cart'; }
+
+.cart-ordered-btn:after {
+  content: 'purchased'; }
+
 .package-thumnail {
   display: block;
   width: 100%;

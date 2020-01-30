@@ -397,7 +397,7 @@ wp_reset_postdata();
                                 <h3 class='add-on-title'></h3>
                                 <p class='add-on-description'></p>
                                 <p class='add-on-price'></p>
-                                <button class='cart-action' data-id=''></button>
+                                <button class='cart-action-btn' data-id=''></button>
                             </div>
                         </div>
                     </section>

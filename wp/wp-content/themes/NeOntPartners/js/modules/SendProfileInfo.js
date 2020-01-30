@@ -12,7 +12,7 @@ class SendProfileInfo{
         if( window.location.pathname == '/profile-edit/'){
             this.addonDetail = $('.add-on-detail')
             this.addonLoader = $('.addon-loader')
-            this.cartAction = $('.cart-action')
+            this.cartAction = $('.cart-action-btn')
             this.addOnPrice = $('.add-on-price')
             this.addOnTitle = $('.add-on-title')
             this.addOnDescription = $('.add-on-description')
@@ -71,7 +71,7 @@ class SendProfileInfo{
     }
 
     cartActionButton(e){
-        ajaxCartAction(e.target.dataset.action, e.target.dataset.id)
+        ajaxCartAction.call(this, e.target.dataset.action, e.target.dataset.id)
     }
 
     selectAddOn(e){
