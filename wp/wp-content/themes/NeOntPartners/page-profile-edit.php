@@ -480,7 +480,7 @@ wp_reset_postdata();
                     <form id='more-info' class="share-more-information-form">
                         <h3 class="form-more-info-header">Accomodations</h3>
                         <div class="row">
-                            <div class="two-column"><?php 
+                            <div class="three-column"><?php 
                                 $count = 0;
                                 $accomodations = get_field_object('accomodations', $thePartnerPost->ID);
                                 $choices = $accomodations['choices'];
@@ -491,18 +491,23 @@ wp_reset_postdata();
                                         if($count == (int)(count($choices)/2)+1){
                                         ?>
                                             </div>
-                                            <div class="two-column col-2">
+                                            <div class="three-column col-2">
                                         <?php
                                         }
                                         ?>
                                 <label class="form-checkbox"><input type="checkbox" name="accomodations" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
                         
                             <?php  }} ?>
+                            </div class='three-column col-3'>
+                                <!-- somehting goes here -->
+                                <p>testing</p>
+                            <div>
+                                
                             </div>
                         </div>
                         <h3 class="form-more-info-header">Camping & Rv Parks</h3>
                         <div class="row">
-                            <div class="two-column">
+                            <div class="three-column">
                             <?php 
                                 $count = 0;
                                 $camping = get_field_object('camping', $thePartnerPost->ID);
@@ -519,13 +524,16 @@ wp_reset_postdata();
                                         if($count == (int)(count($choices)/2)+1){
                                         ?>
                                             </div>
-                                            <div class="two-column col-2">
+                                            <div class="three-column col-2">
                                         <?php
                                         }
                                         ?>
                                 <label class="form-checkbox"><input type="checkbox" name="camping" value="<?php echo $label; ?>" <?php echo (in_array($value, $checked) ? 'checked' : '');?>> <?php echo $label; ?> </label>
                         
                             <?php  }} ?>
+                            </div>
+                            <div class='three-column col-3'>
+                                <p>testing</p>
                             </div>
                         </div>
                         <h3 class="form-more-info-header">Attractions, Activities & Services</h3>

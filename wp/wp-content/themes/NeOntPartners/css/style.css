@@ -110,6 +110,14 @@ body {
       .twoColumns .sub-nav ul li {
         cursor: pointer; }
 
+.three-column {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  float: left;
+  width: 33.33%;
+  box-sizing: border-box; }
+
 input:disabled {
   border: none;
   border-top: solid; }
