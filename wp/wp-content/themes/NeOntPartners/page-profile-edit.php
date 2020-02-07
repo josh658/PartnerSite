@@ -96,7 +96,7 @@ wp_reset_postdata();
                                 'meta_key'    => '_customer_user',
                                 'meta_value'  => get_current_user_id(),
                                 'post_type'   => wc_get_order_types( 'view-orders' ),
-                                'post_status' => array_keys( wc_get_order_statuses() ),
+                                'post_status' => "publish",
                             )
                         )
                     );
@@ -376,8 +376,11 @@ wp_reset_postdata();
                             //make custom query to loop through all items
                             $products = wc_get_products(array(
                                'category' => array('digital'),
+                               'status' => 'publish'
                             ));
                             foreach($products as $product){
+                                // TODO: check if product is expired or not 
+                                // NOTE: do the same for print
                                 ?>
                                     <li class='add-on' data-productid='<?php echo esc_attr($product->get_id());?>'>
                                         <?php echo esc_attr($product->get_title());
@@ -409,6 +412,7 @@ wp_reset_postdata();
                             //make custom query to loop through all items
                             $products = wc_get_products(array(
                                'category' => array('print'),
+                               'status' => 'publish'
                             ));
                             foreach($products as $product){
                                 ?>

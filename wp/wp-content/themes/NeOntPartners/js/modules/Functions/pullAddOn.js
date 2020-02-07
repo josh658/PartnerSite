@@ -33,9 +33,11 @@ function pullAddOn(productId){
             switch (response.action){
                 case "add":
                     this.cartAction.addClass('cart-action-btn cart-add-btn')
+                    this.cartAction.attr('disabled', false)
                     break;
                 case "remove":
                     this.cartAction.addClass('cart-action-btn cart-remove-btn')
+                    this.cartAction.attr('disabled', false)
                     break;
                 case "ordered":
                     this.cartAction.addClass('cart-action-btn cart-ordered-btn')
