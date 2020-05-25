@@ -7,14 +7,21 @@
     
 ?>
 <h2 id="error-message"></h2>
-
-<section class="progress-bar">
-
-</section>
-
-<!-- page 1 which plan you want to choose
-Note make variations late for standard partnerships vs muni/sport partnerships -->
-<section>
+<form id="register-form" class="register-form">
+    <label>First Name:</label>
+    <input id="first-name" class="form-element" placeholder="First Name" >
+    <label>Last Name:</label>
+    <input id="last-name" class="form-element" placeholder="Last Name">
+    <div class='password-error-message'></div>
+    <label>Password:</label>
+    <input id="password" class="form-element" type="password" placeholder="Password">
+    <div class='password-match-error-message'></div>
+    <!-- Password check. make sure both passwords match 
+        <label>Retype Password:</label>
+    <input id="password-check" class="form-element" type="password" placeholder="Password">
+    <div class="email-error-message"></div> -->
+    <label>Email:</label>
+    <input id="email" class="form-element" type="email" placeholder="Email">
     <div class="card-row">
         <?php 
             $products = wc_get_products(array(
@@ -62,47 +69,8 @@ Note make variations late for standard partnerships vs muni/sport partnerships -
             }
         ?>
     </div>
-
-    <!-- view compare packages section 
-            talk to rox about creating this
-    -->
-
-</section>
-
-<!-- contact information section
-this will be used to create the user and their company profile -->
-<section>
-    <!-- check if comp name already exists -->
-    <label>Company Name:</label>
-    <input type="text" id='company-name' class='form-element' placeholder='Company Name'>
-    <label>First Name:</label>
-    <input id="first-name" class="form-element" placeholder="First Name" >
-    <label>Last Name:</label>
-    <input id="last-name" class="form-element" placeholder="Last Name">
-    <div class='password-error-message'></div>
-    <label>Password:</label>
-    <input id="password" class="form-element" type="password" placeholder="Password">
-    <div class='password-match-error-message'></div>
-    <!-- Password check. make sure both passwords match 
-        <label>Retype Password:</label>
-    <input id="password-check" class="form-element" type="password" placeholder="Password">
-    <div class="email-error-message"></div> -->
-    <label>Email:</label>
-    <input id="email" class="form-element" type="email" placeholder="Email">
-    <div class="card-row">
-</section>
-
-<!-- addons: this sections will pull all available addons that the user can choose at that moment -->
-<section>
-
-</section>
-
-<!-- 
-    when the page is being redirected the account should be created
-        and all items desired should be added to the cart.
-    finaly there will be a link to a checkout page, the user will be created, 
-if chekout is not completed within 24 hrs the user will be deleted -->
-
+    <button id="register-btn" class="btn">Register</button>
+</form>
 </main>
 
 <?php        

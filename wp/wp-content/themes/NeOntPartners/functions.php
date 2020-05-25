@@ -33,7 +33,4 @@ function partnerNeontTheme_add_woocommerce_support() {
 
 add_action( 'after_setup_theme', 'partnerNeontTheme_add_woocommerce_support' );
 
-
-
-
 ?>

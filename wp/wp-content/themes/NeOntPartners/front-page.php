@@ -27,6 +27,12 @@
         </form>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        <?php
+    }
+    ?>
+>>>>>>> parent of cfb49137... tmp change
     </section>
         <div class="card-row">
         <?php 
@@ -36,9 +42,9 @@
             ));
             $yearRate;
             $monthRate;
-            
+
             foreach($products as $product){
-                ?>
+                    ?>
                 <div
                     data-subID="<?php //echo get_field('price', $product-get_id())?>"
                     class="card-subscription
@@ -56,21 +62,21 @@
                                 $yearRate = $variation['display_price'];
                             }
                         }
-                        
+
                         echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
                         echo '<div>$' . esc_html($monthRate) . '/month</div>';
-                        
+
                     } else {
                         echo "free";
                     }
-                    
+                                    
                     ?> </h5>
                     <button class="card-sub-select">Select</button>
                 </div>
                     <?php
                 
             }
-            ?>
+        ?>
         </div>
     </section>
 =======
@@ -118,7 +124,7 @@
                 'status' => 'public'
             ));
             foreach($products as $product){
-                ?>
+            ?>
                 <div
                     data-subID="<?php //echo get_field('price', $product-get_id())?>"
                     class="card-subscription"
@@ -134,12 +140,11 @@
                                 $min = $variation["display_price"];
                             }
                         }
-                        
+
                         echo '<div>Starts at $' . esc_html($min) . '<span>/year</span></div>';
-                        
+
                     }
                     ?>
-                    <button>select</button>
                 </div>
         <?php
             }
@@ -148,7 +153,7 @@
                 'status' => 'public'
             ));
             foreach($products as $product){
-                ?>
+            ?>
                 <div
                     data-subID="<?php //echo get_field('price', $product-get_id())?>"
                     class="card-subscription
@@ -166,17 +171,14 @@
                                 $yearRate = $variation['display_price'];
                             }
                         }
-                        
+
                         echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
                         echo '<div>$' . esc_html($monthRate) . '/month</div>';
-                        
+
                     }
                     ?>
-                    <button>select</button>
                 </div>
-            <?php
-            }
-            ?>
+
     </section>
 =======
                 } else {
@@ -284,11 +286,11 @@
 =======
 >>>>>>> parent of 97487a0c... setting up initial page
 
-    
 <?php   
-    }
-        ?>
+        }
+?>
 
+<!-- Place package cards here -->
 </main>
 
 <?php        
