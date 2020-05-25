@@ -32,6 +32,7 @@
         <?php
     }
     ?>
+<<<<<<< HEAD
 >>>>>>> parent of cfb49137... tmp change
     </section>
         <div class="card-row">
@@ -42,33 +43,37 @@
             ));
             $yearRate;
             $monthRate;
+=======
+    <div class="card-row">
+    <?php 
+        $products = wc_get_products(array(
+            'category' => array('partner'),
+            'status' => 'publish'
+        ));
+        $yearRate;
+        $monthRate;
+>>>>>>> parent of 97487a0c... setting up initial page
 
-            foreach($products as $product){
-                    ?>
-                <div
-                    data-subID="<?php //echo get_field('price', $product-get_id())?>"
-                    class="card-subscription
-                            <?php echo (get_field('order', $product->get_id()));?>"
-                            style="order: <?php echo get_field('order', $product->get_id());?>;">
-                    <h2><?php echo esc_html($product->get_title());?></h2>
-                    <p><?php echo esc_html($product->get_description());?></p>
-                    <h5><?php
-                    if ($product->is_type('variable')){
-                        foreach($product->get_available_variations() as $variation){
-                            //print_r($variation['attributes']['attribute_pay-period']);
-                            if($variation['attributes']['attribute_pay-period'] == 'month'){
-                                $monthRate = $variation["display_price"];
-                            } else {
-                                $yearRate = $variation['display_price'];
-                            }
+        foreach($products as $product){
+                ?>
+            <div
+                data-subID="<?php //echo get_field('price', $product-get_id())?>"
+                class="card-subscription
+                        <?php echo (get_field('order', $product->get_id()));?>"
+                        style="order: <?php echo get_field('order', $product->get_id());?>;">
+                <h2><?php echo $product->get_title();?></h2>
+                <p><?php echo $product->get_description();?></p>
+                <h5><?php
+                if ($product->is_type('variable')){
+                    foreach($product->get_available_variations() as $variation){
+                        //print_r($variation['attributes']['attribute_pay-period']);
+                        if($variation['attributes']['attribute_pay-period'] == 'month'){
+                            $monthRate = $variation["display_price"];
+                        } else {
+                            $yearRate = $variation['display_price'];
                         }
-
-                        echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
-                        echo '<div>$' . esc_html($monthRate) . '/month</div>';
-
-                    } else {
-                        echo "free";
                     }
+<<<<<<< HEAD
                                     
                     ?> </h5>
                     <button class="card-sub-select">Select</button>
@@ -246,6 +251,26 @@
     <div>
         <?php
 >>>>>>> parent of 97487a0c... setting up initial page
+=======
+
+                    echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
+                    echo '<div>$' . esc_html($monthRate) . '/month</div>';
+
+                } else {
+                    echo "free";
+                }
+                                
+                ?> </h5>
+                <button class="card-sub-select">Select</button>
+            </div>
+                <?php
+            
+        }
+    ?>
+    </div>
+    <div>
+        <?php
+>>>>>>> parent of 97487a0c... setting up initial page
         $products = wc_get_products(array(
             'category' => 'municipal',
             'status' => 'public'
@@ -282,6 +307,9 @@
             </div>
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 97487a0c... setting up initial page
+=======
 >>>>>>> parent of 97487a0c... setting up initial page
 =======
 >>>>>>> parent of 97487a0c... setting up initial page
