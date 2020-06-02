@@ -29,23 +29,6 @@
         <?php
     
     ?>
-<<<<<<< HEAD
-
-    <section>
-        <div class="card-row">
-        <?php 
-            $products = wc_get_products(array(
-                'category' => array('partner'),
-                'status' => 'publish'
-            ));
-            $yearRate;
-            $monthRate;
-
-        foreach($products as $product){
-        ?>
-                <div
-                data-subID="<?php echo get_field('price', $product-get_id());?>"
-=======
     <div class="card-row">
     <?php 
         $products = wc_get_products(array(
@@ -59,7 +42,6 @@
                 ?>
             <div
                 data-subID="<?php //echo get_field('price', $product-get_id())?>"
->>>>>>> parent of 97487a0c... setting up initial page
                 class="card-subscription
                         <?php echo (get_field('order', $product->get_id()));?>"
                         style="order: <?php echo get_field('order', $product->get_id());?>;">
@@ -68,101 +50,13 @@
                 <h5><?php
                 if ($product->is_type('variable')){
                     foreach($product->get_available_variations() as $variation){
-<<<<<<< HEAD
-                        print_r($variation['attributes']['attribute_pay-period']);
-=======
                         //print_r($variation['attributes']['attribute_pay-period']);
->>>>>>> parent of 97487a0c... setting up initial page
                         if($variation['attributes']['attribute_pay-period'] == 'month'){
                             $monthRate = $variation["display_price"];
                         } else {
                             $yearRate = $variation['display_price'];
                         }
                     }
-<<<<<<< HEAD
-                                    
-                    ?> </h5>
-                    <button class="card-sub-select">Select</button>
-                </div>
-                    <?php
-                
-            }
-        ?>
-        </div>
-    </section>
-            <?php
-
-                    echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
-                    echo '<div>$' . esc_html($monthRate) . '/month</div>';
-            ?>
-    <section class='card-row'>
-            <?php
-            $products = wc_get_products(array(
-                'category' => 'municipal',
-                'status' => 'public'
-            ));
-            foreach($products as $product){
-            ?>
-                <div
-                    data-subID="<?php echo get_field('price', $product-get_id())?>"
-                    class="card-subscription"
-                            style="order: <?php echo get_field('order', $product->get_id());?>;">
-                    <h2><?php echo esc_html($product->get_title());?></h2>
-                    <p><?php echo esc_html($product->get_description());?></p>
-                    <?php
-                    if ($product->is_type('variable')){
-                        $variations = $product->get_available_variations();
-                        $min = $variations[0]['display_price'];
-                        foreach($variations as $variation){
-                            if($variation['display_price'] < $min){
-                                $min = $variation["display_price"];
-                            }
-                        }
-
-                        echo '<div>Starts at $' . esc_html($min) . '<span>/year</span></div>';
-
-                    }
-                    ?>
-                </div>
-        <?php
-            }
-            $products = wc_get_products(array(
-                'category' => array('event-sport'),
-                'status' => 'public'
-            ));
-            foreach($products as $product){
-            ?>
-                <div
-                    data-subID="<?php echo get_field('price', $product-get_id())?>"
-                    class="card-subscription
-                            <?php echo (get_field('order', $product->get_id()));?>"
-                            style="order: <?php echo get_field('order', $product->get_id());?>;">
-                    <h2><?php echo esc_html($product->get_title());?></h2>
-                    <p><?php echo esc_html($product->get_description());?></p>
-                    <?php
-                    if ($product->is_type('variable')){
-                        foreach($product->get_available_variations() as $variation){
-                            print_r($variation['attributes']['attribute_pay-period']);
-                            if($variation['attributes']['attribute_pay-period'] == 'month'){
-                                $monthRate = $variation["display_price"];
-                            } else {
-                                $yearRate = $variation['display_price'];
-                            }
-                        }
-
-                        echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
-                        echo '<div>$' . esc_html($monthRate) . '/month</div>';
-
-                    }
-                    ?>
-                </div>
-
-    </section>
-                <?php
-
-                    echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
-                    echo '<div>$' . esc_html($monthRate) . '/month</div>';
-=======
 
                     echo '<div>$' . esc_html($yearRate) . '<span>/year</span></div>';
                     echo '<div>$' . esc_html($monthRate) . '/month</div>';
@@ -174,9 +68,9 @@
                 ?> </h5>
                 <button class="card-sub-select">Select</button>
             </div>
-                <?php
+            <?php
             
-        }
+        } 
     ?>
     </div>
     <div>
@@ -198,9 +92,12 @@
     </div>
     <div>
     <?php
+        // look into why municipal does not have a price or description
         }
         
-        print_r(get_categories());
+        //print_r(get_categories());
+
+        // look into why the additional categories are not showing up
         $products = wc_get_products(array(
             'category' => array('plan_event-sport'),
             'status' => 'public'
@@ -208,21 +105,20 @@
         foreach($products as $product){
         ?>
             <div
-                data-subID="<?php //echo get_field('price', $product-get_id())?>"
+                data-subID="<?php echo get_field('price', $product-get_id());?>"
                 class="card-subscription
                         <?php echo (get_field('order', $product->get_id()));?>"
                         style="order: <?php echo get_field('order', $product->get_id());?>;">
                 <h2><?php echo esc_html($product->get_title());?></h2>
                 <p><?php echo esc_html($product->get_description());?></p>
             </div>
-    </div>
->>>>>>> parent of 97487a0c... setting up initial page
-
-                } //else {
+            <div>
+                <?php
+                // } else {
                 //     echo "free";
-                // }
-                                
-                ?> </h5>
+                // }           
+                ?>
+
                 <button class="card-sub-select">Select</button>
             </div>
                 <?php
@@ -251,7 +147,7 @@
     <?php
         }
         
-        print_r(get_categories());
+        //print_r(get_categories());
         $products = wc_get_products(array(
             'category' => array('plan_event-sport'),
             'status' => 'public'
@@ -259,7 +155,7 @@
         foreach($products as $product){
         ?>
             <div
-                data-subID="<?php echo get_field('price', $product-get_id())?>"
+                data-subID="<?php echo get_field('price', $product-get_id());?>"
                 class="card-subscription
                         <?php echo (get_field('order', $product->get_id()));?>"
                         style="order: <?php echo get_field('order', $product->get_id());?>;">
